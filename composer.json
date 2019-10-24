@@ -1,0 +1,32 @@
+{
+  "name": "hill-98/opcache-panel",
+  "description": "PHP opcache panel",
+  "type": "project",
+  "license": "MIT",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Hill-98/opcache-panel",
+  "authors": [
+    {
+      "name": "Zhong Lufan",
+      "email": "lufanzhong@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.0",
+    "ext-zend-opcache": "*",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "files": [
+      "OpcachePanel/Helper.php",
+      "config.php",
+      "define.php"
+    ],
+    "psr-4": {
+      "OpcachePanel\\": "OpcachePanel/"
+    }
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.15"
+  }
+}
