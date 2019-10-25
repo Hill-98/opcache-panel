@@ -57,21 +57,24 @@ if ($method === 'GET' || $method === 'HEAD') {
         if (empty($param)) {
             resultError(400, '"param" key can not empty');
         }
-        $paramType = explode('|', $needParam[$action]);
+        $params = explode('|', $needParam[$action]);
         $isType = false;
-        foreach ($paramType as $value) {
+        foreach ($params as $value) {
             if (call_user_func("is_$value", $param)) {
                 $isType = true;
                 break;
             }
         }
         if (!$isType) {
-            resultError(400, '"param" value type error, only accept these types: ' . implode(', ', $paramType));
+            resultError(400, '"param" value type error, only accept these types: ' . implode(', ', $params));
         }
         if (!is_array($param)) {
             $param = [$param];
         }
         foreach ($param as $value) {
+            if (empty($value)) {
+                continue;
+            }
             try {
                 $result = $opcache->$action($value);
                 if (!$result) {

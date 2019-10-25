@@ -5,6 +5,7 @@ yarn.lock
 *.log
 
 assets/
+dist/
 node_modules/
 vendor/
 
