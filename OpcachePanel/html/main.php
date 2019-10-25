@@ -19,7 +19,7 @@ if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
 </head>
 <body>
 <noscript>
-    <strong>We're sorry but gobang doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    <strong>We're sorry but Opcache Panel doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
 </noscript>
 <div id="app"></div>
 <script src="assets/js/chunk-vendors.js?v=<?= OPP_VERSION ?>"></script>
