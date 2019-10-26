@@ -1,7 +1,7 @@
 .idea/
+.vscode/
+.DS_Store
 .php_cs.cache
-composer.lock
-yarn.lock
 *.log
 
 assets/
