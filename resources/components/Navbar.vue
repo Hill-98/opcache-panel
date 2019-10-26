@@ -94,8 +94,12 @@
                 form.submit();
             },
             async resetCache() {
-                await apiClient("resetCache");
-                await opcacheData.getInfo();
+                try {
+                    await apiClient("resetCache");
+                } catch (e) {
+                    // continue regardless of error
+                }
+                await opcacheData.getInfo()
             },
             realTimeUpdate() {
                 this.update = !this.update;
