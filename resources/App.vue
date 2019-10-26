@@ -2,7 +2,7 @@
     <div id="app">
         <Navbar></Navbar>
         <div class="container" style="padding-top: 1rem">
-            <router-view :key="$route.name"></router-view>
+            <router-view v-if="$store.state.isReady" :key="$route.name"></router-view>
         </div>
         <footer class="footer">
             <div class="content has-text-centered">

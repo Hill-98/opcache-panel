@@ -1,5 +1,5 @@
 <template>
-    <div v-if="$root.$data.opcacheData.configuration">
+    <div>
         <!-- 运行状态 -->
         <div>
             <!-- 运行状态标题以及标签-->
@@ -11,19 +11,19 @@
                         <div class="control">
                             <b-taglist attached>
                                 <b-tag type="is-dark">
-                                    {{ $root.$data.opcacheData.configuration.version.opcache_product_name }}
+                                    {{ version.opcache_product_name }}
                                 </b-tag>
                                 <b-tag type="is-info">
-                                    {{ $root.$data.opcacheData.configuration.version.version }}
+                                    {{ version.version }}
                                 </b-tag>
                             </b-taglist>
                         </div>
                         <div class="control">
-                            <b-taglist attached v-if="$root.$data.opcacheData.status">
+                            <b-taglist attached>
                                 <b-tag type="is-dark">
                                     Enable
                                 </b-tag>
-                                <b-tag type="is-success" v-if="$root.$data.opcacheData.status.opcache_enabled">
+                                <b-tag type="is-success" v-if="opcache_enabled">
                                     True
                                 </b-tag>
                                 <b-tag type="is-warning" v-else>
@@ -44,20 +44,19 @@
                 <!-- 运行状态刷新按钮 END -->
             </div>
             <!-- 运行状态卡片组 -->
-            <div class="tile" style="margin-bottom: 0.75rem; margin-top: -0.75rem"
-                 v-if="$root.$data.opcacheData.status">
+            <div class="tile" style="margin-bottom: 0.75rem; margin-top: -0.75rem">
                 <!-- 内存使用卡片 -->
                 <div class="tile is-parent">
                     <div class="tile is-child box">
                         <p class="title is-5" v-t="'page.status.memory_usage'"></p>
                         <b-progress type="is-info"
-                                    :max="$root.$data.opcacheData.configuration.directives['opcache.memory_consumption']"
-                                    :value="$root.$data.opcacheData.status.memory_usage.used_memory">
+                                    :max="opcache_memory_consumption"
+                                    :value="memory_usage.used_memory">
                         </b-progress>
-                        <p v-for="(value, name) in $root.$data.opcacheData.status.memory_usage"
+                        <p v-for="(value, name) in memory_usage"
                            :key="`${name}${value}`">
                             {{ `${$t(`page.status.${name}`)}:
-                            ${conversion(memory_usage[name], value)}` }}
+                            ${conversion(format.memory_usage[name], value)}` }}
                         </p>
                     </div>
                 </div>
@@ -67,13 +66,13 @@
                     <div class="tile is-child box">
                         <p class="title is-5" v-t="'page.status.opcache_statistics'"></p>
                         <b-progress type="is-info" show-value
-                                    :value="$root.$data.opcacheData.status.opcache_statistics.opcache_hit_rate">
+                                    :value="opcache_statistics.opcache_hit_rate">
                             {{ $t("page.status.opcache_hit_rate") }}
                         </b-progress>
-                        <p v-for="(value, name) in $root.$data.opcacheData.status.opcache_statistics"
+                        <p v-for="(value, name) in opcache_statistics"
                            :key="`${name}${value}`">
                             {{ `${$t(`page.status.${name}`)}:
-                            ${conversion(opcache_statistics[name], value)}` }}
+                            ${conversion(format.opcache_statistics[name], value)}` }}
                         </p>
                     </div>
                 </div>
@@ -83,13 +82,13 @@
                     <div class="tile is-child box">
                         <p class="title is-5" v-t="'page.status.interned_strings'"></p>
                         <b-progress type="is-info"
-                                    :max="$root.$data.opcacheData.configuration.directives['opcache.interned_strings_buffer'] * 1024 * 1024"
-                                    :value="$root.$data.opcacheData.status.interned_strings_usage.used_memory">
+                                    :max="opcache_interned_strings_buffer * 1024 * 1024"
+                                    :value="interned_strings_usage.used_memory">
                         </b-progress>
-                        <p v-for="(value, name) in $root.$data.opcacheData.status.interned_strings_usage"
+                        <p v-for="(value, name) in interned_strings_usage"
                            :key="`${name}${value}`">
                             {{ `${$t(`page.status.${name}`)}:
-                            ${conversion(interned_strings_usage[name], value)}` }}
+                            ${conversion(format.interned_strings_usage[name], value)}` }}
                         </p>
                     </div>
                 </div>
@@ -160,81 +159,92 @@
 
 <script>
     import conversion from "../js/utils/conversion"
-    import opcacheData from "../js/utils/opcacheData"
+    import opcacheDataUtils from "../js/utils/opcacheData"
 
     export default {
         name: "Status",
         data: () => ({
-            memory_usage: {
-                current_wasted_percentage: "percentageConversion",
-                free_memory: "sizeConversion",
-                used_memory: "sizeConversion",
-                wasted_memory: "sizeConversion"
-            },
-            interned_strings_usage: {
-                buffer_size: "sizeConversion",
-                free_memory: "sizeConversion",
-                number_of_strings: null,
-                used_memory: "sizeConversion",
-            },
-            opcache_statistics: {
-                blacklist_miss_ratio: "percentageConversion",
-                blacklist_misses: null,
-                hash_restarts: null,
-                hits: null,
-                last_restart_time: "timeConversion",
-                manual_restarts: null,
-                max_cached_keys: null,
-                misses: null,
-                num_cached_keys: null,
-                num_cached_scripts: null,
-                oom_restarts: null,
-                opcache_hit_rate: "percentageConversion",
-                start_time: "timeConversion"
+            format: {
+                memory_usage: {
+                    current_wasted_percentage: "percentage",
+                    free_memory: "size",
+                    used_memory: "size",
+                    wasted_memory: "size"
+                },
+                interned_strings_usage: {
+                    buffer_size: "size",
+                    free_memory: "size",
+                    number_of_strings: null,
+                    used_memory: "size",
+                },
+                opcache_statistics: {
+                    blacklist_miss_ratio: "percentage",
+                    blacklist_misses: null,
+                    hash_restarts: null,
+                    hits: null,
+                    last_restart_time: "time",
+                    manual_restarts: null,
+                    max_cached_keys: null,
+                    misses: null,
+                    num_cached_keys: null,
+                    num_cached_scripts: null,
+                    oom_restarts: null,
+                    opcache_hit_rate: "percentage",
+                    start_time: "time"
+                }
             }
         }),
         computed: {
+            version() {
+                return this.$store.state.configuration.version;
+            },
+            opcache_enabled() {
+                return this.$store.state.status.opcache_enabled;
+            },
+            opcache_memory_consumption() {
+                return this.$store.state.configuration.directives["opcache.memory_consumption"];
+            },
+            opcache_interned_strings_buffer() {
+                return this.$store.state.configuration.directives["opcache.interned_strings_buffer"];
+            },
+            memory_usage() {
+                return this.$store.state.status.memory_usage;
+            },
+            opcache_statistics() {
+                return this.$store.state.status.opcache_statistics;
+            },
+            interned_strings_usage() {
+                return this.$store.state.status.interned_strings_usage;
+            },
             directives() {
-                if (typeof this.$root.$data.opcacheData.configuration !== "object" ||
-                    typeof this.$root.$data.opcacheData.configuration.directives !== "object") {
-                    return [];
-                }
-                const directives = this.$root.$data.opcacheData.configuration.directives;
-                const _directives = [];
-                for (const key of Object.keys(directives)) {
-                    _directives.push({
+                const _directives = this.$store.state.configuration.directives;
+                const directives = [];
+                for (const key of Object.keys(_directives)) {
+                    directives.push({
                         key,
-                        value: directives[key]
+                        value: _directives[key]
                     })
                 }
-                return _directives;
+                return directives;
             },
             blacklist() {
-                if (typeof this.$root.$data.opcacheData.configuration !== "object" ||
-                    typeof this.$root.$data.opcacheData.configuration.blacklist !== "object" ||
-                    this.$root.$data.opcacheData.configuration.blacklist.length === 0) {
-                    return [];
+                const _blacklist = this.$store.state.configuration.blacklist;
+                const blacklist = [];
+                for (const file of _blacklist) {
+                    blacklist.push({file})
                 }
-                const blacklist = this.$root.$data.opcacheData.configuration.blacklist;
-                const _blacklist = [];
-                for (const file of blacklist) {
-                    _blacklist.push({file})
-                }
-                return _blacklist;
+                return blacklist;
             }
         },
         methods: {
             conversion(name, value) {
-                if (name !== null && conversion.hasOwnProperty(name) && typeof conversion[name] === "function") {
-                    return conversion[name](value);
+                if (name !== null) {
+                    return conversion[`${name}Conversion`](value);
                 }
                 return value;
             },
             refreshData(name) {
-                if (opcacheData.hasOwnProperty(name) && typeof opcacheData[name] === "function") {
-                    return opcacheData[name]();
-                }
-                return null;
+                return opcacheDataUtils[name]();
             }
         }
     }

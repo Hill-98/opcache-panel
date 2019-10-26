@@ -1,6 +1,6 @@
-import app from "../../app";
 import apiClient from "../apiClient"
 import {LoadingProgrammatic as Loading} from "buefy"
+import store from "../../store"
 
 function getOpcacheData(action, key, isLoading = true) {
     let loading;
@@ -12,16 +12,12 @@ function getOpcacheData(action, key, isLoading = true) {
     return new Promise((resolve, reject) => {
         apiClient(action)
             .then(data => {
-                let ob = app;
-                if (key !== undefined) {
-                    if (ob.opcacheData.hasOwnProperty(key)) {
-                        ob = ob.opcacheData;
-                    }
+                if (key === undefined) {
+                    store.dispatch("opcacheData", data);
                 } else {
-                    key = "opcacheData"
+                    store.commit(key, data);
                 }
-                app.$set(ob, key, data);
-                resolve(data)
+                resolve(data);
             })
             .catch(reject)
             .finally(() => {
@@ -38,7 +34,7 @@ export default class {
     }
 
     static getConfiguration(isLoading) {
-        return getOpcacheData("getConfiguration", "configuration", isLoading)
+        return getOpcacheData("getConfiguration", "configuration", isLoading);
     }
 
     static getStatus(isLoading) {

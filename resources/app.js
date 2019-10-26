@@ -1,11 +1,14 @@
 import Vue from "vue"
-import VueRouter from "./router"
-import VueI18n from "./i18n"
+import router from "./router"
+import i18n from "./i18n"
+import store from "./store"
 import App from "./App.vue"
 import Buefy from "buefy"
 import "buefy/dist/buefy.css"
 import { library as faLibrary } from "@fortawesome/fontawesome-svg-core"
 import {
+    faAngleLeft,
+    faAngleRight,
     faArrowUp,
     faGlobe,
     faRedoAlt,
@@ -17,6 +20,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 
 faLibrary.add(
+    faAngleLeft,
+    faAngleRight,
     faArrowUp,
     faGlobe,
     faRedoAlt,
@@ -39,7 +44,8 @@ export default new Vue({
     data: {
         opcacheData: {}
     },
+    store,
     render: h => h(App),
-    router: VueRouter,
-    i18n: VueI18n
+    router,
+    i18n
 }).$mount("#app");

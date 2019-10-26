@@ -2,15 +2,13 @@
     "name": "opcache-panel",
     "version": "1.0.2",
     "description": "PHP opcache panel",
-    "main": "resources/app.js",
-    "repository": "https://github.com/Hill-98/opcache-panel",
     "author": "Zhong Lufan",
-    "license": "MIT",
     "scripts": {
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint"
     },
+    "main": "resources/app.js",
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.25",
         "@fortawesome/free-solid-svg-icons": "^5.11.2",
@@ -20,12 +18,14 @@
         "core-js": "^3.3.2",
         "vue": "^2.6.10",
         "vue-i18n": "^8.15.0",
-        "vue-router": "^3.1.3"
+        "vue-router": "^3.1.3",
+        "vuex": "^3.0.1"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^4.0.5",
         "@vue/cli-plugin-eslint": "^4.0.5",
         "@vue/cli-plugin-router": "^4.0.5",
+        "@vue/cli-plugin-vuex": "^4.0.5",
         "@vue/cli-service": "^4.0.5",
         "babel-eslint": "^10.0.1",
         "eslint": "^5.16.0",
@@ -54,5 +54,7 @@
     "browserslist": [
         "last 1 version",
         "> 1%"
-    ]
+    ],
+    "license": "MIT",
+    "repository": "https://github.com/Hill-98/opcache-panel"
 }
