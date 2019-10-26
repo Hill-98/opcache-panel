@@ -1,9 +1,9 @@
 # Opcache panel
 
-![GitHub](https://img.shields.io/github/license/Hill-98/opcache-panel)
-![PHP from Packagist](https://img.shields.io/packagist/php-v/Hill-98/opcache-panel)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/Hill-98/opcache-panel)
-![GitHub All Releases](https://img.shields.io/github/downloads/Hill-98/opcache-panel/total)
+<a href="https://github.com/Hill-98/opcache-panel/blob/master/LICENSE"><img alt="MIT" src="https://img.shields.io/github/license/Hill-98/opcache-panel"></a>
+<a href="https://packagist.org/packages/hill-98/opcache-panel"><img alt="PHP Version" src="https://img.shields.io/packagist/php-v/Hill-98/opcache-panel"></a>
+<a href="https://github.com/Hill-98/opcache-panel/releases"><img alt="Github Releases" src="https://img.shields.io/github/v/release/Hill-98/opcache-panel"></a>
+<a href="https://github.com/Hill-98/opcache-panel/releases"><img alt="Github Releases Download" src="https://img.shields.io/github/downloads/Hill-98/opcache-panel/total"></a>
 
 PHP Opcache 面板，可以帮助你 更好的管理 Opcache，例如删除缓存和其他操作，
 
