@@ -21,7 +21,6 @@
     "autoload": {
         "files": [
             "OpcachePanel/Helper.php",
-            "config.php",
             "define.php"
         ],
         "psr-4": {

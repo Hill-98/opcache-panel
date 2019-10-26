@@ -6,6 +6,9 @@ namespace OpcachePanel;
 use Exception;
 
 require __DIR__ . '/vendor/autoload.php';
+if (file_exists(__DIR__ . '/config.php')) {
+    require __DIR__ . '/config.php';
+}
 
 header(NO_CACHE_HEADER);
 if (!defined('OPP_DEBUG') || OPP_DEBUG !== true) {
@@ -33,9 +36,11 @@ $method = strtoupper($_SERVER['REQUEST_METHOD']);
 if ($method === 'GET' || $method === 'HEAD') {
     require APP_DIR . '/html/main.php';
 } elseif ($method === 'POST') {
-    if (!empty($_POST)) {
-        require APP_DIR . '/html/main.php';
-        exit();
+    foreach (AUTH_POST_KEY as $value) {
+        if (array_key_exists($value, $_POST)) {
+            require APP_DIR . '/html/main.php';
+            exit();
+        }
     }
     try {
         $json = json_decode(file_get_contents('php://input'), true, 512, JSON_THROW_ON_ERROR);
