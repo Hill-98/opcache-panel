@@ -2,7 +2,7 @@
     "name": "opcache-panel",
     "version": "1.0.0",
     "description": "PHP opcache panel",
-    "main": "resource/app.js",
+    "main": "resources/app.js",
     "repository": "https://github.com/Hill-98/opcache-panel",
     "author": "Zhong Lufan",
     "license": "MIT",
