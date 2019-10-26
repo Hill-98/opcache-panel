@@ -166,31 +166,31 @@
         data: () => ({
             format: {
                 memory_usage: {
-                    current_wasted_percentage: "percentage",
-                    free_memory: "size",
-                    used_memory: "size",
-                    wasted_memory: "size"
+                    current_wasted_percentage: conversion.TYPE.PERCENTAGE,
+                    free_memory: conversion.TYPE.SIZE,
+                    used_memory: conversion.TYPE.SIZE,
+                    wasted_memory: conversion.TYPE.SIZE
                 },
                 interned_strings_usage: {
-                    buffer_size: "size",
-                    free_memory: "size",
+                    buffer_size: conversion.TYPE.SIZE,
+                    free_memory: conversion.TYPE.SIZE,
                     number_of_strings: null,
-                    used_memory: "size",
+                    used_memory: conversion.TYPE.SIZE,
                 },
                 opcache_statistics: {
-                    blacklist_miss_ratio: "percentage",
+                    blacklist_miss_ratio: conversion.TYPE.PERCENTAGE,
                     blacklist_misses: null,
                     hash_restarts: null,
                     hits: null,
-                    last_restart_time: "time",
+                    last_restart_time: conversion.TYPE.TIME,
                     manual_restarts: null,
                     max_cached_keys: null,
                     misses: null,
                     num_cached_keys: null,
                     num_cached_scripts: null,
                     oom_restarts: null,
-                    opcache_hit_rate: "percentage",
-                    start_time: "time"
+                    opcache_hit_rate: conversion.TYPE.PERCENTAGE,
+                    start_time: conversion.TYPE.TIME
                 }
             }
         }),

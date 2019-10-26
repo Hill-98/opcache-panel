@@ -1,4 +1,12 @@
 export default class {
+    static get TYPE() {
+        return {
+            PERCENTAGE: "percentage",
+            SIZE: "size",
+            TIME: "time"
+        }
+    }
+
     static percentageConversion(value, precision = 2) {
         return `${value.toFixed(precision)}%`
     }
