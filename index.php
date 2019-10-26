@@ -33,6 +33,10 @@ $method = strtoupper($_SERVER['REQUEST_METHOD']);
 if ($method === 'GET' || $method === 'HEAD') {
     require APP_DIR . '/html/main.php';
 } elseif ($method === 'POST') {
+    if (!empty($_POST)) {
+        require APP_DIR . '/html/main.php';
+        exit();
+    }
     try {
         $json = json_decode(file_get_contents('php://input'), true, 512, JSON_THROW_ON_ERROR);
     } catch (\JsonException $e) {

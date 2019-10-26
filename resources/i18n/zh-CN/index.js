@@ -23,6 +23,7 @@ export default {
         advanced: "高级",
         reset: "重置缓存",
         update: "实时更新",
+        logout: "注销",
         language: "语言"
     },
     page: {

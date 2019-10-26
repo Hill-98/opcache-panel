@@ -23,6 +23,7 @@ export default {
         advanced: "Advanced",
         reset: "Reset Cache",
         update: "RealTime Update",
+        logout: "Logout",
         language: "Language"
     },
     page: {

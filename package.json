@@ -1,6 +1,6 @@
 {
     "name": "opcache-panel",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "PHP opcache panel",
     "main": "resource/app.js",
     "repository": "https://github.com/Hill-98/opcache-panel",

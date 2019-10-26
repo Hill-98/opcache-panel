@@ -9,6 +9,7 @@ import {
     faArrowUp,
     faGlobe,
     faRedoAlt,
+    faSignOutAlt,
     faSort,
     faSyncAlt,
     faTrash
@@ -19,6 +20,7 @@ faLibrary.add(
     faArrowUp,
     faGlobe,
     faRedoAlt,
+    faSignOutAlt,
     faSort,
     faSyncAlt,
     faTrash

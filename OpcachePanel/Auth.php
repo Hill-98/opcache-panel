@@ -15,10 +15,10 @@ class Auth
             ]);
         }
     }
-    
+
     public function checkPassword()
     {
-        if (!isset($_POST['password'])) {
+        if (!isset($_POST['password']) || $this->_isAuth()) {
             return;
         }
         $password = $_POST['password'];
@@ -34,13 +34,20 @@ class Auth
             $_SESSION['isAuth'] = true;
         } else {
             define('OPP_NOT_CHECK', true);
-            return;
         }
+    }
+
+    /**
+     * @return bool
+     */
+    private function _isAuth(): bool
+    {
+        return session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['isAuth']) && $_SESSION['isAuth'] === true;
     }
 
     public function isAuth()
     {
-        if (isset($_SESSION['isAuth']) && $_SESSION['isAuth'] === true) {
+        if ($this->_isAuth()) {
             return;
         }
         if (empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {

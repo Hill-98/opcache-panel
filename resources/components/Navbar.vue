@@ -29,6 +29,11 @@
                     <b-icon :style="updateStyle" icon="sync-alt"></b-icon>
                 </b-tooltip>
             </b-navbar-item>
+            <b-navbar-item v-if="isLogin" @click="logout">
+                <b-tooltip :label="$t('navbar.logout')" position="is-bottom" :delay="500" animated type="is-dark">
+                    <b-icon :style="updateStyle" icon="sign-out-alt"></b-icon>
+                </b-tooltip>
+            </b-navbar-item>
             <b-navbar-dropdown>
                 <template slot="label">
                     <b-tooltip :label="$t('navbar.language')" position="is-bottom" :delay="500" animated type="is-dark">
@@ -59,7 +64,35 @@
             update: false,
             timer: null
         }),
+        computed: {
+            isLogin() {
+                const cookies = document.cookie.split("; ");
+                if (cookies.length !== 0) {
+                    for (const cookie of cookies) {
+                        if(cookie.split("=")[0] === "OPP_SESSION") {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        },
         methods: {
+            logout() {
+                const form = document.createElement("form");
+                form.action = "./index.php";
+                form.method = "post";
+                form.style.display="none";
+                const input = document.createElement("input");
+                input.name = "logout";
+                input.value = "yes";
+                form.appendChild(input);
+                const submit = document.createElement("input");
+                submit.type = "submit";
+                form.appendChild(submit);
+                document.body.appendChild(form);
+                form.submit();
+            },
             async resetCache() {
                 await apiClient("resetCache");
                 await opcacheData.getInfo();
