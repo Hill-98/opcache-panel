@@ -31,7 +31,7 @@
         <div class="tile">
             <div class="tile is-parent is-6">
                 <div class="tile is-child box" id="is-cached" style="position: relative">
-                    <p class="title is-5">检查文件是否缓存</p>
+                    <p class="title is-5" v-t="'page.advanced.check_cache'"></p>
                     <b-field :label="$t('page.advanced.file_path')">
                         <b-input v-model="path.is_cached"></b-input>
                     </b-field>
