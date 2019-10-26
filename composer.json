@@ -3,7 +3,7 @@
     "description": "PHP opcache panel",
     "type": "project",
     "license": "MIT",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "homepage": "https://github.com/Hill-98/opcache-panel",
     "minimum-stability": "dev",
     "prefer-stable": true,
