@@ -44,7 +44,8 @@
                                     sortable>
                         {{ conversion("sizeConversion", props.row.memory_consumption) }}
                     </b-table-column>
-                    <b-table-column field="timestamp" :label="$t('page.cache_files.timestamp')" sortable>
+                    <b-table-column field="timestamp" :label="$t('page.cache_files.timestamp')" sortable
+                                    v-if="props.row.timestamp">
                         {{ conversion("timeConversion", props.row.timestamp) }}
                     </b-table-column>
                     <b-table-column>
