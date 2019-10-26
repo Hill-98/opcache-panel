@@ -58,6 +58,8 @@ export default {
             filepath: "File Path",
         },
         cache_files: {
+            script_num: "Number Of Files: {num}",
+            ignore_vendor: "Ignore vendor Directory",
             invalidate_cache: "Invalidate Cache",
             file_path: "File Path",
             hits: "Hits",
@@ -67,7 +69,6 @@ export default {
             no_cache_files: "No Cache Files"
         },
         advanced: {
-            script_num: "Number Of Files: {num}",
             file_path: "File Path",
             dir_path: "Directory Path",
             multi_path: "Multiple paths | split",

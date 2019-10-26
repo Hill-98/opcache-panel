@@ -1,5 +1,5 @@
 <template>
-    <div v-if="$root.$data.opcacheData.status">
+    <div>
         <template v-if="scripts.length !==  0 || search_path !== ''">
             <!-- 缓存文件操作按钮 -->
             <div class="level">
@@ -8,6 +8,11 @@
                 </div>
                 <div class="level-right">
                     <b-field grouped>
+                        <div class="control">
+                            <b-checkbox-button v-model="ignoreVendor">
+                                {{ $t("page.cache_files.ignore_vendor") }}
+                            </b-checkbox-button>
+                        </div>
                         <div class="control">
                             <b-button icon-left="trash" type="is-danger" :disabled="checkedRows.length === 0"
                                       @click="invalidateCache()">
@@ -28,25 +33,24 @@
                 <b-input v-model="searchPath"></b-input>
             </b-field>
             <!-- 缓存文件表格 -->
-            <b-table :data="scripts" narrowed checkable sort-icon="sort" default-sort="timestamp"
-                     :checked-rows.sync="checkedRows" custom-row-key="file_path">
+            <b-table :data="scripts" narrowed checkable sort-icon="sort" paginated :per-page="100"
+                     :checked-rows.sync="checkedRows" custom-row-key="file">
                 <template slot-scope="props">
-                    <b-table-column field="fullPath" :label="$t('page.cache_files.file_path')">
+                    <b-table-column :label="$t('page.cache_files.file_path')">
                         {{ props.row.full_path }}
                     </b-table-column>
                     <b-table-column field="hits" :label="$t('page.cache_files.hits')" sortable>
                         {{ props.row.hits }}
                     </b-table-column>
                     <b-table-column field="last_used_timestamp" :label="$t('page.cache_files.last_used_time')" sortable>
-                        {{ conversion("timeConversion", props.row.last_used_timestamp) }}
+                        {{ props.row.last_used_timestamp_string }}
                     </b-table-column>
-                    <b-table-column field="memory_consumption" :label="$t('page.cache_files.memory_consumption')"
-                                    sortable>
-                        {{ conversion("sizeConversion", props.row.memory_consumption) }}
+                    <b-table-column field="memory_consumption" :label="$t('page.cache_files.memory_consumption')" sortable>
+                        {{ props.row.memory_consumption_string }}
                     </b-table-column>
                     <b-table-column field="timestamp" :label="$t('page.cache_files.timestamp')" sortable
                                     v-if="props.row.timestamp">
-                        {{ conversion("timeConversion", props.row.timestamp) }}
+                        {{ props.row.timestamp_string }}
                     </b-table-column>
                     <b-table-column>
                         <b-button size="is-small" icon-left="trash" type="is-danger" @click="invalidateCache(props.row)"
@@ -64,7 +68,6 @@
 </template>
 
 <script>
-    import conversion from "../js/utils/conversion"
     import apiClient from "../js/apiClient"
     import opcacheData from "../js/utils/opcacheData"
 
@@ -72,32 +75,30 @@
         name: "CacheFiles",
         data: () => ({
             checkedRows: [],
+            ignoreVendor: false,
             searchPath: "",
             search_path: "",
             timer: null
         }),
         computed: {
             scripts() {
-                if (typeof this.$root.$data.opcacheData.status !== "object" ||
-                    typeof this.$root.$data.opcacheData.status.scripts !== "object" ||
-                    Object.keys(this.$root.$data.opcacheData.status.scripts).length === 0) {
-                    return [];
+                let scripts = [];
+                if (this.search_path === "") {
+                    scripts = this.$store.state.scripts;
+                } else {
+                    scripts = this.$store.state.scripts.filter(value => {
+                        return value.full_path.indexOf(this.search_path) !== -1
+                    });
                 }
-                const _scripts = this.$root.$data.opcacheData.status.scripts;
-                const scripts = [];
-                for (const file of Object.keys(_scripts)) {
-                    if (this.search_path !== "" && _scripts[file].full_path.indexOf(this.search_path) === -1) {
-                        continue;
-                    }
-                    scripts.push({
-                        file,
-                        ..._scripts[file]
-                    })
+                if (this.ignoreVendor) {
+                    scripts = scripts.filter(value => {
+                        return value.full_path.search(/([/\\])vendor([/\\])/) === -1
+                    });
                 }
                 return scripts;
             },
             scriptsNum() {
-                return Object.keys(this.$root.$data.opcacheData.status.scripts).length;
+                return this.scripts.length;
             }
         },
         watch: {
@@ -118,12 +119,6 @@
             }
         },
         methods: {
-            conversion(name, value) {
-                if (name !== null && conversion.hasOwnProperty(name) && typeof conversion[name] === "function") {
-                    return conversion[name](value);
-                }
-                return value;
-            },
             invalidateCache(value) {
                 const items = [];
                 if (value === undefined) {
@@ -143,10 +138,7 @@
                     .catch(window.EMPTY_FUNC)
             },
             refreshData(name) {
-                if (opcacheData.hasOwnProperty(name) && typeof opcacheData[name] === "function") {
-                    return opcacheData[name]();
-                }
-                return null;
+                return opcacheData[name]();
             },
         }
     }
