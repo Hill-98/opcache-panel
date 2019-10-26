@@ -22,8 +22,8 @@
 </template>
 
 <script>
-    import Navbar from "./Navbar"
-    import opcacheData from "../js/utils/opcacheData";
+    import Navbar from "./components/Navbar.vue"
+    import opcacheData from "./js/utils/opcacheData"
 
     export default {
         name: "app",

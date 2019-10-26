@@ -16,10 +16,7 @@ let vue_config = {
         if (process.env.NODE_ENV === 'production') {
             config.optimization.splitChunks = {};
         }
-    },
-    // transpileDependencies: [
-    //     "buefy"
-    // ]
+    }
 };
 if (process.env.NODE_ENV === 'production') {
     vue_config = {

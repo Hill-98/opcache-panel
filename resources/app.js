@@ -1,7 +1,7 @@
 import Vue from "vue"
 import VueRouter from "./router"
 import VueI18n from "./i18n"
-import App from "./component/App"
+import App from "./App.vue"
 import Buefy from "buefy"
 import "buefy/dist/buefy.css"
 import { library as faLibrary } from "@fortawesome/fontawesome-svg-core"

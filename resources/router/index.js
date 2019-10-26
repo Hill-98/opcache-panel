@@ -1,9 +1,9 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
-import {i18n, languages, setLanguage} from "./i18n"
-import Status from "./component/Status"
-import CacheFiles from "./component/CacheFiles"
-import Advanced from "./component/Advanced"
+import {i18n, languages, setLanguage} from "../i18n"
+import Status from "../views/Status.vue"
+import CacheFiles from "../views/CacheFiles.vue"
+import Advanced from "../views/Advanced.vue"
 
 Vue.use(VueRouter);
 
