@@ -117,7 +117,9 @@
             <b-table :data="directives" narrowed>
                 <template slot-scope="props">
                     <b-table-column field="key" :label="$t('page.status.key')">
-                        {{ props.row.key }}
+                        <a :href="`https://www.php.net/manual/opcache.configuration.php#ini.${props.row.key.replace(/_/, '-')}`"
+                            target="_blank">
+                            {{ props.row.key }}</a>
                     </b-table-column>
                     <b-table-column field="value" :label="$t('page.status.value')">
                         {{ props.row.value }}
