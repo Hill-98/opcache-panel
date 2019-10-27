@@ -1,7 +1,5 @@
 import Vue from "vue"
 import VueI18n from "vue-i18n"
-import en_US from "./en-US"
-import zh_CN from "./zh-CN"
 
 Vue.use(VueI18n);
 
@@ -15,8 +13,8 @@ export function setLanguage(language) {
 }
 
 const messages = {
-    "en-US": en_US,
-    "zh-CN": zh_CN
+    "en-US": require("./en-US").default,
+    "zh-CN": require("./zh-CN").default
 };
 
 export const languages = {
