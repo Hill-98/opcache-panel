@@ -29,7 +29,7 @@
                 </div>
             </div>
             <!-- 缓存文件操作按钮 END -->
-            <b-field label="搜索文件" label-position="on-border">
+            <b-field :label="$t('page.cache_files.search_file')" label-position="on-border">
                 <b-input v-model="searchPath"></b-input>
             </b-field>
             <!-- 缓存文件表格 -->

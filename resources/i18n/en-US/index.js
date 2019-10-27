@@ -61,6 +61,7 @@ export default {
             script_num: "Number Of Files: {num}",
             ignore_vendor: "Ignore vendor Directory",
             invalidate_cache: "Invalidate Cache",
+            search_file: "Search File",
             file_path: "File Path",
             hits: "Hits",
             last_used_time: "Last Used Time",
