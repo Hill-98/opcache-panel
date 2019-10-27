@@ -39,13 +39,13 @@
                 return `https://www.php.net/manual/function.${func.replace(/_/g, "-")}.php`
             },
         },
-        props: [
-            "func",
-            "label",
-            "placeholder",
-            "summary",
-            "title",
-            "value"
-        ],
+        props: {
+            func: String,
+            label: String,
+            placeholder: String,
+            summary: String,
+            title: String,
+            value: String
+        },
     }
 </script>

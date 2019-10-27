@@ -46,52 +46,22 @@
             <!-- 运行状态卡片组 -->
             <div class="tile" style="margin-bottom: 0.75rem; margin-top: -0.75rem">
                 <!-- 内存使用卡片 -->
-                <div class="tile is-parent">
-                    <div class="tile is-child box">
-                        <p class="title is-5" v-t="'page.status.memory_usage'"></p>
-                        <b-progress type="is-info"
-                                    :max="opcache_memory_consumption"
-                                    :value="memory_usage.used_memory">
-                        </b-progress>
-                        <p v-for="(value, name) in memory_usage"
-                           :key="`${name}${value}`">
-                            {{ `${$t(`page.status.${name}`)}:
-                            ${conversion(format.memory_usage[name], value)}` }}
-                        </p>
-                    </div>
-                </div>
+                <status-tile-box :max-progress="opcache_memory_consumption" :progress="memory_usage.used_memory"
+                                 :data="memory_usage" :data-type="format.memory_usage"
+                                 :title="$t('page.status.memory_usage')">
+                </status-tile-box>
                 <!-- 内存使用卡片 END -->
                 <!-- 统计信息卡片 -->
-                <div class="tile is-parent">
-                    <div class="tile is-child box">
-                        <p class="title is-5" v-t="'page.status.opcache_statistics'"></p>
-                        <b-progress type="is-info" show-value
-                                    :value="opcache_statistics.opcache_hit_rate">
-                            {{ $t("page.status.opcache_hit_rate") }}
-                        </b-progress>
-                        <p v-for="(value, name) in opcache_statistics"
-                           :key="`${name}${value}`">
-                            {{ `${$t(`page.status.${name}`)}:
-                            ${conversion(format.opcache_statistics[name], value)}` }}
-                        </p>
-                    </div>
-                </div>
+                <status-tile-box :progress="opcache_statistics.opcache_hit_rate" :data-type="format.opcache_statistics"
+                                 :title="$t('page.status.opcache_statistics')" :data="opcache_statistics"
+                                 :progress-text="$t('page.status.opcache_hit_rate')">
+                </status-tile-box>
                 <!-- 统计信息卡片 END -->
                 <!-- 保留字符串卡片 -->
-                <div class="tile is-parent">
-                    <div class="tile is-child box">
-                        <p class="title is-5" v-t="'page.status.interned_strings'"></p>
-                        <b-progress type="is-info"
-                                    :max="opcache_interned_strings_buffer * 1024 * 1024"
-                                    :value="interned_strings_usage.used_memory">
-                        </b-progress>
-                        <p v-for="(value, name) in interned_strings_usage"
-                           :key="`${name}${value}`">
-                            {{ `${$t(`page.status.${name}`)}:
-                            ${conversion(format.interned_strings_usage[name], value)}` }}
-                        </p>
-                    </div>
-                </div>
+                <status-tile-box :max-progress="opcache_interned_strings_buffer" :data="interned_strings_usage"
+                                 :progress="interned_strings_usage.used_memory" :data-type="format.interned_strings_usage"
+                                 :title="$t('page.status.interned_strings')">
+                </status-tile-box>
                 <!-- 保留字符串卡片 END -->
             </div>
             <!-- 运行状态卡片组 END -->
@@ -117,7 +87,7 @@
                 <template slot-scope="props">
                     <b-table-column field="key" :label="$t('page.status.key')">
                         <a :href="`https://www.php.net/manual/opcache.configuration.php#ini.${props.row.key.replace(/_/, '-')}`"
-                            target="_blank">
+                           target="_blank">
                             {{ props.row.key }}</a>
                     </b-table-column>
                     <b-table-column field="value" :label="$t('page.status.value')">
@@ -158,6 +128,7 @@
 </template>
 
 <script>
+    import statusTileBox from "../components/status-tile-box"
     import conversion from "../js/utils/conversion"
     import opcacheDataUtils from "../js/utils/opcacheData"
 
@@ -205,7 +176,7 @@
                 return this.$store.state.configuration.directives["opcache.memory_consumption"];
             },
             opcache_interned_strings_buffer() {
-                return this.$store.state.configuration.directives["opcache.interned_strings_buffer"];
+                return this.$store.state.configuration.directives["opcache.interned_strings_buffer"] * 1024 * 1024;
             },
             memory_usage() {
                 return this.$store.state.status.memory_usage;
@@ -236,13 +207,10 @@
                 return blacklist;
             }
         },
+        components: {
+            statusTileBox
+        },
         methods: {
-            conversion(name, value) {
-                if (name !== null) {
-                    return conversion[`${name}Conversion`](value);
-                }
-                return value;
-            },
             refreshData(name) {
                 return opcacheDataUtils[name]();
             }
