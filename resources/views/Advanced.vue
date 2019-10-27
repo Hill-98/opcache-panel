@@ -1,47 +1,21 @@
 <template>
     <div>
         <div class="tile">
-            <div class="tile is-parent">
-                <div class="tile is-child box">
-                    <p class="title is-5" v-t="'page.advanced.pre_cache'"></p>
-                    <b-field :label="$t('page.advanced.file_path')">
-                        <b-input v-model="path.pre_cache" :placeholder="$t('page.advanced.multi_path')"></b-input>
-                    </b-field>
-                    <div class="level-right">
-                        <b-button type="is-primary" v-t="'page.advanced.submit'" @click="compileFile"></b-button>
-                    </div>
-                    <p v-html="$t('page.advanced.use_function', {func: functionLink('opcache_compile_file')})"></p>
-                    <p v-t="'page.advanced.pre_cache_summary'"></p>
-                </div>
-            </div>
-            <div class="tile is-parent">
-                <div class="tile is-child box">
-                    <p class="title is-5" v-t="'page.advanced.invalidate_cache_dir'"></p>
-                    <b-field :label="$t('page.advanced.dir_path')">
-                        <b-input v-model="path.invalidate" :placeholder="$t('page.advanced.multi_path')"></b-input>
-                    </b-field>
-                    <div class="level-right">
-                        <b-button type="is-primary" v-t="'page.advanced.submit'" @click="invalidateDir"></b-button>
-                    </div>
-                    <p v-html="$t('page.advanced.use_function', {func: functionLink('opcache_invalidate')})"></p>
-                    <p v-t="'page.advanced.invalidate_cache_dir_summary'"></p>
-                </div>
-            </div>
+            <advanced-tile-box :label="$t('page.advanced.file_path')" :placeholder="$t('page.advanced.multi_path')"
+                               :summary="$t('page.advanced.pre_cache_summary')" :title="$t('page.advanced.pre_cache')"
+                               :func="func.ocf" :value.sync="path.pre_cache" @click="compileFile">
+            </advanced-tile-box>
+            <advanced-tile-box :label="$t('page.advanced.dir_path')" :placeholder="$t('page.advanced.multi_path')"
+                               :summary="$t('page.advanced.invalidate_cache_dir_summary')" :func="func.oi"
+                               :value.sync="path.invalidate" @click="invalidateDir"
+                               :title="$t('page.advanced.invalidate_cache_dir')">
+            </advanced-tile-box>
         </div>
         <div class="tile">
-            <div class="tile is-parent is-6">
-                <div class="tile is-child box" id="is-cached" style="position: relative">
-                    <p class="title is-5" v-t="'page.advanced.check_cache'"></p>
-                    <b-field :label="$t('page.advanced.file_path')">
-                        <b-input v-model="path.is_cached"></b-input>
-                    </b-field>
-                    <div class="level-right">
-                        <b-button type="is-primary" v-t="'page.advanced.submit'" @click="isScriptCached"></b-button>
-                    </div>
-                    <p v-html="$t('page.advanced.use_function', {func: functionLink('opcache_is_script_cached')})"></p>
-                    <p v-t="'page.advanced.check_cache_summary'"></p>
-                </div>
-            </div>
+            <advanced-tile-box :label="$t('page.advanced.file_path')" :summary="$t('page.advanced.check_cache_summary')"
+                               :func="func.oisc" @click="isScriptCached" :title="$t('page.advanced.check_cache')"
+                               :value.sync="path.is_cached" class="is-6" id="is-cached">
+            </advanced-tile-box>
         </div>
     </div>
 </template>
@@ -49,21 +23,28 @@
 <script>
     import apiClient from "../js/apiClient"
     import opcacheData from "../js/utils/opcacheData"
+    import advancedTileBox from "../components/advanced-tile-box"
 
     export default {
         name: "Advanced",
         data: () => ({
+            func: {
+                ocf: "opcache_compile_file",
+                oi: "opcache_invalidate",
+                oisc: "opcache_is_script_cached"
+            },
             path: {
                 pre_cache: "",
                 invalidate: "",
                 is_cached: ""
             }
         }),
+        components: {
+            advancedTileBox
+        },
         methods: {
             functionLink(func) {
-                return `<a href="https://www.php.net/manual/function.${func.replace(/_/g, "-")}.php" target="_blank">
-                            <code>${func}</code>
-                        </a>`
+                return `https://www.php.net/manual/function.${func.replace(/_/g, "-")}.php`
             },
             api(action, value, refresh = true) {
                 // 分割多个路径
@@ -84,7 +65,7 @@
                     });
                     return;
                 }
-                return new Promise((resolve, reject) => {
+                return new Promise((resolve) => {
                     apiClient(action, value)
                         .then(data => {
                             resolve(data);
@@ -92,7 +73,7 @@
                                 opcacheData.getStatus();
                             }
                         })
-                        .catch(reject)
+                        .catch(window.EMPTY_FUNC)
                 });
             },
             compileFile() {
@@ -114,17 +95,16 @@
                     .then(data => {
                         let message = "";
                         if (data.hasOwnProperty("success") && data.success) {
-                            message = "page.advanced.cached";
+                            message = this.$t("page.advanced.cached");
                         } else {
-                            message = "page.advanced.uncached";
+                            message = this.$t("page.advanced.uncached");
                         }
                         this.$buefy.toast.open({
                             container: "#is-cached",
-                            message: this.$t(message),
+                            message,
                             type: "is-info"
                         });
                     })
-                    .catch(window.EMPTY_FUNC);
             }
         }
     }
