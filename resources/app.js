@@ -2,7 +2,6 @@ import Vue from "vue"
 import router from "./router"
 import i18n from "./i18n"
 import store from "./store"
-import App from "./App.vue"
 import Buefy from "buefy"
 import "buefy/dist/buefy.css"
 import { library as faLibrary } from "@fortawesome/fontawesome-svg-core"
@@ -40,12 +39,9 @@ Vue.config.productionTip = false;
 
 window.EMPTY_FUNC = () => undefined;
 
-export default new Vue({
-    data: {
-        opcacheData: {}
-    },
+new Vue({
     store,
-    render: h => h(App),
+    render: h => h(require("./App.vue").default),
     router,
     i18n
 }).$mount("#app");

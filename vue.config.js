@@ -1,11 +1,13 @@
-const Package = require("./package.json");
-process.env.VUE_APP_VERSION = Package.version;
+const isProd = process.env.NODE_ENV === "production";
+process.env.VUE_APP_VERSION = require("./package.json").version;
+
 let vue_config = {
     devServer: {
         proxy: "http://127.0.0.1:8098"
     },
+    lintOnSave: !isProd,
     chainWebpack: config => {
-        if (process.env.NODE_ENV === 'production') {
+        if (isProd) {
             config.plugins.delete('html');
             config.plugins.delete('preload');
             config.plugins.delete('prefetch');
@@ -13,12 +15,12 @@ let vue_config = {
     },
     configureWebpack: config => {
         config.entry.app = ['./resources/app.js'];
-        if (process.env.NODE_ENV === 'production') {
+        if (isProd) {
             config.optimization.splitChunks = {};
         }
     }
 };
-if (process.env.NODE_ENV === 'production') {
+if (isProd) {
     vue_config = {
         ...vue_config,
         filenameHashing: false,

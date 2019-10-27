@@ -3,7 +3,7 @@
         <!-- 导航栏标题 -->
         <template slot="brand">
             <b-navbar-item :href="href">
-                <span style="font-weight: 600; font-size: 1.25rem">Opcache Panel</span>
+                <span class="has-text-white title is-5">Opcache Panel</span>
             </b-navbar-item>
         </template>
         <!-- 导航栏标题 END -->
@@ -56,7 +56,7 @@
     import opcacheData from "../js/utils/opcacheData"
 
     export default {
-        name: "Navbar",
+        name: "opp-header",
         data: () => ({
             languages,
             href: window.location.href.replace(window.location.hash, ""),
