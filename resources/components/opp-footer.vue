@@ -10,6 +10,11 @@
                 The source code is licensed&nbsp;
                 <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
             </p>
+            <p>Powered By&nbsp;
+                <a href="https://github.com/vuejs/vue" target="_blank">Vue</a>
+                &nbsp;and&nbsp;
+                <a href="https://github.com/buefy/buefy">buefy</a>.
+            </p>
             <p>Version: {{ version }}</p>
         </div>
     </footer>
