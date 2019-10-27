@@ -212,7 +212,11 @@
         },
         methods: {
             refreshData(name) {
-                return opcacheDataUtils[name]();
+                try {
+                    opcacheDataUtils[name]();
+                } catch (e) {
+                    //
+                }
             }
         }
     }
