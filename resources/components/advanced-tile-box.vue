@@ -2,12 +2,15 @@
     <div class="tile is-parent" style="position: relative">
         <div class="tile is-child box">
             <p class="title is-5">{{ title }}</p>
-            <b-field :label="label">
-                <b-input v-model="currValue" :placeholder="placeholder"></b-input>
-            </b-field>
-            <div class="level-right">
-                <b-button type="is-primary" v-t="'page.advanced.submit'" @click="$emit('click')"></b-button>
-            </div>
+            <form ref="form" @submit="formSubmit">
+                <b-field :label="label">
+                    <b-input v-model="currValue" :placeholder="placeholder" :name="func"></b-input>
+                </b-field>
+                <b-field class="has-text-right">
+                    <b-button tag="input" type="is-primary" native-type="submit" :value="$t('page.advanced.submit')">
+                    </b-button>
+                </b-field>
+            </form>
             <i18n path="page.advanced.use_function" tag="p">
                 <a :href="functionLink(func)" target="_blank"><code>{{ func }}</code></a>
             </i18n>
@@ -35,8 +38,12 @@
             event: 'change'
         },
         methods: {
+            formSubmit(e) {
+                this.$emit("click");
+                e.preventDefault();
+            },
             functionLink(func) {
-                return `https://www.php.net/manual/function.${func.replace(/_/g, "-")}.php`
+                return `https://www.php.net/manual/function.${func.replace(/_/g, "-")}.php`;
             },
         },
         props: {
