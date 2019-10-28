@@ -81,24 +81,25 @@
             timer: null
         }),
         computed: {
-            scripts() {
-                let scripts = [];
-                if (this.search_path === "") {
-                    scripts = this.$store.state.scripts;
-                } else {
-                    scripts = this.$store.state.scripts.filter(value => {
-                        return value.full_path.indexOf(this.search_path) !== -1
-                    });
-                }
+            _scripts() {
                 if (this.ignoreVendor) {
-                    scripts = scripts.filter(value => {
+                    return this.$store.state.scripts.filter(value => {
                         return value.full_path.search(/([/\\])vendor([/\\])/) === -1
                     });
                 }
-                return scripts;
+                return this.$store.state.scripts;
+            },
+            scripts() {
+                if (this.search_path === "") {
+                    return this._scripts
+                } else {
+                    return this._scripts.filter(value => {
+                        return value.full_path.indexOf(this.search_path) !== -1
+                    });
+                }
             },
             scriptsNum() {
-                return this.scripts.length;
+                return this._scripts.length;
             }
         },
         watch: {
