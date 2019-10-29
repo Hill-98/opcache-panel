@@ -73,6 +73,7 @@ export default {
             file_path: "文件路径",
             dir_path: "目录路径",
             multi_path: "多个路径用 | 分割",
+            clear_history: "清除历史",
             submit: "提交",
             pre_cache: "预缓存文件",
             pre_cache_summary: "将指定文件编译为字节码缓存，如果路径指向目录，则编译整个目录下的文件。",

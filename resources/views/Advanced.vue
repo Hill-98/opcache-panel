@@ -43,9 +43,6 @@
             advancedTileBox
         },
         methods: {
-            functionLink(func) {
-                return `https://www.php.net/manual/function.${func.replace(/_/g, "-")}.php`
-            },
             api(action, value, callback, refresh = true) {
                 // 分割多个路径
                 if (value.indexOf("|") !== -1) {

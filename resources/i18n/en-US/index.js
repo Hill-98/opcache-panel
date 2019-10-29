@@ -73,6 +73,7 @@ export default {
             file_path: "File Path",
             dir_path: "Directory Path",
             multi_path: "Multiple paths | split",
+            clear_history: "Clear History",
             submit: "Submit",
             pre_cache: "Pre-cache Files",
             pre_cache_summary: "The specified file is compiled into byte code cache, if the path to the directory, the file in directory is compiled.",
