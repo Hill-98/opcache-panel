@@ -7,7 +7,7 @@
 
 PHP opcache panel, can help you better manage opcache, for example, delete the cache and other operations.
 
-[中文文档](https://github.com/Hill-98/opcache-panel/blob/master/README_cn.md)
+[中文](https://github.com/Hill-98/opcache-panel/blob/master/README_cn.md)
 
 ## Feature
 
@@ -43,5 +43,8 @@ Not guaranteed to support IE10 or lower version
 
 If this project help you, you can consider supporting me in the following manner.
 
-Paypal: [https://paypal.me/mivm](https://paypal.me/mivm)
+![AliPay](https://cdn.mivm.cn/image/qrcode/AliPay.png)
 
+![WeChat](https://cdn.mivm.cn/image/qrcode/WeChatPay.png)
+
+Paypal: [https://paypal.me/mivm](https://paypal.me/mivm)

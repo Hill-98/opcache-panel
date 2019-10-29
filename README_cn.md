@@ -43,5 +43,8 @@ PHP Opcache 面板，可以帮助你 更好的管理 Opcache，例如删除缓�
 
 如果这个项目对您有帮助，您可以考虑通过以下方式支持我。
 
-Paypal: [https://paypal.me/mivm](https://paypal.me/mivm)
+![AliPay](https://cdn.mivm.cn/image/qrcode/AliPay.png)
 
+![WeChat](https://cdn.mivm.cn/image/qrcode/WeChatPay.png)
+
+Paypal: [https://paypal.me/mivm](https://paypal.me/mivm)
