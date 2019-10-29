@@ -15,7 +15,7 @@ if (!defined('OPP_DEBUG') || OPP_DEBUG !== true) {
     $auth = new Auth();
     $auth->logout();
     if ($auth->isNeedAuth()) {
-        $auth->checkPassword();
+        $auth->login();
         $auth->isAuth();
     }
 }
