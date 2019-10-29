@@ -33,10 +33,6 @@
                 this.currValue = newValue;
             }
         },
-        model: {
-            prop: 'value',
-            event: 'change'
-        },
         methods: {
             formSubmit(e) {
                 this.$emit("click");

@@ -46,7 +46,7 @@
             functionLink(func) {
                 return `https://www.php.net/manual/function.${func.replace(/_/g, "-")}.php`
             },
-            api(action, value, refresh = true) {
+            api(action, value, callback, refresh = true) {
                 // 分割多个路径
                 if (value.indexOf("|") !== -1) {
                     value = value.split("|")
@@ -65,16 +65,16 @@
                     });
                     return;
                 }
-                return new Promise((resolve) => {
-                    apiClient(action, value)
-                        .then(data => {
-                            resolve(data);
-                            if (refresh === true) {
-                                opcacheData.getStatus();
-                            }
-                        })
-                        .catch(window.EMPTY_FUNC)
-                });
+                apiClient(action, value)
+                    .then(data => {
+                        if (typeof callback === "function") {
+                            callback(data);
+                        }
+                        if (refresh === true) {
+                            opcacheData.getStatus();
+                        }
+                    })
+                    .catch(window.EMPTY_FUNC);
             },
             compileFile() {
                 this.api("compileFile", this.path.pre_cache);
@@ -91,20 +91,19 @@
                     });
                     return;
                 }
-                this.api("isScriptCached", this.path.is_cached, false)
-                    .then(data => {
-                        let message = "";
-                        if (data.hasOwnProperty("success") && data.success) {
-                            message = this.$t("page.advanced.cached");
-                        } else {
-                            message = this.$t("page.advanced.uncached");
-                        }
-                        this.$buefy.toast.open({
-                            container: "#is-cached",
-                            message,
-                            type: "is-info"
-                        });
-                    })
+                this.api("isScriptCached", this.path.is_cached, data => {
+                    let message = "";
+                    if (data.hasOwnProperty("success") && data.success) {
+                        message = this.$t("page.advanced.cached");
+                    } else {
+                        message = this.$t("page.advanced.uncached");
+                    }
+                    this.$buefy.toast.open({
+                        container: "#is-cached",
+                        message,
+                        type: "is-info"
+                    });
+                }, false);
             }
         }
     }
