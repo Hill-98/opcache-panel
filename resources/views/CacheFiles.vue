@@ -1,6 +1,6 @@
 <template>
     <div>
-        <template v-if="scripts.length !==  0 || search_path !== ''">
+        <template v-if="scriptsNum !==  0 || search_path !== ''">
             <!-- 缓存文件操作按钮 -->
             <div class="level">
                 <div class="level-left">
@@ -138,9 +138,7 @@
                     })
                     .catch(window.EMPTY_FUNC)
             },
-            refreshData(name) {
-                return opcacheData[name]();
-            },
+            refreshData: name => opcacheData[name](),
         }
     }
 </script>

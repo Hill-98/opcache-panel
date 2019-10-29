@@ -21,10 +21,7 @@
         name: "status-tile-box",
         computed: {
             max_progress() {
-                if (!this.maxProgress) {
-                    return 100;
-                }
-                return this.maxProgress
+                return this.maxProgress ? this.maxProgress : 100
             },
             show_value() {
                 return this.showValue || this.progressText !== undefined;
@@ -42,11 +39,7 @@
         methods: {
             conversion(name, value) {
                 if (name !== null) {
-                    try {
-                        return conversion[`${name}Conversion`](value);
-                    } catch (e) {
-                        //
-                    }
+                    return conversion[`${name}Conversion`](value);
                 }
                 return value;
             }

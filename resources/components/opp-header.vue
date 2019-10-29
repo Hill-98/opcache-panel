@@ -97,7 +97,7 @@
                 try {
                     await apiClient("resetCache");
                 } catch (e) {
-                    // continue regardless of error
+                    //
                 }
                 await opcacheData.getInfo()
             },

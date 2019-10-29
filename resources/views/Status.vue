@@ -23,11 +23,8 @@
                                 <b-tag type="is-dark">
                                     Enable
                                 </b-tag>
-                                <b-tag type="is-success" v-if="opcache_enabled">
-                                    True
-                                </b-tag>
-                                <b-tag type="is-warning" v-else>
-                                    False
+                                <b-tag :type="opcache_enabled ? 'is-success' : 'is-warning'">
+                                    {{ opcache_enabled ? 'True' : 'False' }}
                                 </b-tag>
                             </b-taglist>
                         </div>
@@ -211,13 +208,7 @@
             statusTileBox
         },
         methods: {
-            refreshData(name) {
-                try {
-                    opcacheDataUtils[name]();
-                } catch (e) {
-                    //
-                }
-            }
+            refreshData: name => opcacheDataUtils[name]()
         }
     }
 </script>

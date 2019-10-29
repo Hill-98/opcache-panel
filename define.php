@@ -1,7 +1,7 @@
 <?php
 define('BASEDIR', __DIR__);
 define('APP_DIR', __DIR__ . '/OpcachePanel');
-define('OPP_VERSION', '1.0.2');
+define('OPP_VERSION', '1.1.0');
 define('OPP_INC', true);
 define('AUTH_POST_KEY', ['password', 'logout']);
 define('TITLE', 'Opcache Panel');
