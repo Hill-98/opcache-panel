@@ -14,14 +14,30 @@ if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?= TITLE ?></title>
     <link rel="icon" href="assets/favicon.png">
-    <link href="assets/js/app.js?v=<?= OPP_VERSION ?>" rel="preload" as="script">
+    <link href="assets/css/app.css?v=<?= OPP_VERSION ?>" rel="preload" as="style">
+    <link href="assets/js/app.js?v=<?= OPP_VERSION ?>" rel="modulepreload" as="script">
     <link href="assets/css/app.css?v=<?= OPP_VERSION ?>" rel="stylesheet">
 </head>
 <body>
 <noscript>
-    <strong>We're sorry but Opcache Panel doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    <strong>
+        We're sorry but Opcache Panel doesn't work properly without JavaScript enabled. Please enable it to continue.
+    </strong>
 </noscript>
 <div id="app"></div>
-<script src="assets/js/app.js?v=<?= OPP_VERSION ?>"></script>
+<script type="module" src="assets/js/app.js?v=<?= OPP_VERSION ?>"></script>
+<script>
+    !function () {
+        var e = document, t = e.createElement("script");
+        if (!("noModule" in t) && "onbeforeload" in t) {
+            var n = !1;
+            e.addEventListener("beforeload", function (e) {
+                if (e.target === t) n = !0; else if (!e.target.hasAttribute("nomodule") || !n) return;
+                e.preventDefault()
+            }, !0), t.type = "module", t.src = ".", e.head.appendChild(t), t.remove()
+        }
+    }();
+</script>
+<script src="assets/js/app-legacy.js" nomodule></script>
 </body>
 </html>

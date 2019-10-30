@@ -13,9 +13,6 @@ module.exports = {
         config.entry("app").clear().add("./resources/app.js");
         if (isProd) {
             config.optimization.splitChunks({});
-            config.plugins.delete('html');
-            config.plugins.delete('preload');
-            config.plugins.delete('prefetch');
         }
     }
 };

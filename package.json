@@ -6,7 +6,7 @@
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build",
+        "build": "vue-cli-service build --modern && del-cli assets/index.html",
         "lint": "vue-cli-service lint"
     },
     "main": "resources/app.js",
@@ -29,6 +29,7 @@
         "@vue/cli-plugin-vuex": "^4.0.5",
         "@vue/cli-service": "^4.0.5",
         "babel-eslint": "^10.0.1",
+        "del-cli": "^3.0.0",
         "eslint": "^5.16.0",
         "eslint-plugin-vue": "^5.0.0",
         "vue-template-compiler": "^2.6.10"
