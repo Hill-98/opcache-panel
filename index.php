@@ -6,11 +6,23 @@ namespace OpcachePanel;
 use Exception;
 
 require __DIR__ . '/vendor/autoload.php';
-if (file_exists(__DIR__ . '/config.php')) {
-    require __DIR__ . '/config.php';
-}
 
 header(NO_CACHE_HEADER);
+
+if (!extension_loaded('Zend OPcache')) {
+    echo 'Zend OPcache extension is not loaded.';
+    exit;
+}
+if (@opcache_get_configuration() === false) {
+    echo '<p>opcache_get_configuration () function error, check <a href="https://www.php.net/manual/opcache.configuration.php#ini.opcache.restrict-api">opcache.restrict_api</a> configuration items.</p>';
+    exit;
+}
+
+if (file_exists(CONFIG_FILE)) {
+    @opcache_invalidate(CONFIG_FILE);
+    require CONFIG_FILE;
+}
+
 if (!defined('OPP_DEBUG') || OPP_DEBUG !== true) {
     $auth = new Auth();
     $auth->logout();
@@ -18,16 +30,6 @@ if (!defined('OPP_DEBUG') || OPP_DEBUG !== true) {
         $auth->login();
         $auth->isAuth();
     }
-}
-
-if (!extension_loaded('Zend OPcache')) {
-    echo 'Zend OPcache extension is not loaded.';
-    exit;
-}
-
-if (@opcache_get_configuration() === false) {
-    echo '<p>opcache_get_configuration () function error, check <a href="https://www.php.net/manual/opcache.configuration.php#ini.opcache.restrict-api">opcache.restrict_api</a> configuration items.</p>';
-    exit;
 }
 
 $opcache = new Opcache();
