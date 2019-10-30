@@ -208,7 +208,13 @@
             statusTileBox
         },
         methods: {
-            refreshData: name => opcacheDataUtils[name]()
+            async refreshData(name) {
+                try {
+                    await opcacheDataUtils[name]()
+                } catch (e) {
+                    //
+                }
+            }
         }
     }
 </script>

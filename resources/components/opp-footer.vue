@@ -13,7 +13,7 @@
             <p>Powered By&nbsp;
                 <a href="https://github.com/vuejs/vue" target="_blank">Vue</a>
                 &nbsp;and&nbsp;
-                <a href="https://github.com/buefy/buefy">buefy</a>.
+                <a href="https://github.com/buefy/buefy" target="_blank">buefy</a>.
             </p>
             <p>Version: {{ version }}</p>
         </div>

@@ -31,9 +31,6 @@ export default class {
 
     static timeConversion(value) {
         value = parseInt(value);
-        if (value === 0) {
-            return "Null"
-        }
-        return new Date(value * 1000).toLocaleString(undefined, {hour12: false})
+        return value === 0 ? "Null" : new Date(value * 1000).toLocaleString(undefined, {hour12: false})
     }
 }

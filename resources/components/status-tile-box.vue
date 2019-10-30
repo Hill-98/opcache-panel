@@ -38,10 +38,7 @@
         },
         methods: {
             conversion(name, value) {
-                if (name !== null) {
-                    return conversion[`${name}Conversion`](value);
-                }
-                return value;
+                return name === null ? value : conversion[`${name}Conversion`](value);
             }
         }
     }

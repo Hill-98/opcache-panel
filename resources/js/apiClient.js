@@ -16,6 +16,15 @@ apiClient.interceptors.request.use(request => request, error => {
     return Promise.reject(error);
 });
 apiClient.interceptors.response.use(response => {
+    if (typeof response.data !== "object") {
+        Toast.open({
+            type: "is-danger",
+            message: i18n.t("api_client.response.data_error"),
+            queue: false
+        });
+        return Promise.reject(response.data);
+    }
+
     let action;
     try {
         const requestData = JSON.parse(response.config.data);
@@ -23,14 +32,15 @@ apiClient.interceptors.response.use(response => {
     } catch (e) {
         action = "error";
     }
-    if (ignoreFunc.indexOf(action) === -1 && typeof response.data === "object" && response.data.hasOwnProperty("success")) {
+
+    if (ignoreFunc.indexOf(action) === -1 && response.data.hasOwnProperty("success")) {
         if (response.data.success === true) {
             Toast.open({
                 type: "is-success",
                 message: i18n.t("api_client.response.success"),
                 queue: false
             });
-            return
+            return Promise.resolve(response.data);
         } else {
             Toast.open({
                 type: "is-danger",
@@ -40,7 +50,7 @@ apiClient.interceptors.response.use(response => {
             return Promise.reject(response.data);
         }
     }
-    return response.data;
+    return Promise.resolve(response.data);
 }, error => {
     const errorCode = error.response.status;
     let errorMsg = "";

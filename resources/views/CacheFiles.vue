@@ -83,9 +83,7 @@
         computed: {
             _scripts() {
                 if (this.ignoreVendor) {
-                    return this.$store.state.scripts.filter(value => {
-                        return value.full_path.search(/([/\\])vendor([/\\])/) === -1
-                    });
+                    return this.$store.state.scripts.filter(value => value.full_path.search(/([/\\])vendor([/\\])/) === -1);
                 }
                 return this.$store.state.scripts;
             },
@@ -93,9 +91,7 @@
                 if (this.search_path === "") {
                     return this._scripts
                 } else {
-                    return this._scripts.filter(value => {
-                        return value.full_path.indexOf(this.search_path) !== -1
-                    });
+                    return this._scripts.filter(value => value.full_path.indexOf(this.search_path) !== -1);
                 }
             },
             scriptsNum() {
@@ -120,7 +116,7 @@
             }
         },
         methods: {
-            invalidateCache(value) {
+            async invalidateCache(value) {
                 const items = [];
                 if (value === undefined) {
                     if (this.checkedRows.length === 0) {
@@ -132,13 +128,20 @@
                 } else {
                     items.push(value.file)
                 }
-                apiClient("invalidate", items)
-                    .then(() => {
-                        opcacheData.getStatus(false);
-                    })
-                    .catch(window.EMPTY_FUNC)
+                try {
+                    await apiClient("invalidate", items);
+                    await opcacheData.getStatus(false);
+                } catch (e) {
+                    //
+                }
             },
-            refreshData: name => opcacheData[name](),
+            async refreshData(name) {
+                try {
+                    opcacheData[name]();
+                } catch (e) {
+                    //
+                }
+            }
         }
     }
 </script>

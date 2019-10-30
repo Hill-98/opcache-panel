@@ -4,6 +4,7 @@ export default {
             error: "糟糕，请求出错了！"
         },
         response: {
+            data_error: "获取到的数据格式错误",
             success: "操作成功！",
             not_success: "糟糕，操作没有成功！",
             error: {

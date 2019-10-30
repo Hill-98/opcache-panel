@@ -20,8 +20,12 @@
             oppHeader,
             oppFooter
         },
-        mounted() {
-            opcacheData.getInfo();
+        async mounted() {
+            try {
+                await opcacheData.getInfo();
+            } catch (e) {
+                //
+            }
         }
     }
 </script>

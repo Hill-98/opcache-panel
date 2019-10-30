@@ -61,20 +61,11 @@
             languages,
             href: window.location.href.replace(window.location.hash, ""),
             updateStyle: {},
-            update: false,
             timer: null
         }),
         computed: {
             isLogin() {
-                const cookies = document.cookie.split("; ");
-                if (cookies.length !== 0) {
-                    for (const cookie of cookies) {
-                        if(cookie.split("=")[0] === "OPP_SESSION") {
-                            return true;
-                        }
-                    }
-                }
-                return false;
+                return document.cookie.split("; ").some(value => value.split("=")[0] === "OPP_SESSION");
             }
         },
         methods: {
@@ -96,19 +87,25 @@
             async resetCache() {
                 try {
                     await apiClient("resetCache");
+                    await opcacheData.getInfo();
                 } catch (e) {
                     //
                 }
-                await opcacheData.getInfo()
             },
             realTimeUpdate() {
-                this.update = !this.update;
-                if (this.update) {
-                    this.timer = setInterval(opcacheData.getInfo, 3000, false);
+                if (this.timer === null) {
+                    this.timer = setInterval(async () => {
+                        try {
+                            await opcacheData.getInfo
+                        } catch (e) {
+                            //
+                        }
+                    }, 3000, false);
                     this.$set(this.updateStyle, "color", "#167df0");
                 } else {
                     clearInterval(this.timer);
                     this.$delete(this.updateStyle, "color");
+                    this.timer = null;
                 }
             }
         }

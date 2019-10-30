@@ -4,7 +4,7 @@ import VueI18n from "vue-i18n"
 Vue.use(VueI18n);
 
 export function setLanguage(language) {
-    if (!languages.hasOwnProperty(language) || i18n.locale === language) {
+    if (i18n.locale === language || languagesCode.indexOf(language) === -1) {
         return;
     }
     i18n.locale = language;
@@ -21,7 +21,7 @@ export const languages = {
     "en-US": "English",
     "zh-CN": "简体中文"
 };
-const languagesCode = Object.keys(languages);
+const languagesCode = Object.keys(messages);
 
 const defaultLanguage = "en-US";
 // 获取用户语言

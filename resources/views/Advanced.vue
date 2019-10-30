@@ -43,7 +43,7 @@
             advancedTileBox
         },
         methods: {
-            api(action, value, callback, refresh = true) {
+            async api(action, value, callback, refresh = true) {
                 // 分割多个路径
                 if (value.indexOf("|") !== -1) {
                     value = value.split("|")
@@ -51,9 +51,7 @@
                 let notEmpty = true;
                 // 如果是多个路径，判断路径是否全部为空。
                 if (typeof value === "object") {
-                    notEmpty = value.some(v => {
-                        return v !== "";
-                    })
+                    notEmpty = value.some(v => v !== "")
                 }
                 if (value === "" || !notEmpty) {
                     this.$buefy.toast.open({
@@ -62,16 +60,17 @@
                     });
                     return;
                 }
-                apiClient(action, value)
-                    .then(data => {
-                        if (typeof callback === "function") {
-                            callback(data);
-                        }
-                        if (refresh === true) {
-                            opcacheData.getStatus();
-                        }
-                    })
-                    .catch(window.EMPTY_FUNC);
+                try {
+                    const data = await apiClient(action, value);
+                    if (typeof callback === "function") {
+                        callback(data);
+                    }
+                    if (refresh === true) {
+                        await opcacheData.getStatus();
+                    }
+                } catch (e) {
+                    //
+                }
             },
             compileFile() {
                 this.api("compileFile", this.path.pre_cache);

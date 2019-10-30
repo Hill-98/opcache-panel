@@ -4,6 +4,7 @@ export default {
             error: "Oops, Request wrong!"
         },
         response: {
+            data_error: "Data format error resulting",
             success: "Successful operation",
             not_success: "Oops, operation not successful!",
             error: {
