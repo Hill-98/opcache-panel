@@ -46,6 +46,7 @@ class Auth
             return;
         }
         if (empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+            http_response_code(401);
             require __DIR__ . '/html/auth.php';
         } else {
             resultError(401, 'Unauthorized');

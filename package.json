@@ -53,8 +53,9 @@
         }
     },
     "browserslist": [
-        "last 1 version",
-        "> 1%"
+        "last 2 version",
+        "> 1%",
+        "not dead"
     ],
     "license": "MIT",
     "repository": "https://github.com/Hill-98/opcache-panel"
