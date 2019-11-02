@@ -33,6 +33,14 @@ Before you begin configuring, must take `config.example.php` rename `config.php`
 
 Authentication password, if set to empty, disable authentication.
 
+## Screenshots
+
+![Preview 1](https://cdn.mivm.cn/image/opcache-panel/preview1.jpg)
+
+![Preview 2](https://cdn.mivm.cn/image/opcache-panel/preview2.jpg)
+
+![Preview 3](https://cdn.mivm.cn/image/opcache-panel/preview3.jpg)
+
 ## Browser support
 
 Any browser that supports [Vue](https://github.com/vuejs/vue) and [buefy](https://github.com/buefy/buefy)

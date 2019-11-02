@@ -33,6 +33,14 @@ PHP Opcache 面板，可以帮助你 更好的管理 Opcache，例如删除缓�
 
 身份验证的密码，如果设置为空，则禁用身份验证。
 
+## 截图
+
+![Preview 1](https://cdn.mivm.cn/image/opcache-panel/preview1.jpg)
+
+![Preview 2](https://cdn.mivm.cn/image/opcache-panel/preview2.jpg)
+
+![Preview 3](https://cdn.mivm.cn/image/opcache-panel/preview3.jpg)
+
 ## 浏览器支持
 
 任何支持 [Vue](https://github.com/vuejs/vue) 和 [buefy](https://github.com/buefy/buefy) 的浏览器
