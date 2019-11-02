@@ -45,15 +45,15 @@
         methods: {
             async api(action, value, callback, refresh = true) {
                 // 分割多个路径
-                if (value.indexOf("|") !== -1) {
+                if (value.includes("|")) {
                     value = value.split("|")
                 }
-                let notEmpty = true;
+                let notEmpty = value !== "";
                 // 如果是多个路径，判断路径是否全部为空。
                 if (typeof value === "object") {
                     notEmpty = value.some(v => v !== "")
                 }
-                if (value === "" || !notEmpty) {
+                if (!notEmpty) {
                     this.$buefy.toast.open({
                         message: this.$t("page.advanced.empty_path"),
                         type: "is-warning"
@@ -68,7 +68,7 @@
                     if (refresh === true) {
                         await opcacheData.getStatus();
                     }
-                } catch (e) {
+                } catch {
                     //
                 }
             },
@@ -80,7 +80,7 @@
             },
             isScriptCached() {
                 // 不允许多个路径
-                if (this.path.is_cached.indexOf("|") !== -1) {
+                if (this.path.is_cached.includes("|")) {
                     this.$buefy.toast.open({
                         message: this.$t("page.advanced.not_multi_path"),
                         type: "is-warning"

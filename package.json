@@ -6,7 +6,8 @@
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve",
-        "build": "vue-cli-service build --modern && del-cli assets/index.html",
+        "build": "vue-cli-service build --modern",
+        "postbuild": "del-cli assets/index.html",
         "lint": "vue-cli-service lint"
     },
     "main": "resources/app.js",

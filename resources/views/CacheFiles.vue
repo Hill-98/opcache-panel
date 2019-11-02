@@ -21,7 +21,7 @@
                         </div>
                         <div class="control">
                             <b-button type="is-text" rounded :title="$t('common.refresh')"
-                                      @click="refreshData('getStatus')">
+                                      @click="refreshData">
                                 <b-icon icon="sync-alt"></b-icon>
                             </b-button>
                         </div>
@@ -45,7 +45,8 @@
                     <b-table-column field="last_used_timestamp" :label="$t('page.cache_files.last_used_time')" sortable>
                         {{ props.row.last_used_timestamp_string }}
                     </b-table-column>
-                    <b-table-column field="memory_consumption" :label="$t('page.cache_files.memory_consumption')" sortable>
+                    <b-table-column field="memory_consumption" :label="$t('page.cache_files.memory_consumption')"
+                                    sortable>
                         {{ props.row.memory_consumption_string }}
                     </b-table-column>
                     <b-table-column field="timestamp" :label="$t('page.cache_files.timestamp')" sortable
@@ -82,17 +83,10 @@
         }),
         computed: {
             _scripts() {
-                if (this.ignoreVendor) {
-                    return this.$store.state.scripts.filter(value => value.full_path.search(/([/\\])vendor([/\\])/) === -1);
-                }
-                return this.$store.state.scripts;
+                return this.ignoreVendor ? this.$store.state.scripts.filter(value => value.full_path.search(/([/\\])vendor([/\\])/) === -1) : this.$store.state.scripts;
             },
             scripts() {
-                if (this.search_path === "") {
-                    return this._scripts
-                } else {
-                    return this._scripts.filter(value => value.full_path.indexOf(this.search_path) !== -1);
-                }
+                return this.search_path === "" ? this._scripts : this._scripts.filter(value => value.full_path.includes(this.search_path));
             },
             scriptsNum() {
                 return this._scripts.length;
@@ -131,14 +125,14 @@
                 try {
                     await apiClient("invalidate", items);
                     await opcacheData.getStatus(false);
-                } catch (e) {
+                } catch {
                     //
                 }
             },
-            async refreshData(name) {
+            async refreshData() {
                 try {
-                    opcacheData[name]();
-                } catch (e) {
+                    await opcacheData.getStatus();
+                } catch {
                     //
                 }
             }

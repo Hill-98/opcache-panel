@@ -88,7 +88,7 @@
                 try {
                     await apiClient("resetCache");
                     await opcacheData.getInfo();
-                } catch (e) {
+                } catch {
                     //
                 }
             },
@@ -97,7 +97,7 @@
                     this.timer = setInterval(async () => {
                         try {
                             await opcacheData.getInfo
-                        } catch (e) {
+                        } catch {
                             //
                         }
                     }, 3000, false);

@@ -4,7 +4,7 @@ import VueI18n from "vue-i18n"
 Vue.use(VueI18n);
 
 export function setLanguage(language) {
-    if (i18n.locale === language || languagesCode.indexOf(language) === -1) {
+    if (i18n.locale === language || !languagesCode.includes(language)) {
         return;
     }
     i18n.locale = language;
@@ -26,23 +26,9 @@ const languagesCode = Object.keys(messages);
 const defaultLanguage = "en-US";
 // 获取用户语言
 let userLanguage = localStorage.getItem("opp-lang") || document.documentElement.lang;
-if (languagesCode.indexOf(userLanguage) === -1) {
-    userLanguage = defaultLanguage;
-    let browserLanguages = navigator.languages;
-    if (!browserLanguages) {
-        // IE 11
-        browserLanguages = [
-            navigator.browserLanguage,
-            navigator.systemLanguage,
-            navigator.userLanguage
-        ]
-    }
-    for (const language of browserLanguages) {
-        if (language !== undefined && languagesCode.indexOf(language) !== -1) {
-            userLanguage = language;
-            break;
-        }
-    }
+if (!languagesCode.includes(userLanguage)) {
+    const browserLanguages = navigator.languages || [navigator.browserLanguage, navigator.systemLanguage, navigator.userLanguage];
+    userLanguage = browserLanguages.find(value => languagesCode.includes(value)) || defaultLanguage;
 }
 
 export const i18n = new VueI18n({

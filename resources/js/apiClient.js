@@ -29,11 +29,11 @@ apiClient.interceptors.response.use(response => {
     try {
         const requestData = JSON.parse(response.config.data);
         action = requestData.action;
-    } catch (e) {
+    } catch {
         action = "error";
     }
 
-    if (ignoreFunc.indexOf(action) === -1 && response.data.hasOwnProperty("success")) {
+    if (!ignoreFunc.includes(action) && response.data.hasOwnProperty("success")) {
         if (response.data.success === true) {
             Toast.open({
                 type: "is-success",

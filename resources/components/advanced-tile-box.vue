@@ -48,7 +48,7 @@
         created() {
             const data = localStorage.getItem(`opp-autocomplete_${this.func}`);
             if (data) {
-                this.autocomplete = Array.from(new Set(data.split(":")));
+                this.autocomplete = Array.from(new Set(data.split("*")));
             }
             window.addEventListener("beforeunload", this.saveAutocomplete)
         },
@@ -67,12 +67,12 @@
         methods: {
             formSubmit() {
                 this.$emit("click");
-                if (this.autocomplete.indexOf(this.currValue) === -1) {
+                if (!this.autocomplete.includes(this.currValue)) {
                     this.autocomplete.unshift(this.currValue);
                 }
             },
             saveAutocomplete() {
-                localStorage.setItem(`opp-autocomplete_${this.func}`, this.autocomplete.join(":"))
+                localStorage.setItem(`opp-autocomplete_${this.func}`, this.autocomplete.join("*"))
             }
         },
         props: {

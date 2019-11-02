@@ -20,7 +20,7 @@ export default class {
             "TB",
             "PB"
         ];
-        value = parseInt(value);
+        value = Number.parseInt(value);
         let i = 0;
         while (value >= 1024 && value % 1024 >= 0) {
             value /= 1024;
@@ -30,7 +30,7 @@ export default class {
     }
 
     static timeConversion(value) {
-        value = parseInt(value);
+        value = Number.parseInt(value);
         return value === 0 ? "Null" : new Date(value * 1000).toLocaleString(undefined, {hour12: false})
     }
 }

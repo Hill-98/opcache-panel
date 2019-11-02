@@ -211,7 +211,7 @@
             async refreshData(name) {
                 try {
                     await opcacheDataUtils[name]()
-                } catch (e) {
+                } catch {
                     //
                 }
             }

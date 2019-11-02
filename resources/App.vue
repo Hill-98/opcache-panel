@@ -15,7 +15,6 @@
 
     export default {
         name: "app",
-
         components: {
             oppHeader,
             oppFooter
@@ -23,7 +22,7 @@
         async mounted() {
             try {
                 await opcacheData.getInfo();
-            } catch (e) {
+            } catch {
                 //
             }
         }
