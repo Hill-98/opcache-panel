@@ -31,7 +31,7 @@
             </b-navbar-item>
             <b-navbar-item v-if="isLogin" @click="logout">
                 <b-tooltip :label="$t('navbar.logout')" position="is-bottom" :delay="500" animated type="is-dark">
-                    <b-icon :style="updateStyle" icon="sign-out-alt"></b-icon>
+                    <b-icon icon="sign-out-alt"></b-icon>
                 </b-tooltip>
             </b-navbar-item>
             <b-navbar-dropdown>
