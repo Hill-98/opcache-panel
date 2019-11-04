@@ -19,12 +19,14 @@ class Opcache
             return;
         }
         $files = array_diff(scandir($path), ['.', '..']);
-        foreach ($files as $file) {
-            $_param = array_merge([$file], $param);
-            if (is_dir($file)) {
-                $this->fileBatch($file, $function, ...$param);
+        foreach ($files as $filename) {
+            $_path = realpath("$path/$filename");
+            if (is_dir($_path)) {
+                $this->fileBatch($_path, $function, ...$param);
                 continue;
             }
+
+            $_param = array_merge([$_path], $param);
             try {
                 $function(...$_param);
             } catch (Exception $e) {
