@@ -26,6 +26,10 @@ class Opcache
                 continue;
             }
 
+            if (substr($_path, -4) !== '.php') {
+                continue;
+            }
+
             $_param = array_merge([$_path], $param);
             try {
                 $function(...$_param);
