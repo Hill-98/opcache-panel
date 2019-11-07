@@ -73,7 +73,7 @@
                 const form = document.createElement("form");
                 form.action = "./index.php";
                 form.method = "post";
-                form.style.display="none";
+                form.style.display = "none";
                 const input = document.createElement("input");
                 input.name = "logout";
                 input.value = "yes";
