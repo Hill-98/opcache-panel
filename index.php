@@ -44,9 +44,8 @@ if ($method === 'GET' || $method === 'HEAD') {
             exit();
         }
     }
-    try {
-        $json = json_decode(file_get_contents('php://input'), true, 512, JSON_THROW_ON_ERROR);
-    } catch (\JsonException $e) {
+    $json = json_decode(file_get_contents('php://input'), true, 512);
+    if (json_last_error() !== JSON_ERROR_NONE) {
         resultError(400, 'POST body not is JSON');
     }
     $action = $json['action'] ?? 'action';
