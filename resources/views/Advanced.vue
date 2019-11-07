@@ -89,7 +89,7 @@
                 }
                 this.api("isScriptCached", this.path.is_cached, data => {
                     let message = "";
-                    if (data.hasOwnProperty("success") && data.success) {
+                    if (Object.prototype.hasOwnProperty.call(data, "success") && data.success === true) {
                         message = this.$t("page.advanced.cached");
                     } else {
                         message = this.$t("page.advanced.uncached");

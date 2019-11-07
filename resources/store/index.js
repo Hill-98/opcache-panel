@@ -41,7 +41,7 @@ export default new Vuex.Store({
   },
   actions: {
       opcacheData(context, data) {
-          if (data.hasOwnProperty("configuration") && data.hasOwnProperty("status")) {
+          if (Object.prototype.hasOwnProperty.call(data, "configuration") && Object.prototype.hasOwnProperty.call(data, "status")) {
               context.commit("configuration", data.configuration);
               context.commit("status", data.status);
               context.commit("ready")

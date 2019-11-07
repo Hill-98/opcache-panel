@@ -33,7 +33,7 @@ apiClient.interceptors.response.use(response => {
         action = "error";
     }
 
-    if (!ignoreFunc.includes(action) && response.data.hasOwnProperty("success")) {
+    if (!ignoreFunc.includes(action) && Object.prototype.hasOwnProperty.call(response.data, "success")) {
         if (response.data.success === true) {
             Toast.open({
                 type: "is-success",
