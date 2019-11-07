@@ -1,6 +1,6 @@
 {
     "name": "opcache-panel",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "description": "PHP opcache panel",
     "author": "Zhong Lufan",
     "private": true,
