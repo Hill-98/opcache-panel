@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "54927001cef0e6dc7cd6c8817d010130",
+    "content-hash": "b518f05a98b203f2d4fd356d40aad37a",
     "packages": [],
     "packages-dev": [
         {
@@ -201,16 +201,16 @@
         },
         {
             "name": "doctrine/lexer",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/lexer.git",
-                "reference": "e17f069ede36f7534b95adec71910ed1b49c74ea"
+                "reference": "5242d66dbeb21a30dd8a3e66bf7a73b66e05e1f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/e17f069ede36f7534b95adec71910ed1b49c74ea",
-                "reference": "e17f069ede36f7534b95adec71910ed1b49c74ea",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/5242d66dbeb21a30dd8a3e66bf7a73b66e05e1f6",
+                "reference": "5242d66dbeb21a30dd8a3e66bf7a73b66e05e1f6",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -230,7 +230,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
@@ -265,7 +265,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2019-07-30T19:33:28+00:00"
+            "time": "2019-10-30T14:39:59+00:00"
         },
         {
             "name": "friendsofphp/php-cs-fixer",
@@ -580,16 +580,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.3.6",
+            "version": "v4.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "136c4bd62ea871d00843d1bc0316de4c4a84bb78"
+                "reference": "831424efae0a1fe6642784bd52aae14ece6538e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/136c4bd62ea871d00843d1bc0316de4c4a84bb78",
-                "reference": "136c4bd62ea871d00843d1bc0316de4c4a84bb78",
+                "url": "https://api.github.com/repos/symfony/console/zipball/831424efae0a1fe6642784bd52aae14ece6538e6",
+                "reference": "831424efae0a1fe6642784bd52aae14ece6538e6",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -657,20 +657,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-10-30T12:58:49+00:00"
+            "time": "2019-11-13T07:29:07+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.3.6",
+            "version": "v4.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "6229f58993e5a157f6096fc7145c0717d0be8807"
+                "reference": "0df002fd4f500392eabd243c2947061a50937287"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/6229f58993e5a157f6096fc7145c0717d0be8807",
-                "reference": "6229f58993e5a157f6096fc7145c0717d0be8807",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/0df002fd4f500392eabd243c2947061a50937287",
+                "reference": "0df002fd4f500392eabd243c2947061a50937287",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -733,7 +733,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2019-10-01T16:40:32+00:00"
+            "time": "2019-11-03T09:04:05+00:00"
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -801,7 +801,7 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v4.3.6",
+            "version": "v4.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
@@ -857,7 +857,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v4.3.6",
+            "version": "v4.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
@@ -912,7 +912,7 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v4.3.6",
+            "version": "v4.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
@@ -1291,7 +1291,7 @@
         },
         {
             "name": "symfony/process",
-            "version": "v4.3.6",
+            "version": "v4.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
@@ -1346,16 +1346,16 @@
         },
         {
             "name": "symfony/service-contracts",
-            "version": "v1.1.7",
+            "version": "v1.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/service-contracts.git",
-                "reference": "ffcde9615dc5bb4825b9f6aed07716f1f57faae0"
+                "reference": "ffc7f5692092df31515df2a5ecf3b7302b3ddacf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/ffcde9615dc5bb4825b9f6aed07716f1f57faae0",
-                "reference": "ffcde9615dc5bb4825b9f6aed07716f1f57faae0",
+                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/ffc7f5692092df31515df2a5ecf3b7302b3ddacf",
+                "reference": "ffc7f5692092df31515df2a5ecf3b7302b3ddacf",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -1406,20 +1406,20 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-09-17T11:12:18+00:00"
+            "time": "2019-10-14T12:27:06+00:00"
         },
         {
             "name": "symfony/stopwatch",
-            "version": "v4.3.6",
+            "version": "v4.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stopwatch.git",
-                "reference": "1e4ff456bd625be5032fac9be4294e60442e9b71"
+                "reference": "e96c259de6abcd0cead71f0bf4d730d53ee464d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/stopwatch/zipball/1e4ff456bd625be5032fac9be4294e60442e9b71",
-                "reference": "1e4ff456bd625be5032fac9be4294e60442e9b71",
+                "url": "https://api.github.com/repos/symfony/stopwatch/zipball/e96c259de6abcd0cead71f0bf4d730d53ee464d0",
+                "reference": "e96c259de6abcd0cead71f0bf4d730d53ee464d0",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -1462,7 +1462,7 @@
             ],
             "description": "Symfony Stopwatch Component",
             "homepage": "https://symfony.com",
-            "time": "2019-08-07T11:52:19+00:00"
+            "time": "2019-11-05T14:48:09+00:00"
         }
     ],
     "aliases": [],
