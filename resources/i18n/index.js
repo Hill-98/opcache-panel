@@ -9,23 +9,22 @@ export function setLanguage(language) {
     }
     i18n.locale = language;
     document.documentElement.lang = language;
-    localStorage.setItem("opp-lang", language);
+    localStorage.setItem(localStorageKey, language);
 }
 
-const messages = {
-    "en-US": require("./en-US").default,
-    "zh-CN": require("./zh-CN").default
-};
-
-export const languages = {
-    "en-US": "English",
-    "zh-CN": "简体中文"
-};
-const languagesCode = Object.keys(messages);
-
+const localStorageKey = "opp-lang";
 const defaultLanguage = "en-US";
+const messages = {};
+export const languages = {};
+const languagesCode = process.env.VUE_APP_LANGUAGES.split("|");
+
+languagesCode.forEach(value => {
+    const langPack = require(`./${value}/index.js`).default;
+    [messages[value], languages[value]] = [langPack, langPack._meta.name];
+});
+
 // 获取用户语言
-let userLanguage = localStorage.getItem("opp-lang") || document.documentElement.lang;
+let userLanguage = localStorage.getItem(localStorageKey) || document.documentElement.lang;
 if (!languagesCode.includes(userLanguage)) {
     const browserLanguages = navigator.languages || [navigator.browserLanguage, navigator.systemLanguage, navigator.userLanguage];
     userLanguage = browserLanguages.find(value => languagesCode.includes(value)) || defaultLanguage;

@@ -1,4 +1,7 @@
 export default {
+    _meta: {
+        name: "English"
+    },
     api_client: {
         request: {
             error: "Oops, Request wrong!"
@@ -77,9 +80,9 @@ export default {
             clear_history: "Clear History",
             submit: "Submit",
             pre_cache: "Pre-cache Files",
-            pre_cache_summary: "The specified file is compiled into byte code cache, if the path to the directory, the file in directory is compiled.",
+            pre_cache_summary: "The specified file is compiled into byte code cache, if the path to the directory, the all php file in directory is compiled.",
             invalidate_cache_dir: "Invalidate Cache (Directory)",
-            invalidate_cache_dir_summary: "Invalidates the cache of all files in the specified directory",
+            invalidate_cache_dir_summary: "Invalidates the cache of all PHP files in the specified directory",
             check_cache: "Check File Cached",
             check_cache_summary: "Check that the specified file has been cached",
             use_function: "This feature uses the function opcache_invalidate {0}",

@@ -1,4 +1,7 @@
 export default {
+    _meta: {
+        name: "简体中文"
+    },
     api_client: {
         request: {
             error: "糟糕，请求出错了！"
@@ -77,9 +80,9 @@ export default {
             clear_history: "清除历史",
             submit: "提交",
             pre_cache: "预缓存文件",
-            pre_cache_summary: "将指定文件编译为字节码缓存，如果路径指向目录，则编译整个目录下的文件。",
+            pre_cache_summary: "将指定文件编译为字节码缓存，如果路径指向目录，则编译整个目录下所有的 PHP 文件。",
             invalidate_cache_dir: "废除缓存 (目录)",
-            invalidate_cache_dir_summary: "使指定目录下所有文件的缓存无效",
+            invalidate_cache_dir_summary: "使指定目录下所有 PHP 文件的缓存无效",
             check_cache: "检查文件缓存",
             check_cache_summary: "检查指定文件是否已被缓存",
             use_function: "此功能使用{0}函数",
