@@ -31,9 +31,9 @@ faLibrary.add(
     faTimes,
     faTrash
 );
-Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.component(FontAwesomeIcon.name, FontAwesomeIcon);
 Vue.use(Buefy, {
-    defaultIconComponent: "font-awesome-icon",
+    defaultIconComponent: FontAwesomeIcon.name,
     defaultIconPack: "fas",
 });
 

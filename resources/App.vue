@@ -1,9 +1,9 @@
 <template>
     <div id="app">
         <opp-header></opp-header>
-        <div class="container" style="padding: 1rem 0;">
+        <main class="container" style="padding: 1rem 0;">
             <router-view v-if="$store.state.isReady" :key="$route.name"></router-view>
-        </div>
+        </main>
         <opp-footer></opp-footer>
     </div>
 </template>
