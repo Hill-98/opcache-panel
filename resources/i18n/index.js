@@ -3,7 +3,7 @@ import VueI18n from "vue-i18n"
 
 Vue.use(VueI18n);
 
-export function setLanguage(language) {
+function setLanguage(language) {
     if (i18n.locale === language || !languagesCode.includes(language)) {
         return;
     }
@@ -15,7 +15,7 @@ export function setLanguage(language) {
 const localStorageKey = "opp-lang";
 const defaultLanguage = "en-US";
 const messages = {};
-export const languages = {};
+const languages = {};
 const languagesCode = process.env.VUE_APP_LANGUAGES.split("|");
 
 languagesCode.forEach(value => {
@@ -36,5 +36,8 @@ export const i18n = new VueI18n({
     silentFallbackWarn: true,
     messages,
 });
+
+Object.defineProperty(i18n, "setLocale", {value: setLanguage});
+Object.defineProperty(i18n, "locales", {value: languages});
 
 export default i18n

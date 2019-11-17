@@ -1,13 +1,13 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
-import {i18n, languages, setLanguage} from "../i18n"
+import i18n from "../i18n"
 import Status from "../views/Status.vue"
 import CacheFiles from "../views/CacheFiles.vue"
 import Advanced from "../views/Advanced.vue"
 
 Vue.use(VueRouter);
 
-let routes = [
+const routes = [
     {
         path: "/status",
         component: Status,
@@ -34,38 +34,29 @@ let routes = [
     },
 ];
 
-// 把不带语言参数重定向至当前语言
-routes.forEach(value => {
+routes.forEach((value, index) => {
+    // 没有语言参数的路径重定向至当前语言
     routes.push({
         path: value.path,
         redirect: `/${i18n.locale}${value.path}`,
-        default: true
-    })
+    });
+    // 添加语言参数到真实路径
+    routes[index].meta.originalPath = value.path;
+    routes[index].path = `/:lang${value.path}`;
 });
 
 // 默认语言首页重定向
-Object.keys(languages).forEach(value => {
-    routes.push({
+Object.keys(i18n.messages).forEach(value => {
+    routes.unshift({
         path: `/${value}`,
         redirect: `/${value}/status`,
-        default: true
     })
 });
 
-// 给真实路径添加语言参数
-routes = routes.map(value => {
-    if (value.default !== true) {
-        value.meta.originalPath = value.path;
-        value.path = `/:lang${value.path}`;
-    }
-    return value;
-});
-
 // 首页重定向
-routes.push({
+routes.unshift({
     path: "/",
-    redirect: "/status",
-    default: true,
+    redirect: `/${i18n.locale}/status`,
 });
 
 const router = new VueRouter({routes});
@@ -73,9 +64,9 @@ const router = new VueRouter({routes});
 // 路由前置钩子，负责更改语言和标题。
 router.afterEach(to => {
     if (to.params.lang) {
-        setLanguage(to.params.lang);
-        document.title = `Opcache Panel - ${i18n.t(to.meta.title)}`;
+        i18n.setLocale(to.params.lang);
     }
+    document.title = `Opcache Panel - ${i18n.t(to.meta.title)}`;
 });
 
 export default router

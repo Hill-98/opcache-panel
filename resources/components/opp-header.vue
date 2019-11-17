@@ -53,14 +53,14 @@
 </template>
 
 <script>
-    import {languages} from "../i18n"
+    import i18n from "../i18n"
     import apiClient from "../js/apiClient"
     import opcacheData from "../js/utils/opcacheData"
 
     export default {
         name: "opp-header",
         data: () => ({
-            languages,
+            languages: i18n.locales,
             href: window.location.href.replace(window.location.hash, ""),
             updateStyle: {},
             timer: null
