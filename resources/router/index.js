@@ -46,7 +46,7 @@ routes.forEach((value, index) => {
 });
 
 // 默认语言首页重定向
-Object.keys(i18n.messages).forEach(value => {
+Object.keys(i18n.languages).forEach(value => {
     routes.unshift({
         path: `/${value}`,
         redirect: `/${value}/status`,
@@ -63,10 +63,13 @@ const router = new VueRouter({routes});
 
 // 路由前置钩子，负责更改语言和标题。
 router.afterEach(to => {
+    document.title = "Opcache Panel";
     if (to.params.lang) {
-        i18n.setLocale(to.params.lang);
+        i18n.locale = to.params.lang;
     }
-    document.title = `Opcache Panel - ${i18n.t(to.meta.title)}`;
+    if (to.meta.title) {
+        document.title += ` - ${i18n.t(to.meta.title)}`;
+    }
 });
 
 export default router

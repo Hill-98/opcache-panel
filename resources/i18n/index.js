@@ -3,13 +3,25 @@ import VueI18n from "vue-i18n"
 
 Vue.use(VueI18n);
 
-function setLanguage(language) {
-    if (i18n.locale === language || !languagesCode.includes(language)) {
-        return;
+class _VueI18n extends VueI18n {
+    constructor(options) {
+        super(options);
+        Object.defineProperty(this, "languages", {value: options.languages});
+        Object.defineProperty(this, "languagesCode", {value: options.languagesCode});
     }
-    i18n.locale = language;
-    document.documentElement.lang = language;
-    localStorage.setItem(localStorageKey, language);
+
+    get locale() {
+        return super.locale;
+    }
+
+    set locale(value) {
+        if (super.locale === value || !this.languagesCode.includes(value)) {
+            return;
+        }
+        super.locale = value;
+        document.documentElement.lang = value;
+        localStorage.setItem(localStorageKey, value);
+    }
 }
 
 const localStorageKey = "opp-lang";
@@ -30,14 +42,11 @@ if (!languagesCode.includes(userLanguage)) {
     userLanguage = browserLanguages.find(value => languagesCode.includes(value)) || defaultLanguage;
 }
 
-export const i18n = new VueI18n({
+export default new _VueI18n({
+    languages,
+    languagesCode,
     locale: userLanguage,
     fallbackLocale: defaultLanguage,
     silentFallbackWarn: true,
     messages,
 });
-
-Object.defineProperty(i18n, "setLocale", {value: setLanguage});
-Object.defineProperty(i18n, "locales", {value: languages});
-
-export default i18n

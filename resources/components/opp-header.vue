@@ -41,7 +41,7 @@
                             <b-icon icon="globe"></b-icon>
                         </b-tooltip>
                     </template>
-                    <b-navbar-item v-for="(value, name) in languages" :key="name" tag="router-link"
+                    <b-navbar-item v-for="(value, name) in $i18n.languages" :key="name" tag="router-link"
                                    :to="`/${name}${$route.meta.originalPath}`">
                         {{ value }}
                     </b-navbar-item>
@@ -53,14 +53,12 @@
 </template>
 
 <script>
-    import i18n from "../i18n"
     import apiClient from "../js/apiClient"
     import opcacheData from "../js/utils/opcacheData"
 
     export default {
         name: "opp-header",
         data: () => ({
-            languages: i18n.locales,
             href: window.location.href.replace(window.location.hash, ""),
             updateStyle: {},
             timer: null

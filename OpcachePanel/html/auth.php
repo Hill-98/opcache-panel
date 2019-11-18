@@ -7,7 +7,7 @@ require __DIR__ . '/../isInclude.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?= TITLE ?> - Auth</title>
+    <title><?= TITLE ?> — Auth</title>
     <style>
         #main {
             text-align: center;
@@ -26,7 +26,7 @@ require __DIR__ . '/../isInclude.php';
     <form action="./index.php" method="post">
         <div>
             <label for="password">Password</label>
-            <input id="password" name="password" type="password">
+            <input id="password" name="password" type="password" required>
         </div>
         <div>
             <label for="remember">Remember</label>
@@ -34,11 +34,11 @@ require __DIR__ . '/../isInclude.php';
         </div>
         <button>Login</button>
     </form>
-    <?php
-    if (defined('OPP_NOT_CHECK') && OPP_NOT_CHECK) {
-        echo '<p style="color: red">You do not authenticated</p>';
-    }
-    ?>
+<?php
+if (defined('OPP_NOT_CHECK') && OPP_NOT_CHECK) {
+    echo "    <p style=\"color: red\">You do not authenticated</p>\n";
+}
+?>
 </div>
 </body>
 </html>
