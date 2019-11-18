@@ -16,10 +16,6 @@ PHP opcache panel, can help you better manage opcache, for example, delete the c
 - Support for all `opcache_*` functions
 - i18n
 
-## Known Issue
-
-Since [jgthms/bulma#2644](https://github.com/jgthms/bulma/issues/2644) lead to switch the language drop-down menu does not work in IE.
-
 ## Install
 
 Request: PHP 7.0 +, Zend Opcache Extension

@@ -16,10 +16,6 @@ PHP Opcache 面板，可以帮助你 更好的管理 Opcache，例如删除缓�
 - 支持所有 `opcache_*` 函数
 - 国际化
 
-## 已知问题
-
-由于 [jgthms/bulma#2644](https://github.com/jgthms/bulma/issues/2644) 导致语言切换的下拉菜单无法在 IE 正常工作
-
 ## 安装
 
 要求: PHP 7.0 +, Zend Opcache 扩展

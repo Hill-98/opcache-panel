@@ -59,28 +59,18 @@
     export default {
         name: "opp-header",
         data: () => ({
-            href: window.location.href.replace(window.location.hash, ""),
+            href: location.href.replace(location.hash, ""),
+            isLogin: !document.cookie.split("; ").some(value => value.split("=")[0] === "OPP_SESSION"),
             updateStyle: {},
             timer: null
         }),
-        computed: {
-            isLogin() {
-                return document.cookie.split("; ").some(value => value.split("=")[0] === "OPP_SESSION");
-            }
-        },
         methods: {
             logout() {
                 const form = document.createElement("form");
-                form.action = "./index.php";
-                form.method = "post";
-                form.style.display = "none";
-                const input = document.createElement("input");
-                input.name = "logout";
-                input.value = "yes";
-                form.appendChild(input);
-                const submit = document.createElement("input");
-                submit.type = "submit";
-                form.appendChild(submit);
+                [form.action, form.method, form.style.display] = ["./index.php", "post", "none"];
+                const logout = document.createElement("input");
+                [logout.name, logout.type, logout.value] = ["logout", "hidden", "yes"];
+                form.appendChild(logout);
                 document.body.appendChild(form);
                 form.submit();
             },
@@ -111,3 +101,9 @@
         }
     }
 </script>
+
+<style>
+    .navbar-item.has-dropdown.is-active:hover .navbar-dropdown {
+        display: block !important;
+    }
+</style>
