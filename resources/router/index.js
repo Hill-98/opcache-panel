@@ -9,6 +9,16 @@ Vue.use(VueRouter);
 
 const routes = [
     {
+        path: "*",
+        beforeEnter(to, from, next) {
+            next(from.name ? from.path : "/");
+        }
+    },
+    {
+        path: "/",
+        redirect: "/status",
+    },
+    {
         path: "/status",
         component: Status,
         name: "status",
@@ -35,6 +45,9 @@ const routes = [
 ];
 
 routes.forEach((value, index) => {
+    if (!value.name) {
+        return;
+    }
     // 没有语言参数的路径重定向至当前语言
     routes.push({
         path: value.path,
@@ -56,16 +69,10 @@ i18n.languagesCode.forEach(value => {
     })
 });
 
-// 首页重定向
-routes.unshift({
-    path: "/",
-    redirect: "/status",
-});
-
 const router = new VueRouter({routes});
 
 // 路由前置钩子：更改语言和标题、重定向。
-router.beforeEach((to, form, next) => {
+router.beforeEach((to, from, next) => {
     if (to.meta.redirectLocale) {
         next(to.meta.redirect.replace("%s", i18n.locale));
         return;
