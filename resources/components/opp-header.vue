@@ -11,7 +11,7 @@
             <!-- 导航栏菜单 -->
             <template slot="start">
                 <template v-for="item in $router.options.routes">
-                    <b-navbar-item v-if="item.meta" :key="item.name" tag="router-link"
+                    <b-navbar-item v-if="item.name" :key="item.name" tag="router-link"
                                    :to="`/${$i18n.locale}${item.meta.originalPath}`"
                                    :active="$route.name === item.name" v-t="item.meta.title">
                     </b-navbar-item>

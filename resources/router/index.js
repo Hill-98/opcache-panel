@@ -38,7 +38,10 @@ routes.forEach((value, index) => {
     // 没有语言参数的路径重定向至当前语言
     routes.push({
         path: value.path,
-        redirect: `/${i18n.locale}${value.path}`,
+        meta: {
+            redirect: `/%s${value.path}`,
+            redirectLocale: true
+        }
     });
     // 添加语言参数到真实路径
     routes[index].meta.originalPath = value.path;
@@ -46,23 +49,27 @@ routes.forEach((value, index) => {
 });
 
 // 默认语言首页重定向
-Object.keys(i18n.languages).forEach(value => {
+i18n.languagesCode.forEach(value => {
     routes.unshift({
         path: `/${value}`,
-        redirect: `/${value}/status`,
+        redirect: `/${value}/status`
     })
 });
 
 // 首页重定向
 routes.unshift({
     path: "/",
-    redirect: `/${i18n.locale}/status`,
+    redirect: "/status",
 });
 
 const router = new VueRouter({routes});
 
-// 路由前置钩子，负责更改语言和标题。
-router.afterEach(to => {
+// 路由前置钩子：更改语言和标题、重定向。
+router.beforeEach((to, form, next) => {
+    if (to.meta.redirectLocale) {
+        next(to.meta.redirect.replace("%s", i18n.locale));
+        return;
+    }
     document.title = "Opcache Panel";
     if (to.params.lang) {
         i18n.locale = to.params.lang;
@@ -70,6 +77,7 @@ router.afterEach(to => {
     if (to.meta.title) {
         document.title += ` - ${i18n.t(to.meta.title)}`;
     }
+    next();
 });
 
 export default router
