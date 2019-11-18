@@ -6,21 +6,27 @@ Vue.use(VueI18n);
 class _VueI18n extends VueI18n {
     constructor(options) {
         super(options);
-        Object.defineProperty(this, "languages", {value: options.languages});
-        Object.defineProperty(this, "languagesCode", {value: options.languagesCode});
-    }
-
-    get locale() {
-        return super.locale;
-    }
-
-    set locale(value) {
-        if (super.locale === value || !this.languagesCode.includes(value)) {
-            return;
-        }
-        super.locale = value;
-        document.documentElement.lang = value;
-        localStorage.setItem(localStorageKey, value);
+        Object.defineProperties(this.__proto__, {
+            languages: {
+                value: options.languages,
+            },
+            languagesCode: {
+                value: options.languagesCode
+            },
+            locale: {
+                get: () => {
+                    return super.locale;
+                },
+                set: value => {
+                    if (super.locale === value || !options.languagesCode.includes(value)) {
+                        return;
+                    }
+                    super.locale = value;
+                    document.documentElement.lang = value;
+                    localStorage.setItem(localStorageKey, value);
+                }
+            }
+        });
     }
 }
 

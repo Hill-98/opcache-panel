@@ -38,6 +38,6 @@ if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
         }
     }();
 </script>
-<script src="assets/js/app-legacy.js" nomodule></script>
+<script src="assets/js/app-legacy.js?v=<?= OPP_VERSION ?>" nomodule></script>
 </body>
 </html>
