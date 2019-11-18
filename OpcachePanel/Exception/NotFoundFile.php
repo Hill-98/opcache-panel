@@ -7,7 +7,7 @@ use Exception;
 
 class NotFoundFile extends Exception
 {
-    public function __construct($filename)
+    public function __construct(string $filename)
     {
         parent::__construct("$filename not found.", 404, null);
     }

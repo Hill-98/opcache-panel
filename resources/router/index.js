@@ -77,7 +77,7 @@ router.beforeEach((to, from, next) => {
         next(to.meta.redirect.replace("%s", i18n.locale));
         return;
     }
-    document.title = "Opcache Panel";
+    document.title = process.env.VUE_APP_TITLE;
     if (to.params.lang) {
         i18n.locale = to.params.lang;
     }
