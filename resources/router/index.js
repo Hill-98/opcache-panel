@@ -9,14 +9,8 @@ Vue.use(VueRouter);
 
 const routes = [
     {
-        path: "*",
-        beforeEnter(to, from, next) {
-            next(from.name ? from.path : "/");
-        }
-    },
-    {
         path: "/",
-        redirect: "/status",
+        beforeEnter: (to, from, next) => next(`/${i18n.locale}/status`)
     },
     {
         path: "/status",
@@ -44,6 +38,8 @@ const routes = [
     },
 ];
 
+const langMatch = `/:lang(${i18n.languagesCode.join("|")})`;
+
 routes.forEach((value, index) => {
     if (!value.name) {
         return;
@@ -51,32 +47,27 @@ routes.forEach((value, index) => {
     // 没有语言参数的路径重定向至当前语言
     routes.push({
         path: value.path,
-        meta: {
-            redirect: `/%s${value.path}`,
-            redirectLocale: true
-        }
+        beforeEnter: (to, from, next) => next(`/${i18n.locale}${to.path}`)
     });
     // 添加语言参数到真实路径
-    routes[index].meta.originalPath = value.path;
-    routes[index].path = `/:lang${value.path}`;
+    [routes[index].path, routes[index].meta.originalPath] = [langMatch.concat(value.path), value.path];
 });
 
-// 默认语言首页重定向
-i18n.languagesCode.forEach(value => {
-    routes.unshift({
-        path: `/${value}`,
-        redirect: `/${value}/status`
-    })
+// 语言首页重定向
+routes.push({
+    path: langMatch,
+    beforeEnter: (to, from, next) => next("/")
+});
+// 捕获未知路由，不允许跳转至未知路由。
+routes.push({
+    path: "*",
+    beforeEnter: (to, from, next) => next(from.name ? from.path : "/")
 });
 
 const router = new VueRouter({routes});
 
 // 路由前置钩子：更改语言和标题、重定向。
 router.beforeEach((to, from, next) => {
-    if (to.meta.redirectLocale) {
-        next(to.meta.redirect.replace("%s", i18n.locale));
-        return;
-    }
     document.title = process.env.VUE_APP_TITLE;
     if (to.params.lang) {
         i18n.locale = to.params.lang;
