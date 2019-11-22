@@ -10,7 +10,7 @@
                     <b-field grouped>
                         <div class="control">
                             <b-checkbox-button v-model="ignoreVendor">
-                                {{ $t("page.cache_files.ignore_vendor") }}
+                                {{ $t("page.cache_files.exclude_vendor") }}
                             </b-checkbox-button>
                         </div>
                         <div class="control">
@@ -63,7 +63,7 @@
             <!-- 缓存文件表格 END -->
         </template>
         <template v-else>
-            <p class="subtitle" style="text-align: center" v-t="'page.cache_files.no_cache_files'"></p>
+            <p class="subtitle has-text-centered" v-t="'page.cache_files.no_cache_files'"></p>
         </template>
     </div>
 </template>

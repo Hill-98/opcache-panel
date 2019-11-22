@@ -63,7 +63,7 @@ export default {
         },
         cache_files: {
             script_num: "文件个数: {num}",
-            ignore_vendor: "忽略 vendor 目录",
+            exclude_vendor: "排除 vendor 目录",
             invalidate_cache: "废除缓存",
             search_file: "搜索文件",
             file_path: "文件路径",

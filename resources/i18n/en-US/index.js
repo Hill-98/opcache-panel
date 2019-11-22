@@ -63,7 +63,7 @@ export default {
         },
         cache_files: {
             script_num: "Number Of Files: {num}",
-            ignore_vendor: "Ignore vendor Directory",
+            exclude_vendor: "Exclude vendor Directory",
             invalidate_cache: "Invalidate Cache",
             search_file: "Search File",
             file_path: "File Path",
