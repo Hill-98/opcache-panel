@@ -13,6 +13,9 @@
             "email": "lufanzhong@gmail.com"
         }
     ],
+    "scripts": {
+        "server": "php -S 127.0.0.1:8098"
+    },
     "require": {
         "php": "^7.0",
         "ext-zend-opcache": "*",
