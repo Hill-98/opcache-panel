@@ -1,7 +1,8 @@
+export const meta = {
+    name: "简体中文"
+};
+
 export default {
-    _meta: {
-        name: "简体中文"
-    },
     api_client: {
         request: {
             error: "糟糕，请求出错了！"

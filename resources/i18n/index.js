@@ -14,9 +14,7 @@ class _VueI18n extends VueI18n {
                 value: options.languagesCode
             },
             locale: {
-                get: () => {
-                    return super.locale;
-                },
+                get: () => super.locale,
                 set: value => {
                     if (super.locale === value || !options.languagesCode.includes(value)) {
                         return;
@@ -34,11 +32,12 @@ const localStorageKey = "opp-lang";
 const defaultLanguage = "en-US";
 const messages = {};
 const languages = {};
-const languagesCode = process.env.VUE_APP_LANGUAGES.split("|");
 
+// 动态导入所有语言模块
+const languagesCode = require.context(".", true, /\/.+\/$/).keys().map(value => value.match(/\/(.+)\/$/)[1]);
 languagesCode.forEach(value => {
-    const langPack = require(`./${value}/index.js`).default;
-    [messages[value], languages[value]] = [langPack, langPack._meta.name];
+    const languageModule = require(`./${value}`);
+    [messages[value], languages[value]] = [languageModule.default, languageModule.meta.name];
 });
 
 // 获取用户语言
@@ -51,8 +50,8 @@ if (!languagesCode.includes(userLanguage)) {
 export default new _VueI18n({
     languages,
     languagesCode,
+    messages,
     locale: userLanguage,
     fallbackLocale: defaultLanguage,
-    silentFallbackWarn: true,
-    messages,
+    silentFallbackWarn: true
 });

@@ -1,7 +1,8 @@
+export const meta = {
+    name: "English"
+};
+
 export default {
-    _meta: {
-        name: "English"
-    },
     api_client: {
         request: {
             error: "Oops, Request wrong!"
