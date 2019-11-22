@@ -5,8 +5,7 @@
             <b-progress type="is-info" :max="max_progress" :value="progress" :show-value="show_value">
                 <span v-if="progressText !== undefined">{{ progressText }}</span>
             </b-progress>
-            <p v-for="(value, name) in data"
-               :key="`${name}${value}`">
+            <p v-for="(value, name) in data" :key="`${name}${value}`">
                 {{ `${$t(`page.status.${name}`)}:
                 ${conversion(dataType[name], value)}` }}
             </p>
@@ -19,14 +18,6 @@
 
     export default {
         name: "status-tile-box",
-        computed: {
-            max_progress() {
-                return this.maxProgress ? this.maxProgress : 100
-            },
-            show_value() {
-                return this.showValue || this.progressText !== undefined;
-            }
-        },
         props: {
             data: Object,
             dataType: Object,
@@ -35,6 +26,14 @@
             progressText: String,
             showValue: Boolean,
             title: String,
+        },
+        computed: {
+            max_progress() {
+                return this.maxProgress ? this.maxProgress : 100
+            },
+            show_value() {
+                return this.showValue || this.progressText !== undefined;
+            }
         },
         methods: {
             conversion(name, value) {

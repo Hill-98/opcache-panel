@@ -4,7 +4,7 @@
             <p class="title is-5">{{ title }}</p>
             <form ref="form" @submit.prevent="formSubmit">
                 <b-field :label="label">
-                    <b-autocomplete :name="func" :placeholder="placeholder" v-model="currValue" :data="autocomplete"
+                    <b-autocomplete v-model="currValue" :name="func" :placeholder="placeholder" :data="autocomplete"
                                     @keyup.enter.exact.native="$refs['submit'].$el.click()">
                         <template slot="header">
                             <a class="has-text-primary" @click="autocomplete = []" v-t="'page.advanced.clear_history'">
@@ -21,7 +21,7 @@
                     </b-autocomplete>
                 </b-field>
                 <b-field class="has-text-right">
-                    <b-button type="is-primary" native-type="submit" v-t="'page.advanced.submit'" ref="submit">
+                    <b-button ref="submit" type="is-primary" native-type="submit" v-t="'page.advanced.submit'">
                     </b-button>
                 </b-field>
             </form>
@@ -36,6 +36,14 @@
 <script>
     export default {
         name: "advanced-tile-box",
+        props: {
+            func: String,
+            label: String,
+            placeholder: String,
+            summary: String,
+            title: String,
+            value: String
+        },
         data: () => ({
             currValue: "",
             autocomplete: []
@@ -43,6 +51,14 @@
         computed: {
             funcLink() {
                 return `https://www.php.net/manual/function.${this.func.replace(/_/g, "-")}.php`;
+            }
+        },
+        watch: {
+            currValue(newValue) {
+                this.$emit("update:value", newValue);
+            },
+            value(newValue) {
+                this.currValue = newValue;
             }
         },
         created() {
@@ -56,14 +72,6 @@
             this.saveAutocomplete();
             window.removeEventListener("beforeunload", this.saveAutocomplete)
         },
-        watch: {
-            currValue(newValue) {
-                this.$emit("update:value", newValue);
-            },
-            value(newValue) {
-                this.currValue = newValue;
-            }
-        },
         methods: {
             formSubmit() {
                 this.$emit("click");
@@ -74,14 +82,6 @@
             saveAutocomplete() {
                 localStorage.setItem(`opp-autocomplete_${this.func}`, this.autocomplete.join("*"))
             }
-        },
-        props: {
-            func: String,
-            label: String,
-            placeholder: String,
-            summary: String,
-            title: String,
-            value: String
         },
     }
 </script>

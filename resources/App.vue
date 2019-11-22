@@ -11,7 +11,7 @@
 
 <script>
     import oppHeader from "./components/opp-header.vue"
-    import oppFooter from "./components/opp-footer";
+    import oppFooter from "./components/opp-footer.vue";
     import opcacheData from "./js/utils/opcacheData"
 
     export default {
@@ -20,7 +20,7 @@
             oppHeader,
             oppFooter
         },
-        async mounted() {
+        async created() {
             try {
                 await opcacheData.getInfo();
             } catch {

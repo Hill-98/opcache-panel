@@ -19,8 +19,6 @@ module.exports = {
         config.entry("app").clear().add(appMain);
         config.performance.hints(false);
         config.resolve.alias.set("@", path.dirname(appMain));
-        if (isProd) {
-            config.optimization.splitChunks({});
-        }
+        config.when(isProd, config => config.optimization.splitChunks({}));
     }
 };

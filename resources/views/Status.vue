@@ -7,7 +7,7 @@
                 <div class="level-left">
                     <p class="title" style="margin-bottom: 0" v-t="'page.status.running_status'"></p>
                     <!-- 运行状态标签-->
-                    <b-field style="margin-left: 0.75rem" grouped>
+                    <b-field style="margin-left: 0.75rem; margin-top: 0.5rem" grouped>
                         <div class="control">
                             <b-taglist attached>
                                 <b-tag type="is-dark">
@@ -83,9 +83,9 @@
             <b-table :data="directives" narrowed>
                 <template slot-scope="props">
                     <b-table-column field="key" :label="$t('page.status.key')">
-                        <a :href="`https://www.php.net/manual/opcache.configuration.php#ini.${props.row.key.replace(/_/g, '-')}`"
-                           target="_blank">
-                            {{ props.row.key }}</a>
+                        <a :href="configLink(props.row.key)" target="_blank">
+                            {{ props.row.key }}
+                        </a>
                     </b-table-column>
                     <b-table-column field="value" :label="$t('page.status.value')">
                         {{ props.row.value }}
@@ -125,12 +125,15 @@
 </template>
 
 <script>
-    import statusTileBox from "../components/status-tile-box"
+    import statusTileBox from "../components/status-tile-box.vue"
     import conversion from "../js/utils/conversion"
     import opcacheDataUtils from "../js/utils/opcacheData"
 
     export default {
         name: "Status",
+        components: {
+            statusTileBox
+        },
         data: () => ({
             format: {
                 memory_usage: {
@@ -163,26 +166,13 @@
             }
         }),
         computed: {
-            version() {
-                return this.$store.state.configuration.version;
-            },
-            opcache_enabled() {
-                return this.$store.state.status.opcache_enabled;
-            },
-            opcache_memory_consumption() {
-                return this.$store.state.configuration.directives["opcache.memory_consumption"];
-            },
-            opcache_interned_strings_buffer() {
-                return this.$store.state.configuration.directives["opcache.interned_strings_buffer"] * 1024 * 1024;
-            },
-            memory_usage() {
-                return this.$store.state.status.memory_usage;
-            },
-            opcache_statistics() {
-                return this.$store.state.status.opcache_statistics;
-            },
-            interned_strings_usage() {
-                return this.$store.state.status.interned_strings_usage;
+            blacklist() {
+                const _blacklist = this.$store.state.configuration.blacklist;
+                const blacklist = [];
+                for (const file of _blacklist) {
+                    blacklist.push({file})
+                }
+                return blacklist;
             },
             directives() {
                 const _directives = this.$store.state.configuration.directives;
@@ -195,19 +185,30 @@
                 }
                 return directives;
             },
-            blacklist() {
-                const _blacklist = this.$store.state.configuration.blacklist;
-                const blacklist = [];
-                for (const file of _blacklist) {
-                    blacklist.push({file})
-                }
-                return blacklist;
+            interned_strings_usage() {
+                return this.$store.state.status.interned_strings_usage;
+            },
+            memory_usage() {
+                return this.$store.state.status.memory_usage;
+            },
+            opcache_enabled() {
+                return this.$store.state.status.opcache_enabled;
+            },
+            opcache_interned_strings_buffer() {
+                return this.$store.state.configuration.directives["opcache.interned_strings_buffer"] * 1024 * 1024;
+            },
+            opcache_memory_consumption() {
+                return this.$store.state.configuration.directives["opcache.memory_consumption"];
+            },
+            opcache_statistics() {
+                return this.$store.state.status.opcache_statistics;
+            },
+            version() {
+                return this.$store.state.configuration.version;
             }
         },
-        components: {
-            statusTileBox
-        },
         methods: {
+            configLink: value => `https://www.php.net/manual/opcache.configuration.php#ini.${value.replace(/_/g, '-')}`,
             async refreshData(name) {
                 try {
                     await opcacheDataUtils[name]()

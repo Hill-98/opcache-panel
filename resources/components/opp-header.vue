@@ -20,26 +20,18 @@
             <!-- 导航栏菜单 END -->
             <!-- 导航栏操作按钮 -->
             <template slot="end">
-                <b-navbar-item @click="resetCache">
-                    <b-tooltip :label="$t('navbar.reset')" position="is-bottom" :delay="500" animated type="is-dark">
-                        <b-icon icon="redo-alt"></b-icon>
-                    </b-tooltip>
+                <b-navbar-item :title="$t('navbar.reset')" @click="resetCache">
+                    <b-icon icon="redo-alt"></b-icon>
                 </b-navbar-item>
-                <b-navbar-item @click="realTimeUpdate">
-                    <b-tooltip :label="$t('navbar.update')" position="is-bottom" :delay="500" animated type="is-dark">
-                        <b-icon :style="updateStyle" icon="sync-alt"></b-icon>
-                    </b-tooltip>
+                <b-navbar-item :title="$t('navbar.update')" @click="realTimeUpdate">
+                    <b-icon :style="updateStyle" icon="sync-alt"></b-icon>
                 </b-navbar-item>
-                <b-navbar-item v-if="isLogin" @click="logout">
-                    <b-tooltip :label="$t('navbar.logout')" position="is-bottom" :delay="500" animated type="is-dark">
-                        <b-icon icon="sign-out-alt"></b-icon>
-                    </b-tooltip>
+                <b-navbar-item  :title="$t('navbar.logout')" @click="logout" v-if="isLogin">
+                    <b-icon icon="sign-out-alt"></b-icon>
                 </b-navbar-item>
-                <b-navbar-dropdown>
+                <b-navbar-dropdown :title="$t('navbar.language')">
                     <template slot="label">
-                        <b-tooltip :label="$t('navbar.language')" position="is-bottom" :delay="500" animated type="is-dark">
-                            <b-icon icon="globe"></b-icon>
-                        </b-tooltip>
+                        <b-icon icon="globe"></b-icon>
                     </template>
                     <b-navbar-item v-for="(value, name) in $i18n.languages" :key="name" tag="router-link"
                                    :to="`/${name}${$route.meta.originalPath}`">
@@ -74,14 +66,6 @@
                 document.body.appendChild(form);
                 form.submit();
             },
-            async resetCache() {
-                try {
-                    await apiClient("resetCache");
-                    await opcacheData.getInfo();
-                } catch {
-                    //
-                }
-            },
             realTimeUpdate() {
                 if (this.timer === null) {
                     this.timer = setInterval(async () => {
@@ -96,6 +80,14 @@
                     clearInterval(this.timer);
                     this.$delete(this.updateStyle, "color");
                     this.timer = null;
+                }
+            },
+            async resetCache() {
+                try {
+                    await apiClient("resetCache");
+                    await opcacheData.getInfo();
+                } catch {
+                    //
                 }
             }
         }

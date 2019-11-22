@@ -39,11 +39,9 @@ Vue.use(Buefy, {
 
 Vue.config.productionTip = false;
 
-window.EMPTY_FUNC = () => undefined;
-
 new Vue({
-    store,
-    render: h => h(require("./App.vue").default),
+    i18n,
     router,
-    i18n
+    store,
+    render: h => h(require("./App.vue").default)
 }).$mount("#app");

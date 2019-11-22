@@ -1,32 +1,40 @@
 <template>
     <div>
         <div class="tile">
-            <advanced-tile-box :label="$t('page.advanced.file_path')" :placeholder="$t('page.advanced.multi_path')"
-                               :summary="$t('page.advanced.pre_cache_summary')" :title="$t('page.advanced.pre_cache')"
-                               :func="func.ocf" :value.sync="path.pre_cache" @click="compileFile">
+            <advanced-tile-box :label="$t('page.advanced.file_path')"
+                               :summary="$t('page.advanced.pre_cache_summary')" :func="func.ocf"
+                               :title="$t('page.advanced.pre_cache')" :value.sync="path.pre_cache"
+                               :placeholder="$t('page.advanced.multi_path')"
+                               @click="compileFile">
             </advanced-tile-box>
-            <advanced-tile-box :label="$t('page.advanced.dir_path')" :placeholder="$t('page.advanced.multi_path')"
+            <advanced-tile-box :label="$t('page.advanced.dir_path')"
                                :summary="$t('page.advanced.invalidate_cache_dir_summary')" :func="func.oi"
-                               :value.sync="path.invalidate" @click="invalidateDir"
-                               :title="$t('page.advanced.invalidate_cache_dir')">
+                               :title="$t('page.advanced.invalidate_cache_dir')" :value.sync="path.invalidate"
+                               :placeholder="$t('page.advanced.multi_path')"
+                               @click="invalidateDir">
             </advanced-tile-box>
         </div>
         <div class="tile">
-            <advanced-tile-box :label="$t('page.advanced.file_path')" :summary="$t('page.advanced.check_cache_summary')"
-                               :func="func.oisc" @click="isScriptCached" :title="$t('page.advanced.check_cache')"
-                               :value.sync="path.is_cached" class="is-6" id="is-cached">
+            <advanced-tile-box id="is-cached" class="is-6"
+                               :label="$t('page.advanced.file_path')"
+                               :summary="$t('page.advanced.check_cache_summary')" :func="func.oisc"
+                               :title="$t('page.advanced.check_cache')" :value.sync="path.is_cached"
+                               @click="isScriptCached">
             </advanced-tile-box>
         </div>
     </div>
 </template>
 
 <script>
+    import advancedTileBox from "../components/advanced-tile-box.vue"
     import apiClient from "../js/apiClient"
     import opcacheData from "../js/utils/opcacheData"
-    import advancedTileBox from "../components/advanced-tile-box"
 
     export default {
         name: "Advanced",
+        components: {
+            advancedTileBox
+        },
         data: () => ({
             func: {
                 ocf: "opcache_compile_file",
@@ -39,9 +47,6 @@
                 is_cached: ""
             }
         }),
-        components: {
-            advancedTileBox
-        },
         methods: {
             async api(action, value, callback, refresh = true) {
                 // 分割多个路径

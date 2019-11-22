@@ -54,8 +54,9 @@
                         {{ props.row.timestamp_string }}
                     </b-table-column>
                     <b-table-column>
-                        <b-button size="is-small" icon-left="trash" type="is-danger" @click="invalidateCache(props.row)"
-                                  :title="$t('page.cache_files.invalidate_cache')">
+                        <b-button size="is-small" icon-left="trash" type="is-danger"
+                                  :title="$t('page.cache_files.invalidate_cache')"
+                                  @click="invalidateCache(props.row)">
                         </b-button>
                     </b-table-column>
                 </template>
