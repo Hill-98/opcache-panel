@@ -81,7 +81,7 @@
             <!-- 配置信息标题 END -->
             <!-- 配置信息表格 -->
             <b-table :data="directives" narrowed>
-                <template slot-scope="props">
+                <template v-slot="props">
                     <b-table-column field="key" :label="$t('page.status.key')">
                         <a :href="configLink(props.row.key)" target="_blank">
                             {{ props.row.key }}
@@ -112,7 +112,7 @@
             <!-- 黑名单标题 END -->
             <!-- 黑名单表格 -->
             <b-table :data="blacklist" narrowed>
-                <template slot-scope="props">
+                <template v-slot="props">
                     <b-table-column field="file" :label="$t('page.status.filepath')">
                         {{ props.row.file }}
                     </b-table-column>

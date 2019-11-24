@@ -35,7 +35,7 @@
             <!-- 缓存文件表格 -->
             <b-table :data="scripts" narrowed checkable sort-icon="sort" paginated :per-page="100"
                      :checked-rows.sync="checkedRows" custom-row-key="file">
-                <template slot-scope="props">
+                <template v-slot="props">
                     <b-table-column :label="$t('page.cache_files.file_path')">
                         {{ props.row.full_path }}
                     </b-table-column>

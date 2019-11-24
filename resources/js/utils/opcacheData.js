@@ -2,7 +2,7 @@ import apiClient from "../apiClient"
 import {LoadingProgrammatic as Loading} from "buefy"
 import store from "../../store"
 
-function getOpcacheData(action, key, isLoading = true) {
+const getOpcacheData = function getOpcacheData(action, key, isLoading = true) {
     let loading;
     if (isLoading) {
         loading = Loading.open({
@@ -28,16 +28,8 @@ function getOpcacheData(action, key, isLoading = true) {
     })
 }
 
-export default class {
-    static getInfo(isLoading) {
-        return getOpcacheData("getInfo", undefined, isLoading);
-    }
-
-    static getConfiguration(isLoading) {
-        return getOpcacheData("getConfiguration", "configuration", isLoading);
-    }
-
-    static getStatus(isLoading) {
-        return getOpcacheData("getStatus", "status", isLoading);
-    }
+export default {
+    getConfiguratio: (isLoading) => getOpcacheData("getConfiguration", "configuration", isLoading),
+    getInfo: (isLoading) => getOpcacheData("getInfo", undefined, isLoading),
+    getStatus: (isLoading) => getOpcacheData("getStatus", "status", isLoading)
 }

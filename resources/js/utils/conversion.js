@@ -1,36 +1,21 @@
-export default class {
-    static get TYPE() {
-        return {
-            PERCENTAGE: "percentage",
-            SIZE: "size",
-            TIME: "time"
-        }
-    }
+const sizeUnit = ["B", "KB", "MB", "GB", "TB", "PB"];
 
-    static percentageConversion(value, precision = 2) {
-        return `${value.toFixed(precision)}%`
-    }
-
-    static sizeConversion(value) {
-        const unit = [
-            "B",
-            "KB",
-            "MB",
-            "GB",
-            "TB",
-            "PB"
-        ];
-        value = Number.parseInt(value);
+export default {
+    TYPE: {
+        PERCENTAGE: "percentage",
+        SIZE: "size",
+        TIME: "time"
+    },
+    percentageConversion: (value, precision = 2) => `${Number(value).toFixed(precision)}%`,
+    sizeConversion(value) {
+        let num = Number(value);
+        if (Number.isNaN(num)) return "Null";
         let i = 0;
-        while (value >= 1024 && value % 1024 >= 0) {
-            value /= 1024;
-            i++;
+        while (num >= 1024 && num % 1024 >= 0 && i < sizeUnit.length) {
+            num /= 1024;
+            i += 1;
         }
-        return `${value.toFixed(2)} ${unit[i]}`
-    }
-
-    static timeConversion(value) {
-        value = Number.parseInt(value);
-        return value === 0 ? "Null" : new Date(value * 1000).toLocaleString(undefined, {hour12: false})
-    }
+        return `${num.toFixed(2)} ${sizeUnit[i]}`
+    },
+    timeConversion: value => Number.parseInt(value) ? "Null" : new Date(value * 1000).toLocaleString(undefined, {hour12: false}),
 }

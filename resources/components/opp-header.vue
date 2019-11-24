@@ -2,14 +2,14 @@
     <header>
         <b-navbar type="is-dark" wrapper-class="container" shadow>
             <!-- 导航栏标题 -->
-            <template slot="brand">
+            <template #brand>
                 <b-navbar-item :href="href">
                     <span class="has-text-white title is-5">Opcache Panel</span>
                 </b-navbar-item>
             </template>
             <!-- 导航栏标题 END -->
             <!-- 导航栏菜单 -->
-            <template slot="start">
+            <template #start>
                 <template v-for="item in $router.options.routes">
                     <b-navbar-item v-if="item.name" :key="item.name" tag="router-link"
                                    :to="`/${$i18n.locale}${item.meta.originalPath}`"
@@ -19,7 +19,7 @@
             </template>
             <!-- 导航栏菜单 END -->
             <!-- 导航栏操作按钮 -->
-            <template slot="end">
+            <template #end>
                 <b-navbar-item :title="$t('navbar.reset')" @click="resetCache">
                     <b-icon icon="redo-alt"></b-icon>
                 </b-navbar-item>
@@ -30,7 +30,7 @@
                     <b-icon icon="sign-out-alt"></b-icon>
                 </b-navbar-item>
                 <b-navbar-dropdown :title="$t('navbar.language')">
-                    <template slot="label">
+                    <template #label>
                         <b-icon icon="globe"></b-icon>
                     </template>
                     <b-navbar-item v-for="(value, name) in $i18n.languages" :key="name" tag="router-link"

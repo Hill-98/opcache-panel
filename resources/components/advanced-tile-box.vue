@@ -6,11 +6,11 @@
                 <b-field :label="label">
                     <b-autocomplete v-model="currValue" :name="func" :placeholder="placeholder" :data="autocomplete"
                                     @keyup.enter.exact.native="$refs['submit'].$el.click()">
-                        <template slot="header">
+                        <template #header>
                             <a class="has-text-primary" @click="autocomplete = []" v-t="'page.advanced.clear_history'">
                             </a>
                         </template>
-                        <template slot-scope="props">
+                        <template v-slot="props">
                             <div class="is-flex level">
                                 <span>{{ props.option }}</span>
                                 <b-icon icon="times"
@@ -55,7 +55,7 @@
         },
         watch: {
             currValue(newValue) {
-                this.$emit("update:value", newValue);
+                this.$emit("input", newValue)
             },
             value(newValue) {
                 this.currValue = newValue;

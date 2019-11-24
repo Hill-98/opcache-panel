@@ -1,24 +1,24 @@
 <template>
     <div>
         <div class="tile">
-            <advanced-tile-box :label="$t('page.advanced.file_path')"
+            <advanced-tile-box v-model="path.pre_cache" :label="$t('page.advanced.file_path')"
                                :summary="$t('page.advanced.pre_cache_summary')" :func="func.ocf"
-                               :title="$t('page.advanced.pre_cache')" :value.sync="path.pre_cache"
+                               :title="$t('page.advanced.pre_cache')"
                                :placeholder="$t('page.advanced.multi_path')"
                                @click="compileFile">
             </advanced-tile-box>
-            <advanced-tile-box :label="$t('page.advanced.dir_path')"
+            <advanced-tile-box v-model="path.invalidate" :label="$t('page.advanced.dir_path')"
                                :summary="$t('page.advanced.invalidate_cache_dir_summary')" :func="func.oi"
-                               :title="$t('page.advanced.invalidate_cache_dir')" :value.sync="path.invalidate"
+                               :title="$t('page.advanced.invalidate_cache_dir')"
                                :placeholder="$t('page.advanced.multi_path')"
                                @click="invalidateDir">
             </advanced-tile-box>
         </div>
         <div class="tile">
-            <advanced-tile-box id="is-cached" class="is-6"
+            <advanced-tile-box id="is-cached" v-model="path.is_cached" class="is-6"
                                :label="$t('page.advanced.file_path')"
                                :summary="$t('page.advanced.check_cache_summary')" :func="func.oisc"
-                               :title="$t('page.advanced.check_cache')" :value.sync="path.is_cached"
+                               :title="$t('page.advanced.check_cache')"
                                @click="isScriptCached">
             </advanced-tile-box>
         </div>
@@ -54,6 +54,7 @@
                     value = value.split("|")
                 }
                 let notEmpty = value !== "";
+
                 // 如果是多个路径，判断路径是否全部为空。
                 if (typeof value === "object") {
                     notEmpty = value.some(v => v !== "")

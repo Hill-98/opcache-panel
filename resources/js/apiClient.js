@@ -7,7 +7,7 @@ const ignoreFunc = [
 ];
 
 const apiClient = axios.create();
-apiClient.interceptors.request.use(request => request, error => {
+apiClient.interceptors.request.use(undefined, error => {
     Toast.open({
         type: "is-danger",
         message: i18n.t("api_client.request.error"),
@@ -81,7 +81,7 @@ export default (action, param) => {
             action,
             param
         }))
-            .then(response => resolve(response))
-            .catch(error => reject(error));
+            .then(resolve)
+            .catch(reject);
     })
 }
