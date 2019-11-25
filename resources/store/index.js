@@ -1,6 +1,7 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import conversion from "../js/utils/conversion";
+import conversion from "@/js/utils/conversion";
+import has from "@/js/utils/has"
 
 Vue.use(Vuex);
 
@@ -19,7 +20,8 @@ export default new Vuex.Store({
       status(state, status) {
           if (typeof status.scripts === "object" && Object.keys(status.scripts).length !== 0) {
               const scripts = [];
-              for (const file of Object.keys(status.scripts)) {
+              console.log(status.scripts);
+              for (const file in status.scripts) {
                   const script = status.scripts[file];
                   script.last_used_timestamp_string = conversion.timeConversion(script.last_used_timestamp);
                   script.memory_consumption_string = conversion.sizeConversion(script.memory_consumption);
@@ -41,7 +43,7 @@ export default new Vuex.Store({
   },
   actions: {
       opcacheData(context, data) {
-          if (Object.prototype.hasOwnProperty.call(data, "configuration") && Object.prototype.hasOwnProperty.call(data, "status")) {
+          if (has(data, "configuration") && has(data, "status")) {
               context.commit("configuration", data.configuration);
               context.commit("status", data.status);
               context.commit("ready")

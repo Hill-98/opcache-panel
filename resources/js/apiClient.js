@@ -1,5 +1,6 @@
 import axios from "axios"
-import i18n from "../i18n"
+import i18n from "@/i18n"
+import has from "./utils/has"
 import {ToastProgrammatic as Toast} from "buefy"
 
 const ignoreFunc = [
@@ -33,7 +34,7 @@ apiClient.interceptors.response.use(response => {
         action = "error";
     }
 
-    if (!ignoreFunc.includes(action) && Object.prototype.hasOwnProperty.call(response.data, "success")) {
+    if (!ignoreFunc.includes(action) && has(response.data, "success")) {
         if (response.data.success === true) {
             Toast.open({
                 type: "is-success",
@@ -58,7 +59,7 @@ apiClient.interceptors.response.use(response => {
         case 400:
         case 401:
         case 500:
-            if (error.response.data.error) {
+            if (has(error.response, "data") && has(error.response.data, "error")) {
                 errorMsg = error.response.data.error;
             } else {
                 errorMsg = i18n.t(`api_client.response.error.${errorCode}`);

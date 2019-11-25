@@ -1,6 +1,6 @@
 import apiClient from "../apiClient"
 import {LoadingProgrammatic as Loading} from "buefy"
-import store from "../../store"
+import store from "@/store"
 
 const getOpcacheData = function getOpcacheData(action, key, isLoading = true) {
     let loading;
@@ -12,6 +12,7 @@ const getOpcacheData = function getOpcacheData(action, key, isLoading = true) {
     return new Promise((resolve, reject) => {
         apiClient(action)
             .then(data => {
+                console.log(data);
                 if (key === undefined) {
                     store.dispatch("opcacheData", data);
                 } else {
