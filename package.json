@@ -7,7 +7,7 @@
     "scripts": {
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build --modern",
-        "postbuild": "del-cli assets/index.html",
+        "postbuild": "rm assets/index.html",
         "lint": "vue-cli-service lint ./resources/"
     },
     "main": "resources/app.js",
@@ -30,7 +30,6 @@
         "@vue/cli-plugin-vuex": "^4.0.5",
         "@vue/cli-service": "^4.0.5",
         "babel-eslint": "^10.0.1",
-        "del-cli": "^3.0.0",
         "eslint": "^6.0.0",
         "eslint-plugin-vue": "^6.0.0",
         "vue-template-compiler": "^2.6.10"
