@@ -21,16 +21,16 @@
         props: {
             data: Object,
             dataType: Object,
-            maxProgress: Number,
+            maxProgress: {
+                type: Number,
+                default: 100
+            },
             progress: Number,
             progressText: String,
             showValue: Boolean,
             title: String,
         },
         computed: {
-            max_progress() {
-                return this.maxProgress ? this.maxProgress : 100
-            },
             show_value() {
                 return this.showValue || this.progressText !== undefined;
             }

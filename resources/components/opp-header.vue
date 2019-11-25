@@ -46,6 +46,7 @@
 
 <script>
     import apiClient from "../js/apiClient"
+    import errorHandler from "@/js/errorHandler"
     import opcacheData from "../js/utils/opcacheData"
 
     export default {
@@ -68,13 +69,9 @@
             },
             realTimeUpdate() {
                 if (this.timer === null) {
-                    this.timer = setInterval(async () => {
-                        try {
-                            await opcacheData.getInfo
-                        } catch {
-                            //
-                        }
-                    }, 3000, false);
+                    this.timer = setInterval(() => {
+                        opcacheData.getInfo(false).catch(errorHandler);
+                    }, 3000);
                     this.$set(this.updateStyle, "color", "#167df0");
                 } else {
                     clearInterval(this.timer);
@@ -86,8 +83,8 @@
                 try {
                     await apiClient("resetCache");
                     await opcacheData.getInfo();
-                } catch {
-                    //
+                } catch(e) {
+                    errorHandler(e);
                 }
             }
         }
