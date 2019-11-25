@@ -127,6 +127,7 @@
 <script>
     import statusTileBox from "../components/status-tile-box.vue"
     import conversion from "../js/utils/conversion"
+    import errorHandler from "@/js/errorHandler"
     import opcacheDataUtils from "../js/utils/opcacheData"
 
     export default {
@@ -209,12 +210,8 @@
         },
         methods: {
             configLink: value => `https://www.php.net/manual/opcache.configuration.php#ini.${value.replace(/_/g, '-')}`,
-            async refreshData(name) {
-                try {
-                    await opcacheDataUtils[name]()
-                } catch {
-                    //
-                }
+            refreshData(name) {
+                 opcacheDataUtils[name]().catch(errorHandler);
             }
         }
     }

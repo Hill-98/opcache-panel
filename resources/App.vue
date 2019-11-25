@@ -10,22 +10,18 @@
 </template>
 
 <script>
-    import oppHeader from "./components/opp-header.vue"
-    import oppFooter from "./components/opp-footer.vue";
-    import opcacheData from "./js/utils/opcacheData"
-
+    import oppHeader from "@/components/opp-header.vue"
+    import oppFooter from "@/components/opp-footer.vue";
+    import errorHandler from "@/js/errorHandler"
+    import opcacheData from "@/js/utils/opcacheData"
     export default {
         name: "app",
         components: {
             oppHeader,
             oppFooter
         },
-        async created() {
-            try {
-                await opcacheData.getInfo();
-            } catch {
-                //
-            }
+        created() {
+            opcacheData.getInfo().catch(errorHandler)
         }
     }
 </script>

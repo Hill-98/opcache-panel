@@ -28,6 +28,8 @@
 <script>
     import advancedTileBox from "../components/advanced-tile-box.vue"
     import apiClient from "../js/apiClient"
+    import errorHandler from "@/js/errorHandler"
+    import has from "@/js/utils/has"
     import opcacheData from "../js/utils/opcacheData"
 
     export default {
@@ -49,16 +51,8 @@
         }),
         methods: {
             async api(action, value, callback, refresh = true) {
-                // 分割多个路径
-                if (value.includes("|")) {
-                    value = value.split("|")
-                }
-                let notEmpty = value !== "";
-
-                // 如果是多个路径，判断路径是否全部为空。
-                if (typeof value === "object") {
-                    notEmpty = value.some(v => v !== "")
-                }
+                const path = value.includes("|") ? value.split("|") : value;
+                let notEmpty = Array.isArray(path) ? path.some(v => Boolean(v)) : Boolean(path);
                 if (!notEmpty) {
                     this.$buefy.toast.open({
                         message: this.$t("page.advanced.empty_path"),
@@ -67,15 +61,15 @@
                     return;
                 }
                 try {
-                    const data = await apiClient(action, value);
+                    const data = await apiClient(action, path);
                     if (typeof callback === "function") {
                         callback(data);
                     }
                     if (refresh === true) {
                         await opcacheData.getStatus();
                     }
-                } catch {
-                    //
+                } catch(e) {
+                    errorHandler(e);
                 }
             },
             compileFile() {
@@ -95,7 +89,7 @@
                 }
                 this.api("isScriptCached", this.path.is_cached, data => {
                     let message = "";
-                    if (Object.prototype.hasOwnProperty.call(data, "success") && data.success === true) {
+                    if (has(data, "success") && data.success === true) {
                         message = this.$t("page.advanced.cached");
                     } else {
                         message = this.$t("page.advanced.uncached");

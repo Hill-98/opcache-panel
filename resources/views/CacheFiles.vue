@@ -1,6 +1,6 @@
 <template>
     <div>
-        <template v-if="scriptsNum !==  0 || search_path !== ''">
+        <template v-if="scriptsNum || searchValue">
             <!-- 缓存文件操作按钮 -->
             <div class="level">
                 <div class="level-left">
@@ -30,7 +30,7 @@
             </div>
             <!-- 缓存文件操作按钮 END -->
             <b-field :label="$t('page.cache_files.search_file')" label-position="on-border">
-                <b-input v-model="searchPath"></b-input>
+                <b-input v-model="searchInput"></b-input>
             </b-field>
             <!-- 缓存文件表格 -->
             <b-table :data="scripts" narrowed checkable sort-icon="sort" paginated :per-page="100"
@@ -71,6 +71,7 @@
 
 <script>
     import apiClient from "../js/apiClient"
+    import errorHandler from "@/js/errorHandler"
     import opcacheData from "../js/utils/opcacheData"
 
     export default {
@@ -78,42 +79,43 @@
         data: () => ({
             checkedRows: [],
             ignoreVendor: false,
-            searchPath: "",
-            search_path: "",
+            searchInput: "",
+            searchValue: "",
             timer: null
         }),
         computed: {
-            _scripts() {
-                return this.ignoreVendor ? this.$store.state.scripts.filter(value => value.full_path.search(/([/\\])vendor([/\\])/) === -1) : this.$store.state.scripts;
+            originalScripts() {
+                return this.ignoreVendor ?
+                    this.$store.state.scripts.filter(value => value.full_path.search(/([/\\])vendor[/\\]/) === -1) :
+                    this.$store.state.scripts;
             },
             scripts() {
-                return this.search_path === "" ? this._scripts : this._scripts.filter(value => value.full_path.includes(this.search_path));
+                return this.searchValue ?
+                    this.originalScripts.filter(value => value.full_path.includes(this.searchValue)) :
+                    this.originalScripts;
             },
             scriptsNum() {
-                return this._scripts.length;
+                return this.originalScripts.length;
             }
         },
         watch: {
             scripts() {
                 this.checkedRows = [];
             },
-            searchPath(newValue) {
-                if (newValue === this.search_path) {
+            searchInput(newValue) {
+                if (newValue === this.searchValue) {
                     return;
                 }
                 if (this.timer !== null) {
                     clearTimeout(this.timer);
                 }
-                this.timer = setTimeout(() => {
-                    this.search_path = newValue;
-                    this.timer = null;
-                }, 1000)
+                this.timer = setTimeout(() => [this.searchValue, this.timer] = [newValue, null], 1000)
             }
         },
         methods: {
             async invalidateCache(value) {
                 const items = [];
-                if (value === undefined) {
+                if (!value) {
                     if (this.checkedRows.length === 0) {
                         return;
                     }
@@ -126,16 +128,12 @@
                 try {
                     await apiClient("invalidate", items);
                     await opcacheData.getStatus(false);
-                } catch {
-                    //
+                } catch(e) {
+                    errorHandler(e);
                 }
             },
-            async refreshData() {
-                try {
-                    await opcacheData.getStatus();
-                } catch {
-                    //
-                }
+            refreshData() {
+                opcacheData.getStatus().catch(errorHandler);
             }
         }
     }
