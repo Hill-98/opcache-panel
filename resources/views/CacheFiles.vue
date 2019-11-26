@@ -71,7 +71,6 @@
 
 <script>
     import apiClient from "../js/apiClient"
-    import errorHandler from "@/js/errorHandler"
     import opcacheData from "../js/utils/opcacheData"
 
     export default {
