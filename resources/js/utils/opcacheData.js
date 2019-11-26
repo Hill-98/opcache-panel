@@ -12,7 +12,6 @@ const getOpcacheData = function getOpcacheData(action, key, isLoading = true) {
     return new Promise((resolve, reject) => {
         apiClient(action)
             .then(data => {
-                console.log(data);
                 if (key === undefined) {
                     store.dispatch("opcacheData", data);
                 } else {

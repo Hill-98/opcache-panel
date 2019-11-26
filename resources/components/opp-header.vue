@@ -80,12 +80,8 @@
                 }
             },
             async resetCache() {
-                try {
-                    await apiClient("resetCache");
-                    await opcacheData.getInfo();
-                } catch(e) {
-                    errorHandler(e);
-                }
+                await apiClient("resetCache");
+                await opcacheData.getInfo();
             }
         }
     }

@@ -12,16 +12,16 @@
 <script>
     import oppHeader from "@/components/opp-header.vue"
     import oppFooter from "@/components/opp-footer.vue";
-    import errorHandler from "@/js/errorHandler"
     import opcacheData from "@/js/utils/opcacheData"
+
     export default {
         name: "app",
         components: {
             oppHeader,
             oppFooter
         },
-        created() {
-            opcacheData.getInfo().catch(errorHandler)
+        async created() {
+            await opcacheData.getInfo();
         }
     }
 </script>

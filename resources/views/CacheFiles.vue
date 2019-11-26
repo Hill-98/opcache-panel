@@ -125,15 +125,11 @@
                 } else {
                     items.push(value.file)
                 }
-                try {
-                    await apiClient("invalidate", items);
-                    await opcacheData.getStatus(false);
-                } catch(e) {
-                    errorHandler(e);
-                }
+                await apiClient("invalidate", items);
+                await opcacheData.getStatus(false);
             },
-            refreshData() {
-                opcacheData.getStatus().catch(errorHandler);
+            async refreshData() {
+                await opcacheData.getStatus();
             }
         }
     }
