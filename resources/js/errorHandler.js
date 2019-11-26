@@ -1,8 +1,14 @@
-const isProd = process.env.NODE_ENV === "production";
+import has from "./utils/has"
+
+const isProd = Boolean(process.env.VUE_APP_PRODUCTION);
 
 export default err => {
-    if (isProd && err instanceof Promise) {
-        return
+    if (isProd) {
+        if (has(err, "isAxiosError") || has(err, "isApiError")) {
+            return;
+        }
+    } else {
+        console.dir(err);
     }
-    console.error(isProd);
+    console.error(err);
 }

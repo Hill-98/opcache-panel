@@ -3,6 +3,13 @@ import i18n from "@/i18n"
 import has from "./utils/has"
 import {ToastProgrammatic as Toast} from "buefy"
 
+export class ApiError {
+    isApiError = true;
+    constructor(data) {
+        Object.assign(this, data);
+    }
+}
+
 const ignoreFunc = [
     "isScriptCached"
 ];
@@ -23,7 +30,7 @@ apiClient.interceptors.response.use(response => {
             message: i18n.t("api_client.response.data_error"),
             queue: false
         });
-        return Promise.reject(response.data);
+        return Promise.reject(new ApiError(response.data));
     }
 
     let action;
@@ -48,7 +55,7 @@ apiClient.interceptors.response.use(response => {
                 message: i18n.t("api_client.response.not_success"),
                 queue: false
             });
-            return Promise.reject(response.data);
+            return Promise.reject(new ApiError(response.data));
         }
     }
     return Promise.resolve(response.data);

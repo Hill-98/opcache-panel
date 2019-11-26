@@ -18,6 +18,7 @@ import {
     faTrash
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
+import errorHandler from "@/js/errorHandler"
 
 faLibrary.add(
     faAngleLeft,
@@ -38,6 +39,7 @@ Vue.use(Buefy, {
 });
 
 Vue.config.productionTip = false;
+Vue.config.errorHandler = errorHandler;
 
 new Vue({
     i18n,
