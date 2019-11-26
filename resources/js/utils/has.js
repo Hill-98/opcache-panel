@@ -1,1 +1,1 @@
-export default Function.prototype.bind(Object.prototype.hasOwnProperty.call);
+export default Function.prototype.bind.call(Function.call, Object.prototype.hasOwnProperty);
