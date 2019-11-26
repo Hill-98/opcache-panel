@@ -54,7 +54,9 @@
         data: () => ({
             href: location.href.replace(location.hash, ""),
             isLogin: document.cookie.split("; ").some(value => value.split("=")[0] === "OPP_SESSION"),
-            updateStyle: {},
+            updateStyle: {
+                color: null,
+            },
             timer: null
         }),
         methods: {
@@ -72,11 +74,10 @@
                     this.timer = setInterval(() => {
                         opcacheData.getInfo(false).catch(errorHandler);
                     }, 3000);
-                    this.$set(this.updateStyle, "color", "#167df0");
+                    this.updateStyle.color = "#167df0";
                 } else {
                     clearInterval(this.timer);
-                    this.$delete(this.updateStyle, "color");
-                    this.timer = null;
+                    [this.timer, this.updateStyle.color] = [null, null];
                 }
             },
             async resetCache() {
