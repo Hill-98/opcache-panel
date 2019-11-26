@@ -17,5 +17,7 @@ export default {
         }
         return `${num.toFixed(2)} ${sizeUnit[i]}`
     },
-    timeConversion: value => Number.parseInt(value) ? "Null" : new Date(value * 1000).toLocaleString(undefined, {hour12: false}),
+    timeConversion: value => Number.parseInt(value) ?
+        new Date(value * 1000).toLocaleString(undefined, {hour12: false}) :
+        "Null",
 }
