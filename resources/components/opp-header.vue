@@ -53,7 +53,7 @@
         name: "opp-header",
         data: () => ({
             href: location.href.replace(location.hash, ""),
-            isLogin: !document.cookie.split("; ").some(value => value.split("=")[0] === "OPP_SESSION"),
+            isLogin: document.cookie.split("; ").some(value => value.split("=")[0] === "OPP_SESSION"),
             updateStyle: {},
             timer: null
         }),
