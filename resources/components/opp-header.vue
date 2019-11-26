@@ -4,7 +4,7 @@
             <!-- 导航栏标题 -->
             <template #brand>
                 <b-navbar-item :href="href">
-                    <span class="has-text-white title is-5">Opcache Panel</span>
+                    <span class="has-text-white title is-5" v-text="title"></span>
                 </b-navbar-item>
             </template>
             <!-- 导航栏标题 END -->
@@ -26,7 +26,7 @@
                 <b-navbar-item :title="$t('navbar.update')" @click="realTimeUpdate">
                     <b-icon :style="updateStyle" icon="sync-alt"></b-icon>
                 </b-navbar-item>
-                <b-navbar-item  :title="$t('navbar.logout')" @click="logout" v-if="isLogin">
+                <b-navbar-item :title="$t('navbar.logout')" @click="logout" v-if="isLogin">
                     <b-icon icon="sign-out-alt"></b-icon>
                 </b-navbar-item>
                 <b-navbar-dropdown :title="$t('navbar.language')">
@@ -34,8 +34,7 @@
                         <b-icon icon="globe"></b-icon>
                     </template>
                     <b-navbar-item v-for="(value, name) in $i18n.languages" :key="name" tag="router-link"
-                                   :to="`/${name}${$route.meta.originalPath}`">
-                        {{ value }}
+                                   :to="`/${name}${$route.meta.originalPath}`" v-text="value">
                     </b-navbar-item>
                 </b-navbar-dropdown>
             </template>
@@ -57,7 +56,8 @@
             updateStyle: {
                 color: null,
             },
-            timer: null
+            timer: null,
+            title: process.env.VUE_APP_TITLE
         }),
         methods: {
             logout() {

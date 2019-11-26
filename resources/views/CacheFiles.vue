@@ -36,22 +36,18 @@
             <b-table :data="scripts" narrowed checkable sort-icon="sort" paginated :per-page="100"
                      :checked-rows.sync="checkedRows" custom-row-key="file">
                 <template v-slot="props">
-                    <b-table-column :label="$t('page.cache_files.file_path')">
-                        {{ props.row.full_path }}
+                    <b-table-column :label="$t('page.cache_files.file_path')" v-text="props.row.full_path">
                     </b-table-column>
-                    <b-table-column field="hits" :label="$t('page.cache_files.hits')" sortable>
-                        {{ props.row.hits }}
+                    <b-table-column field="hits" :label="$t('page.cache_files.hits')" sortable v-text="props.row.hits">
                     </b-table-column>
-                    <b-table-column field="last_used_timestamp" :label="$t('page.cache_files.last_used_time')" sortable>
-                        {{ props.row.last_used_timestamp_string }}
+                    <b-table-column field="last_used_timestamp" :label="$t('page.cache_files.last_used_time')" sortable
+                                    v-text="props.row.last_used_timestamp_string">
                     </b-table-column>
                     <b-table-column field="memory_consumption" :label="$t('page.cache_files.memory_consumption')"
-                                    sortable>
-                        {{ props.row.memory_consumption_string }}
+                                    sortable v-text="props.row.memory_consumption_string">
                     </b-table-column>
                     <b-table-column field="timestamp" :label="$t('page.cache_files.timestamp')" sortable
-                                    v-if="props.row.timestamp">
-                        {{ props.row.timestamp_string }}
+                                    v-if="props.row.timestamp" v-text="props.row.timestamp_string">
                     </b-table-column>
                     <b-table-column>
                         <b-button size="is-small" icon-left="trash" type="is-danger"

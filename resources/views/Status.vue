@@ -10,21 +10,17 @@
                     <b-field style="margin-left: 0.75rem; margin-top: 0.5rem" grouped>
                         <div class="control">
                             <b-taglist attached>
-                                <b-tag type="is-dark">
-                                    {{ version.opcache_product_name }}
+                                <b-tag type="is-dark" v-text="version.opcache_product_name">
                                 </b-tag>
-                                <b-tag type="is-info">
-                                    {{ version.version }}
+                                <b-tag type="is-info" v-text="version.version">
                                 </b-tag>
                             </b-taglist>
                         </div>
                         <div class="control">
                             <b-taglist attached>
-                                <b-tag type="is-dark">
-                                    Enable
-                                </b-tag>
-                                <b-tag :type="opcache_enabled ? 'is-success' : 'is-warning'">
-                                    {{ opcache_enabled ? 'True' : 'False' }}
+                                <b-tag type="is-dark">Enable</b-tag>
+                                <b-tag :type="opcache_enabled ? 'is-success' : 'is-warning'"
+                                       v-text="opcache_enabled ? 'True' : 'False'">
                                 </b-tag>
                             </b-taglist>
                         </div>
@@ -83,12 +79,10 @@
             <b-table :data="directives" narrowed>
                 <template v-slot="props">
                     <b-table-column field="key" :label="$t('page.status.key')">
-                        <a :href="configLink(props.row.key)" target="_blank">
-                            {{ props.row.key }}
+                        <a :href="configLink(props.row.key)" target="_blank" v-text="props.row.key">
                         </a>
                     </b-table-column>
-                    <b-table-column field="value" :label="$t('page.status.value')">
-                        {{ props.row.value }}
+                    <b-table-column field="value" :label="$t('page.status.value')" v-text="props.row.value">
                     </b-table-column>
                 </template>
             </b-table>
@@ -113,8 +107,7 @@
             <!-- 黑名单表格 -->
             <b-table :data="blacklist" narrowed>
                 <template v-slot="props">
-                    <b-table-column field="file" :label="$t('page.status.filepath')">
-                        {{ props.row.file }}
+                    <b-table-column field="file" :label="$t('page.status.filepath')" v-text="props.row.file">
                     </b-table-column>
                 </template>
             </b-table>
