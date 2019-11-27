@@ -38,7 +38,7 @@ const routes = [
     },
 ];
 
-const langMatch = `/:lang(${i18n.languagesCode.join("|")})`;
+const langMatch = `/:lang(${i18n.availableLocales.join("|")})`;
 
 routes.forEach((value, index) => {
     if (!value.name) {
@@ -68,10 +68,10 @@ const router = new VueRouter({routes});
 
 // 路由前置钩子：更改语言和标题、重定向。
 router.beforeEach((to, from, next) => {
-    document.title = process.env.VUE_APP_TITLE;
     if (to.params.lang) {
         i18n.locale = to.params.lang;
     }
+    document.title = process.env.VUE_APP_TITLE;
     if (to.meta.title) {
         document.title += ` - ${i18n.t(to.meta.title)}`;
     }

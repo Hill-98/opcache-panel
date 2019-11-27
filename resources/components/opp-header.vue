@@ -33,8 +33,8 @@
                     <template #label>
                         <b-icon icon="globe"></b-icon>
                     </template>
-                    <b-navbar-item v-for="(value, name) in $i18n.languages" :key="name" tag="router-link"
-                                   :to="`/${name}${$route.meta.originalPath}`" v-text="value">
+                    <b-navbar-item v-for="(value, name) in $i18n.messages" :key="name" tag="router-link"
+                                   :to="`/${name}${$route.meta.originalPath}`" v-text="value.$meta.name">
                     </b-navbar-item>
                 </b-navbar-dropdown>
             </template>

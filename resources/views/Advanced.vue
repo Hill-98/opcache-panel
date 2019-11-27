@@ -88,12 +88,9 @@
                     return;
                 }
                 this.api("isScriptCached", this.path.is_cached, data => {
-                    let message = "";
-                    if (has(data, "success") && data.success === true) {
-                        message = this.$t("page.advanced.cached");
-                    } else {
-                        message = this.$t("page.advanced.uncached");
-                    }
+                    const message = has(data, "success") && data.success === true ?
+                        this.$t("page.advanced.cached") :
+                        this.$t("page.advanced.uncached");
                     this.$buefy.toast.open({
                         container: "#is-cached",
                         message,
