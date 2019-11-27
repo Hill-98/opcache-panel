@@ -26,18 +26,6 @@ if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
 </noscript>
 <div id="app"></div>
 <script type="module" src="assets/js/app.js?v=<?= OPP_VERSION ?>"></script>
-<script>
-    !function () {
-        var e = document, t = e.createElement("script");
-        if (!("noModule" in t) && "onbeforeload" in t) {
-            var n = !1;
-            e.addEventListener("beforeload", function (e) {
-                if (e.target === t) n = !0; else if (!e.target.hasAttribute("nomodule") || !n) return;
-                e.preventDefault()
-            }, !0), t.type = "module", t.src = ".", e.head.appendChild(t), t.remove()
-        }
-    }();
-</script>
 <script src="assets/js/app-legacy.js?v=<?= OPP_VERSION ?>" nomodule></script>
 </body>
 </html>

@@ -123,9 +123,7 @@
                     if (this.checkedRows.length === 0) {
                         return;
                     }
-                    for (const item of this.checkedRows) {
-                        items.push(item.file)
-                    }
+                    this.checkedRows.forEach(item => items.push(item.file));
                 } else {
                     items.push(value.file)
                 }

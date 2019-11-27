@@ -18,7 +18,7 @@ export default new Vuex.Store({
           state.configuration = configuration;
       },
       status(state, status) {
-          if (typeof status.scripts === "object" && Object.keys(status.scripts).length !== 0) {
+          if (typeof status.scripts === "object") {
               const scripts = [];
               Object.keys(status.scripts).forEach(file => {
                   const script = status.scripts[file];

@@ -52,7 +52,8 @@
                 <!-- 统计信息卡片 END -->
                 <!-- 保留字符串卡片 -->
                 <status-tile-box :max-progress="opcache_interned_strings_buffer" :data="interned_strings_usage"
-                                 :progress="interned_strings_usage.used_memory" :data-type="format.interned_strings_usage"
+                                 :progress="interned_strings_usage.used_memory"
+                                 :data-type="format.interned_strings_usage"
                                  :title="$t('page.status.interned_strings')">
                 </status-tile-box>
                 <!-- 保留字符串卡片 END -->
@@ -79,10 +80,10 @@
             <b-table :data="directives" narrowed>
                 <template v-slot="props">
                     <b-table-column field="key" :label="$t('page.status.key')">
-                        <a :href="configLink(props.row.key)" target="_blank" v-text="props.row.key">
-                        </a>
+                        <a :href="configLink(props.row.key)" target="_blank" v-text="props.row.key"></a>
                     </b-table-column>
-                    <b-table-column field="value" :label="$t('page.status.value')" v-text="props.row.value">
+                    <b-table-column field="value" :label="$t('page.status.value')">
+                        <span v-text="props.row.value"></span>
                     </b-table-column>
                 </template>
             </b-table>
@@ -107,7 +108,8 @@
             <!-- 黑名单表格 -->
             <b-table :data="blacklist" narrowed>
                 <template v-slot="props">
-                    <b-table-column field="file" :label="$t('page.status.filepath')" v-text="props.row.file">
+                    <b-table-column field="file" :label="$t('page.status.filepath')">
+                        <span v-text="props.row.file"></span>
                     </b-table-column>
                 </template>
             </b-table>
@@ -118,9 +120,9 @@
 </template>
 
 <script>
-    import statusTileBox from "../components/status-tile-box.vue"
-    import conversion from "../js/utils/conversion"
-    import opcacheDataUtils from "../js/utils/opcacheData"
+    import statusTileBox from "@/components/status-tile-box.vue"
+    import conversion from "@/js/utils/conversion"
+    import opcacheData from "@/js/utils/opcacheData"
 
     export default {
         name: "Status",
@@ -160,22 +162,15 @@
         }),
         computed: {
             blacklist() {
-                const _blacklist = this.$store.state.configuration.blacklist;
-                const blacklist = [];
-                for (const file of _blacklist) {
-                    blacklist.push({file})
-                }
-                return blacklist;
+                return this.$store.state.configuration.blacklist.map(file => ({file}));
             },
             directives() {
                 const _directives = this.$store.state.configuration.directives;
                 const directives = [];
-                for (const key of Object.keys(_directives)) {
-                    directives.push({
-                        key,
-                        value: _directives[key]
-                    })
-                }
+                Object.keys(this.$store.state.configuration.directives).forEach(key => directives.push({
+                    key,
+                    value: _directives[key]
+                }));
                 return directives;
             },
             interned_strings_usage() {
@@ -203,7 +198,7 @@
         methods: {
             configLink: value => `https://www.php.net/manual/opcache.configuration.php#ini.${value.replace(/_/g, '-')}`,
             async refreshData(name) {
-                 await opcacheDataUtils[name]();
+                await opcacheData[name]();
             }
         }
     }
