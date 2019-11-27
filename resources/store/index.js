@@ -20,18 +20,18 @@ export default new Vuex.Store({
       status(state, status) {
           if (typeof status.scripts === "object" && Object.keys(status.scripts).length !== 0) {
               const scripts = [];
-              for (const file of Object.keys(status.scripts)) {
+              Object.keys(status.scripts).forEach(file => {
                   const script = status.scripts[file];
                   script.last_used_timestamp_string = conversion.timeConversion(script.last_used_timestamp);
                   script.memory_consumption_string = conversion.sizeConversion(script.memory_consumption);
-                  if (script.timestamp) {
+                  if (has(script, "timestamp")) {
                       script.timestamp_string = conversion.timeConversion(script.timestamp);
                   }
                   scripts.push({
                       file,
                       ...script
                   })
-              }
+              });
               state.scripts = scripts;
           }
           state.status = status;

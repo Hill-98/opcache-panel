@@ -34,20 +34,24 @@
             </b-field>
             <!-- 缓存文件表格 -->
             <b-table :data="scripts" narrowed checkable sort-icon="sort" paginated :per-page="100"
-                     :checked-rows.sync="checkedRows" custom-row-key="file">
+                     :checked-rows.sync="checkedRows" custom-row-key="file" :loading="!isShow">
                 <template v-slot="props">
-                    <b-table-column :label="$t('page.cache_files.file_path')" v-text="props.row.full_path">
+                    <b-table-column :label="$t('page.cache_files.file_path')">
+                        <span v-text="props.row.full_path"></span>
                     </b-table-column>
-                    <b-table-column field="hits" :label="$t('page.cache_files.hits')" sortable v-text="props.row.hits">
+                    <b-table-column field="hits" :label="$t('page.cache_files.hits')" sortable>
+                        <span v-text="props.row.hits"></span>
                     </b-table-column>
-                    <b-table-column field="last_used_timestamp" :label="$t('page.cache_files.last_used_time')" sortable
-                                    v-text="props.row.last_used_timestamp_string">
+                    <b-table-column field="last_used_timestamp" :label="$t('page.cache_files.last_used_time')" sortable>
+                        <span v-text="props.row.last_used_timestamp_string"></span>
                     </b-table-column>
                     <b-table-column field="memory_consumption" :label="$t('page.cache_files.memory_consumption')"
-                                    sortable v-text="props.row.memory_consumption_string">
+                                    sortable>
+                        <span v-text="props.row.memory_consumption_string"></span>
                     </b-table-column>
                     <b-table-column field="timestamp" :label="$t('page.cache_files.timestamp')" sortable
-                                    v-if="props.row.timestamp" v-text="props.row.timestamp_string">
+                                    v-if="props.row.timestamp">
+                        <span v-text="props.row.timestamp_string"></span>
                     </b-table-column>
                     <b-table-column>
                         <b-button size="is-small" icon-left="trash" type="is-danger"
@@ -66,14 +70,15 @@
 </template>
 
 <script>
-    import apiClient from "../js/apiClient"
-    import opcacheData from "../js/utils/opcacheData"
+    import apiClient from "@/js/apiClient"
+    import opcacheData from "@/js/utils/opcacheData"
 
     export default {
         name: "CacheFiles",
         data: () => ({
             checkedRows: [],
             ignoreVendor: false,
+            isShow: false,
             searchInput: "",
             searchValue: "",
             timer: null
@@ -85,6 +90,7 @@
                     this.$store.state.scripts;
             },
             scripts() {
+                if (!this.isShow) return [];
                 return this.searchValue ?
                     this.originalScripts.filter(value => value.full_path.includes(this.searchValue)) :
                     this.originalScripts;
@@ -106,6 +112,9 @@
                 }
                 this.timer = setTimeout(() => [this.searchValue, this.timer] = [newValue, null], 1000)
             }
+        },
+        mounted() {
+            this.$nextTick().then(() => setTimeout(() => this.isShow = true))
         },
         methods: {
             async invalidateCache(value) {
