@@ -8,6 +8,7 @@ process.env.VUE_APP_VERSION = packageJson.version;
 
 module.exports = {
     outputDir: "assets",
+    publicPath: isProd ? "assets" : undefined,
     productionSourceMap: false,
     filenameHashing: false,
     devServer: {
