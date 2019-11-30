@@ -13,16 +13,16 @@ class Opcache
      * @param string $function
      * @param mixed $param
      */
-    private function fileBatch(string $path, string $function, ...$param)
+    private static function fileBatch(string $path, string $function, ...$param)
     {
         if (!function_exists($function)) {
             return;
         }
         $files = array_diff(scandir($path), ['.', '..']);
         foreach ($files as $filename) {
-            $_path = realpath("$path/$filename");
+            $_path = "$path/$filename";
             if (is_dir($_path)) {
-                $this->fileBatch($_path, $function, ...$param);
+                self::fileBatch($_path, $function, ...$param);
                 continue;
             }
 
@@ -43,7 +43,7 @@ class Opcache
      * @return bool
      * @throws NotFoundFile
      */
-    public function compileFile(string $path): bool
+    public static function compileFile(string $path): bool
     {
         $realpath = isExists($path);
         if (is_file($realpath)) {
@@ -51,7 +51,7 @@ class Opcache
         }
 
         if (is_dir($realpath)) {
-            $this->fileBatch($realpath, 'opcache_compile_file');
+            self::fileBatch($realpath, 'opcache_compile_file');
             return true;
         }
         return false;
@@ -60,7 +60,7 @@ class Opcache
     /**
      * @return array
      */
-    public function getConfiguration(): array
+    public static function getConfiguration(): array
     {
         return opcache_get_configuration();
     }
@@ -68,7 +68,7 @@ class Opcache
     /**
      * @return array
      */
-    public function getStatus(): array
+    public static function getStatus(): array
     {
         return opcache_get_status();
     }
@@ -76,11 +76,11 @@ class Opcache
     /**
      * @return array
      */
-    public function getInfo(): array
+    public static function getInfo(): array
     {
         return [
-            'configuration' => $this->getConfiguration(),
-            'status' => $this->getStatus()
+            'configuration' => self::getConfiguration(),
+            'status' => self::getStatus()
         ];
     }
 
@@ -89,7 +89,7 @@ class Opcache
      * @return bool
      * @throws NotFoundFile
      */
-    public function invalidate(string $file): bool
+    public static function invalidate(string $file): bool
     {
         $filename = isExists($file, false);
         return opcache_invalidate($filename, true);
@@ -100,14 +100,14 @@ class Opcache
      * @return bool
      * @throws NotFoundFile
      */
-    public function invalidateDir(string $path): bool
+    public static function invalidateDir(string $path): bool
     {
         $realpath = isExists($path);
         if (is_file($realpath)) {
-            return $this->invalidate($realpath);
+            return self::invalidate($realpath);
         }
         if (is_dir($realpath)) {
-            $this->fileBatch($realpath, 'opcache_invalidate', true);
+            self::fileBatch($realpath, 'opcache_invalidate', true);
             return true;
         }
         return false;
@@ -118,7 +118,7 @@ class Opcache
      * @return bool
      * @throws NotFoundFile
      */
-    public function isScriptCached(string $file): bool
+    public static function isScriptCached(string $file): bool
     {
         $filename = isExists($file);
         return opcache_is_script_cached($filename);
@@ -127,7 +127,7 @@ class Opcache
     /**
      * @return bool
      */
-    public function resetCache(): bool
+    public static function resetCache(): bool
     {
         return opcache_reset();
     }

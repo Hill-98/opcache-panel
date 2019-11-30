@@ -32,8 +32,6 @@ if (!defined('OPP_DEBUG') || OPP_DEBUG !== true) {
     }
 }
 
-$opcache = new Opcache();
-
 $method = strtoupper($_SERVER['REQUEST_METHOD']);
 if ($method === 'GET' || $method === 'HEAD') {
     require APP_DIR . '/html/main.php';
@@ -52,7 +50,7 @@ if ($method === 'GET' || $method === 'HEAD') {
     if (empty($action)) {
         resultError(400, '"action" key can not empty');
     }
-    if (!method_exists($opcache, $action)) {
+    if (!method_exists(Opcache::class, $action)) {
         resultError(400, '"action" value error');
     }
     $needParam = [
@@ -86,7 +84,7 @@ if ($method === 'GET' || $method === 'HEAD') {
                 continue;
             }
             try {
-                $result = $opcache->$action($value);
+                $result = Opcache::$action($value);
                 if (!$result) {
                     break;
                 }
@@ -96,7 +94,7 @@ if ($method === 'GET' || $method === 'HEAD') {
 
         }
     } else {
-        $result = $opcache->$action();
+        $result = Opcache::$action();
     }
     header(MIME_JSON);
     $_result = $result;

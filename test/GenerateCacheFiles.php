@@ -7,7 +7,7 @@ if (!@mkdir($oppTestDir) && !is_dir($oppTestDir)) {
 for ($i = 0; $i < $num; $i++) {
     $filename = $oppTestDir . "/cache_$i.php";
     if (!file_exists($filename)) {
-        file_put_contents($filename, '<?php echo "Hello World";');
+        file_put_contents($filename, "<?php echo 'Hello Test File $i';");
     }
     opcache_compile_file($filename);
 }

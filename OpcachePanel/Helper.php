@@ -31,11 +31,9 @@ function resultError(int $code, string $error, array $detail = [])
 function isExists(string $path, bool $throws = true): string
 {
     $realpath = realpath($path);
-    if (!$realpath || !file_exists($realpath)) {
-        if ($throws) {
-            throw new NotFoundFile($path);
-        }
-        $realpath = '';
+    $realpath = $realpath ?: '';
+    if ($realpath === '' && $throws) {
+        throw new NotFoundFile($path);
     }
     return $realpath;
 }
