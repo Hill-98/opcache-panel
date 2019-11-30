@@ -26,7 +26,7 @@ const getOpcacheData = function getOpcacheData(action, key, isLoading = true) {
                 }
             })
     })
-}
+};
 
 export default {
     getConfiguration: (isLoading) => getOpcacheData("getConfiguration", "configuration", isLoading),

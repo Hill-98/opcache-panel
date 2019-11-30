@@ -4,7 +4,7 @@
             <!-- 缓存文件操作按钮 -->
             <div class="level">
                 <div class="level-left">
-                    <p v-t="{path: 'page.cache_files.script_num', args: {num: scriptsNum} }"></p>
+                    <p v-t="{path: 'page.cache_files.script_num', args: {num: scriptsNum} }"/>
                 </div>
                 <div class="level-right">
                     <b-field grouped>
@@ -22,7 +22,7 @@
                         <div class="control">
                             <b-button type="is-text" rounded :title="$t('common.refresh')"
                                       @click="refreshData">
-                                <b-icon icon="sync-alt"></b-icon>
+                                <b-icon icon="sync-alt"/>
                             </b-button>
                         </div>
                     </b-field>
@@ -30,7 +30,7 @@
             </div>
             <!-- 缓存文件操作按钮 END -->
             <b-field :label="$t('page.cache_files.search_file')" label-position="on-border">
-                <b-input v-model="searchInput"></b-input>
+                <b-input v-model="searchInput"/>
             </b-field>
             <!-- 缓存文件表格 -->
             <b-table :data="scripts" narrowed checkable sort-icon="sort" paginated :per-page="100"
@@ -38,20 +38,20 @@
                      @page-change="pageChange">
                 <template v-slot="props">
                     <b-table-column :label="$t('page.cache_files.file_path')">
-                        <span v-text="props.row.full_path"></span>
+                        <span v-text="props.row.full_path"/>
                     </b-table-column>
                     <b-table-column field="hits" :label="$t('page.cache_files.hits')" sortable>
-                        <span v-text="props.row.hits"></span>
+                        <span v-text="props.row.hits"/>
                     </b-table-column>
                     <b-table-column field="last_used_timestamp" :label="$t('page.cache_files.last_used_time')" sortable>
-                        <span v-text="props.row.last_used_timestamp_string"></span>
+                        <span v-text="props.row.last_used_timestamp_string"/>
                     </b-table-column>
                     <b-table-column field="memory_consumption" :label="$t('page.cache_files.memory_consumption')"
                                     sortable>
-                        <span v-text="props.row.memory_consumption_string"></span>
+                        <span v-text="props.row.memory_consumption_string"/>
                     </b-table-column>
                     <b-table-column field="timestamp" :label="$t('page.cache_files.timestamp')" sortable>
-                        <span v-text="props.row.timestamp ? props.row.timestamp_string : 'Null'"></span>
+                        <span v-text="props.row.timestamp ? props.row.timestamp_string : 'Null'"/>
                     </b-table-column>
                     <b-table-column custom-key="invalidate-cache">
                         <b-button size="is-small" icon-left="trash" type="is-danger"
@@ -64,7 +64,7 @@
             <!-- 缓存文件表格 END -->
         </template>
         <template v-else>
-            <p class="subtitle has-text-centered" v-t="'page.cache_files.no_cache_files'"></p>
+            <p class="subtitle has-text-centered" v-t="'page.cache_files.no_cache_files'"/>
         </template>
     </div>
 </template>
@@ -85,9 +85,11 @@
         }),
         computed: {
             originalScripts() {
+                /** @type {array} */
+                const scripts = this.$store.state.scripts;
                 return this.ignoreVendor ?
-                    this.$store.state.scripts.filter(value => value.full_path.search(/([/\\])vendor[/\\]/) === -1) :
-                    this.$store.state.scripts;
+                    scripts.filter(value => value.full_path.search(/([/\\])vendor[/\\]/) === -1) :
+                    scripts;
             },
             scripts() {
                 if (!this.isShow) return [];

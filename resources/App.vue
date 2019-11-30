@@ -1,17 +1,16 @@
 <template>
     <div id="app">
-        <opp-header></opp-header>
+        <opp-header/>
         <main>
-            <router-view v-if="$store.state.isReady" :key="$route.name" class="container" style="padding-top: 1rem">
-            </router-view>
+            <router-view v-if="$store.state.isReady" :key="$route.name" class="container" style="padding-top: 1rem"/>
         </main>
-        <opp-footer></opp-footer>
+        <opp-footer/>
     </div>
 </template>
 
 <script>
     import oppHeader from "@/components/opp-header.vue"
-    import oppFooter from "@/components/opp-footer.vue";
+    import oppFooter from "@/components/opp-footer.vue"
     import opcacheData from "@/js/utils/opcacheData"
 
     export default {

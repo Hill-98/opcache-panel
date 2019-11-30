@@ -1,7 +1,7 @@
 <template>
     <div class="tile is-parent" style="position: relative">
         <div class="tile is-child box">
-            <p class="title is-5" v-text="title"></p>
+            <p class="title is-5" v-text="title"/>
             <form ref="form" @submit.prevent="formSubmit">
                 <b-field :label="label">
                     <b-autocomplete v-model="currValue" :name="func" :placeholder="placeholder" :data="autocomplete"
@@ -26,9 +26,9 @@
                 </b-field>
             </form>
             <i18n path="page.advanced.use_function" tag="p">
-                <a :href="funcLink" target="_blank"><code v-text="func"></code></a>
+                <a :href="funcLink" target="_blank"><code v-text="func"/></a>
             </i18n>
-            <p v-text="summary"></p>
+            <p v-text="summary"/>
         </div>
     </div>
 </template>

@@ -61,7 +61,7 @@ apiClient.interceptors.response.use(response => {
     return Promise.resolve(response.data);
 }, error => {
     const errorCode = error.response.status;
-    let errorMsg = "";
+    let errorMsg;
     switch (errorCode) {
         case 400:
         case 401:

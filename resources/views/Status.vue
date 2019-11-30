@@ -5,7 +5,7 @@
             <!-- 运行状态标题以及标签-->
             <div class="level">
                 <div class="level-left">
-                    <p class="title" style="margin-bottom: 0" v-t="'page.status.running_status'"></p>
+                    <p class="title" style="margin-bottom: 0" v-t="'page.status.running_status'"/>
                     <!-- 运行状态标签-->
                     <b-field style="margin-left: 0.75rem; margin-top: 0.5rem" grouped>
                         <div class="control">
@@ -31,7 +31,7 @@
                 <!-- 运行状态刷新按钮 -->
                 <div class="level-right">
                     <b-button type="is-text" rounded :title="$t('common.refresh')" @click="refreshData('getStatus')">
-                        <b-icon icon="sync-alt"></b-icon>
+                        <b-icon icon="sync-alt"/>
                     </b-button>
                 </div>
                 <!-- 运行状态刷新按钮 END -->
@@ -66,12 +66,12 @@
             <!-- 配置信息标题 -->
             <div class="level">
                 <div class="level-left">
-                    <h1 class="title" v-t="'page.status.config_info'"></h1>
+                    <h1 class="title" v-t="'page.status.config_info'"/>
                 </div>
                 <div class="level-right">
                     <b-button type="is-text" rounded :title="$t('common.refresh')"
                               @click="refreshData('getConfiguration')">
-                        <b-icon icon="sync-alt"></b-icon>
+                        <b-icon icon="sync-alt"/>
                     </b-button>
                 </div>
             </div>
@@ -80,10 +80,10 @@
             <b-table :data="directives" narrowed>
                 <template v-slot="props">
                     <b-table-column field="key" :label="$t('page.status.key')">
-                        <a :href="configLink(props.row.key)" target="_blank" v-text="props.row.key"></a>
+                        <a :href="configLink(props.row.key)" target="_blank" v-text="props.row.key"/>
                     </b-table-column>
                     <b-table-column field="value" :label="$t('page.status.value')">
-                        <span v-text="props.row.value"></span>
+                        <span v-text="props.row.value"/>
                     </b-table-column>
                 </template>
             </b-table>
@@ -95,12 +95,12 @@
             <!-- 黑名单标题 -->
             <div class="level">
                 <div class="level-left">
-                    <h1 class="title" v-t="'page.status.blacklist'"></h1>
+                    <h1 class="title" v-t="'page.status.blacklist'"/>
                 </div>
                 <div class="level-right">
                     <b-button type="is-text" rounded :title="$t('common.refresh')"
                               @click="refreshData('getConfiguration')">
-                        <b-icon icon="sync-alt"></b-icon>
+                        <b-icon icon="sync-alt"/>
                     </b-button>
                 </div>
             </div>
@@ -109,7 +109,7 @@
             <b-table :data="blacklist" narrowed>
                 <template v-slot="props">
                     <b-table-column field="file" :label="$t('page.status.filepath')">
-                        <span v-text="props.row.file"></span>
+                        <span v-text="props.row.file"/>
                     </b-table-column>
                 </template>
             </b-table>

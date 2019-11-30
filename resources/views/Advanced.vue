@@ -5,22 +5,19 @@
                                :summary="$t('page.advanced.pre_cache_summary')" :func="func.ocf"
                                :title="$t('page.advanced.pre_cache')"
                                :placeholder="$t('page.advanced.multi_path')"
-                               @click="compileFile">
-            </advanced-tile-box>
+                               @click="compileFile"/>
             <advanced-tile-box v-model="path.invalidate" :label="$t('page.advanced.dir_path')"
                                :summary="$t('page.advanced.invalidate_cache_dir_summary')" :func="func.oi"
                                :title="$t('page.advanced.invalidate_cache_dir')"
                                :placeholder="$t('page.advanced.multi_path')"
-                               @click="invalidateDir">
-            </advanced-tile-box>
+                               @click="invalidateDir"/>
         </div>
         <div class="tile">
             <advanced-tile-box id="is-cached" v-model="path.is_cached" class="is-6"
                                :label="$t('page.advanced.file_path')"
                                :summary="$t('page.advanced.check_cache_summary')" :func="func.oisc"
                                :title="$t('page.advanced.check_cache')"
-                               @click="isScriptCached">
-            </advanced-tile-box>
+                               @click="isScriptCached"/>
         </div>
     </div>
 </template>

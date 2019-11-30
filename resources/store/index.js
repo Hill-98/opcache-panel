@@ -44,11 +44,11 @@ export default new Vuex.Store({
       }
   },
   actions: {
-      opcacheData(context, data) {
+      opcacheData({ commit }, data) {
           if (has(data, "configuration") && has(data, "status")) {
-              context.commit("configuration", data.configuration);
-              context.commit("status", data.status);
-              context.commit("ready")
+              commit("configuration", data.configuration);
+              commit("status", data.status);
+              commit("ready")
           }
       }
   },
