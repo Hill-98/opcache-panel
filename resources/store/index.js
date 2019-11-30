@@ -21,6 +21,9 @@ export default new Vuex.Store({
           if (typeof status.scripts === "object") {
               const scripts = [];
               Object.keys(status.scripts).forEach(file => {
+                  if (file === "$PRELOAD$") {
+                      return;
+                  }
                   const script = status.scripts[file];
                   script.last_used_timestamp_string = conversion.timeConversion(script.last_used_timestamp);
                   script.memory_consumption_string = conversion.sizeConversion(script.memory_consumption);

@@ -34,7 +34,8 @@
             </b-field>
             <!-- 缓存文件表格 -->
             <b-table :data="scripts" narrowed checkable sort-icon="sort" paginated :per-page="100"
-                     :checked-rows.sync="checkedRows" custom-row-key="file" :loading="!isShow">
+                     :checked-rows.sync="checkedRows" custom-row-key="file" :loading="!isShow"
+                     @page-change="pageChange">
                 <template v-slot="props">
                     <b-table-column :label="$t('page.cache_files.file_path')">
                         <span v-text="props.row.full_path"></span>
@@ -49,11 +50,10 @@
                                     sortable>
                         <span v-text="props.row.memory_consumption_string"></span>
                     </b-table-column>
-                    <b-table-column field="timestamp" :label="$t('page.cache_files.timestamp')" sortable
-                                    v-if="props.row.timestamp">
-                        <span v-text="props.row.timestamp_string"></span>
+                    <b-table-column field="timestamp" :label="$t('page.cache_files.timestamp')" sortable>
+                        <span v-text="props.row.timestamp ? props.row.timestamp_string : 'Null'"></span>
                     </b-table-column>
-                    <b-table-column>
+                    <b-table-column custom-key="invalidate-cache">
                         <b-button size="is-small" icon-left="trash" type="is-danger"
                                   :title="$t('page.cache_files.invalidate_cache')"
                                   @click="invalidateCache(props.row)">
@@ -114,6 +114,7 @@
             }
         },
         mounted() {
+            // setTimeout: 使页面可以在假死之前显示
             this.$nextTick().then(() => setTimeout(() => this.isShow = true))
         },
         methods: {
@@ -132,7 +133,9 @@
             },
             async refreshData() {
                 await opcacheData.getStatus();
-            }
+            },
+            // setTimeout: 使 IE 达到预期行为
+            pageChange: () => setTimeout(() => scrollTo(0, 0))
         }
     }
 </script>
