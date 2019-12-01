@@ -20,25 +20,26 @@ $fileBatch = static function (string $path) {
 };
 
 $compileFile = static function (string $path) use ($fileBatch) {
-    $realpath = realpath($path);
-    if (!$realpath) {
-        return;
-    }
-    if (is_file($realpath)) {
-        @opcache_compile_file($realpath);
-        return;
-    }
-    if (is_dir($realpath)) {
-        $fileBatch($realpath);
+    if (is_file($path)) {
+        @opcache_compile_file($path);
+    } else {
+        $fileBatch($path);
     }
 };
 
 if (file_exists(PRELOAD_FILE)) {
     $json = file_get_contents(PRELOAD_FILE);
     $preloadList = json_decode($json, true);
-    if (json_last_error() === JSON_ERROR_NONE && preg_match('/^\[[\s\S]*]$/', $json) === 1) {
-        foreach ($preloadList as $value) {
-            $compileFile($value);
+    if (json_last_error() === JSON_ERROR_NONE) {
+        if (isset($json['preCompile']) && is_array($json['preCompile'])) {
+            foreach ($json['preCompile'] as $value) {
+                $compileFile($value);
+            }
+        }
+        if (isset($json['preInclude']) && is_array($json['preInclude'])) {
+            foreach ($json['preInclude'] as $value) {
+                @include $value;
+            }
         }
     }
 }
