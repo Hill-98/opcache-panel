@@ -86,6 +86,7 @@ export default {
             check_cache: "Check File Cached",
             check_cache_summary: "Check that the specified file has been cached",
             use_function: "This feature uses the function opcache_invalidate {0}",
+            no_wildcard: "Path is not allowed *",
             empty_path: "Path is empty",
             not_multi_path: "This feature does not support multiple paths",
             uncached: "Uncached",

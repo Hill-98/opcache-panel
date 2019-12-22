@@ -48,6 +48,13 @@
         }),
         methods: {
             async api(action, value, callback, refresh = true) {
+                if (value.includes("*")) {
+                    this.$buefy.toast.open({
+                        message: this.$t("page.advanced.no_wildcard"),
+                        type: "is-warning"
+                    });
+                    return;
+                }
                 const path = value.includes("|") ? value.split("|") : value;
                 let notEmpty = Array.isArray(path) ? path.some(v => Boolean(v)) : Boolean(path);
                 if (!notEmpty) {

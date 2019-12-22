@@ -1,11 +1,11 @@
+import { LoadingProgrammatic } from "buefy"
 import apiClient from "../apiClient"
-import {LoadingProgrammatic as Loading} from "buefy"
 import store from "@/store"
 
 const getOpcacheData = function getOpcacheData(action, key, isLoading = true) {
     let loading;
     if (isLoading) {
-        loading = Loading.open({
+        loading = LoadingProgrammatic.open({
             container: null
         });
     }
@@ -21,7 +21,7 @@ const getOpcacheData = function getOpcacheData(action, key, isLoading = true) {
             })
             .catch(reject)
             .finally(() => {
-                if (loading !== undefined) {
+                if ("close" in loading && typeof loading.close === "function") {
                     loading.close();
                 }
             })

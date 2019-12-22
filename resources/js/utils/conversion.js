@@ -1,7 +1,7 @@
 const INVALID_DATE_STRING = new Date("X").toString();
 const sizeUnit = ["B", "KB", "MB", "GB", "TB", "PB"];
 // fillingInt
-const fi = (num, length = 2) => `${"0".repeat(length)}${num}`.substr(-length);
+const fi = (num, length = 2) => "0".repeat(length).concat(num).substr(-length);
 
 export default {
     TYPE: {

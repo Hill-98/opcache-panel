@@ -1,12 +1,12 @@
 import axios from "axios"
+import { ToastProgrammatic as Toast } from "buefy"
 import i18n from "@/i18n"
 import has from "./utils/has"
-import {ToastProgrammatic as Toast} from "buefy"
 
 class ApiError {
-    isApiError = true;
     constructor(data) {
         Object.assign(this, data);
+        this.isApiError = true;
     }
 }
 

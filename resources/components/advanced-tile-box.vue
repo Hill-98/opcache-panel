@@ -2,27 +2,24 @@
     <div class="tile is-parent" style="position: relative">
         <div class="tile is-child box">
             <p class="title is-5" v-text="title"/>
-            <form ref="form" @submit.prevent="formSubmit">
+            <form>
                 <b-field :label="label">
                     <b-autocomplete v-model="currValue" :name="func" :placeholder="placeholder" :data="autocomplete"
-                                    @keyup.enter.exact.native="$refs['submit'].$el.click()">
+                                    @keyup.enter.exact.native="formSubmit">
                         <template #header>
-                            <a class="has-text-primary" @click="autocomplete = []" v-t="'page.advanced.clear_history'">
-                            </a>
+                            <a class="has-text-primary" @click="autocomplete = []" v-t="'page.advanced.clear_history'"/>
                         </template>
-                        <template v-slot="props">
+                        <template v-slot="{ option }">
                             <div class="is-flex level">
-                                <span>{{ props.option }}</span>
+                                <span v-text="option"/>
                                 <b-icon icon="times"
-                                        @click.native.stop="autocomplete.splice(autocomplete.indexOf(props.option), 1)">
-                                </b-icon>
+                                        @click.native.stop="autocomplete.splice(autocomplete.indexOf(option), 1)"/>
                             </div>
                         </template>
                     </b-autocomplete>
                 </b-field>
                 <b-field class="has-text-right">
-                    <b-button ref="submit" type="is-primary" native-type="submit" v-t="'page.advanced.submit'">
-                    </b-button>
+                    <b-button type="is-primary" @click="formSubmit" v-t="'page.advanced.submit'"/>
                 </b-field>
             </form>
             <i18n path="page.advanced.use_function" tag="p">
@@ -69,8 +66,8 @@
             window.addEventListener("beforeunload", this.saveAutocomplete)
         },
         destroyed() {
+            window.removeEventListener("beforeunload", this.saveAutocomplete);
             this.saveAutocomplete();
-            window.removeEventListener("beforeunload", this.saveAutocomplete)
         },
         methods: {
             formSubmit() {

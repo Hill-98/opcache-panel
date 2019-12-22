@@ -36,28 +36,27 @@
             <b-table :data="scripts" narrowed checkable sort-icon="sort" paginated :per-page="100"
                      :checked-rows.sync="checkedRows" custom-row-key="file" :loading="!isShow"
                      @page-change="pageChange">
-                <template v-slot="props">
+                <template v-slot="{ row }">
                     <b-table-column :label="$t('page.cache_files.file_path')">
-                        <span v-text="props.row.full_path"/>
+                        <span v-text="row.full_path"/>
                     </b-table-column>
                     <b-table-column field="hits" :label="$t('page.cache_files.hits')" sortable>
-                        <span v-text="props.row.hits"/>
+                        <span v-text="row.hits"/>
                     </b-table-column>
                     <b-table-column field="last_used_timestamp" :label="$t('page.cache_files.last_used_time')" sortable>
-                        <span v-text="props.row.last_used_timestamp_string"/>
+                        <span v-text="row.last_used_timestamp_string"/>
                     </b-table-column>
                     <b-table-column field="memory_consumption" :label="$t('page.cache_files.memory_consumption')"
                                     sortable>
-                        <span v-text="props.row.memory_consumption_string"/>
+                        <span v-text="row.memory_consumption_string"/>
                     </b-table-column>
                     <b-table-column field="timestamp" :label="$t('page.cache_files.timestamp')" sortable>
-                        <span v-text="props.row.timestamp ? props.row.timestamp_string : 'Null'"/>
+                        <span v-text="row.timestamp ? row.timestamp_string : 'Null'"/>
                     </b-table-column>
                     <b-table-column custom-key="invalidate-cache">
                         <b-button size="is-small" icon-left="trash" type="is-danger"
                                   :title="$t('page.cache_files.invalidate_cache')"
-                                  @click="invalidateCache(props.row)">
-                        </b-button>
+                                  @click="invalidateCache(row)"/>
                     </b-table-column>
                 </template>
             </b-table>
@@ -117,7 +116,7 @@
         },
         mounted() {
             // setTimeout: 使页面可以在假死之前显示
-            this.$nextTick().then(() => setTimeout(() => this.isShow = true))
+            setTimeout(() => this.isShow = true);
         },
         methods: {
             async invalidateCache(value) {
@@ -136,8 +135,10 @@
             async refreshData() {
                 await opcacheData.getStatus();
             },
-            // setTimeout: 使 IE 达到预期行为
-            pageChange: () => setTimeout(() => scrollTo(0, 0))
+            pageChange() {
+                // setTimeout: 使 IE 达到预期行为
+                setTimeout(() => scrollTo(0, 0));
+            }
         }
     }
 </script>

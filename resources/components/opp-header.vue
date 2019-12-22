@@ -13,8 +13,7 @@
                 <template v-for="item in $router.options.routes">
                     <b-navbar-item v-if="item.name" :key="item.name" tag="router-link"
                                    :to="`/${$i18n.locale}${item.meta.originalPath}`"
-                                   :active="$route.name === item.name" v-t="item.meta.title">
-                    </b-navbar-item>
+                                   :active="$route.name === item.name" v-t="item.meta.title"/>
                 </template>
             </template>
             <!-- 导航栏菜单 END -->

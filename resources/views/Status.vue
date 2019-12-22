@@ -10,18 +10,15 @@
                     <b-field style="margin-left: 0.75rem; margin-top: 0.5rem" grouped>
                         <div class="control">
                             <b-taglist attached>
-                                <b-tag type="is-dark" v-text="version.opcache_product_name">
-                                </b-tag>
-                                <b-tag type="is-info" v-text="version.version">
-                                </b-tag>
+                                <b-tag type="is-dark" v-text="version.opcache_product_name"/>
+                                <b-tag type="is-info" v-text="version.version"/>
                             </b-taglist>
                         </div>
                         <div class="control">
                             <b-taglist attached>
                                 <b-tag type="is-dark">Enable</b-tag>
                                 <b-tag :type="opcache_enabled ? 'is-success' : 'is-warning'"
-                                       v-text="opcache_enabled ? 'True' : 'False'">
-                                </b-tag>
+                                       v-text="opcache_enabled ? 'True' : 'False'"/>
                             </b-taglist>
                         </div>
                     </b-field>
@@ -41,21 +38,18 @@
                 <!-- 内存使用卡片 -->
                 <status-tile-box :max-progress="opcache_memory_consumption" :progress="memory_usage.used_memory"
                                  :data="memory_usage" :data-type="format.memory_usage"
-                                 :title="$t('page.status.memory_usage')">
-                </status-tile-box>
+                                 :title="$t('page.status.memory_usage')"/>
                 <!-- 内存使用卡片 END -->
                 <!-- 统计信息卡片 -->
                 <status-tile-box :progress="opcache_statistics.opcache_hit_rate" :data-type="format.opcache_statistics"
                                  :title="$t('page.status.opcache_statistics')" :data="opcache_statistics"
-                                 :progress-text="$t('page.status.opcache_hit_rate')">
-                </status-tile-box>
+                                 :progress-text="$t('page.status.opcache_hit_rate')"/>
                 <!-- 统计信息卡片 END -->
                 <!-- 保留字符串卡片 -->
                 <status-tile-box :max-progress="opcache_interned_strings_buffer" :data="interned_strings_usage"
                                  :progress="interned_strings_usage.used_memory"
                                  :data-type="format.interned_strings_usage"
-                                 :title="$t('page.status.interned_strings')">
-                </status-tile-box>
+                                 :title="$t('page.status.interned_strings')"/>
                 <!-- 保留字符串卡片 END -->
             </div>
             <!-- 运行状态卡片组 END -->
@@ -78,12 +72,12 @@
             <!-- 配置信息标题 END -->
             <!-- 配置信息表格 -->
             <b-table :data="directives" narrowed>
-                <template v-slot="props">
+                <template v-slot="{ row }">
                     <b-table-column field="key" :label="$t('page.status.key')">
-                        <a :href="configLink(props.row.key)" target="_blank" v-text="props.row.key"/>
+                        <a :href="configLink(row.key)" target="_blank" v-text="row.key"/>
                     </b-table-column>
                     <b-table-column field="value" :label="$t('page.status.value')">
-                        <span v-text="props.row.value"/>
+                        <span v-text="row.value"/>
                     </b-table-column>
                 </template>
             </b-table>
@@ -107,9 +101,9 @@
             <!-- 黑名单标题 END -->
             <!-- 黑名单表格 -->
             <b-table :data="blacklist" narrowed>
-                <template v-slot="props">
+                <template v-slot="{ row }">
                     <b-table-column field="file" :label="$t('page.status.filepath')">
-                        <span v-text="props.row.file"/>
+                        <span v-text="row.file"/>
                     </b-table-column>
                 </template>
             </b-table>
@@ -196,7 +190,7 @@
             }
         },
         methods: {
-            configLink: value => `https://www.php.net/manual/opcache.configuration.php#ini.${value.replace(/_/g, '-')}`,
+            configLink: (value) => `https://www.php.net/manual/opcache.configuration.php#ini.${value.replace(/_/g, "-")}`,
             async refreshData(name) {
                 await opcacheData[name]();
             }

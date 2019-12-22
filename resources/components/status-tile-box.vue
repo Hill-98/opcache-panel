@@ -1,13 +1,12 @@
 <template>
     <div class="tile is-parent">
         <div class="tile is-child box">
-            <p class="title is-5">{{ title }}</p>
+            <p class="title is-5" v-text="title"/>
             <b-progress type="is-info" :max="maxProgress" :value="progress" :show-value="show_value">
-                <span v-if="progressText !== undefined" v-text="progressText"/>
+                {{ progressText }}
             </b-progress>
             <p v-for="(value, name) in data" :key="`${name}${value}`"
-               v-text="`${$t(`page.status.${name}`)}: ${conversion(dataType[name], value)}`">
-            </p>
+               v-text="`${$t(`page.status.${name}`)}: ${conversion(dataType[name], value)}`"/>
         </div>
     </div>
 </template>
@@ -25,19 +24,20 @@
                 default: 100
             },
             progress: Number,
-            progressText: String,
+            progressText: {
+                type: String,
+                default: ""
+            },
             showValue: Boolean,
             title: String,
         },
         computed: {
             show_value() {
-                return this.showValue || this.progressText !== undefined;
+                return this.showValue || Boolean(this.progressText);
             }
         },
         methods: {
-            conversion(type, value) {
-                return type === null ? value : conversion[`${type}Conversion`](value);
-            }
+            conversion: (type, value) => type === null ? value : conversion[`${type}Conversion`](value),
         }
     }
 </script>

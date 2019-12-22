@@ -86,6 +86,7 @@ export default {
             check_cache: "检查文件缓存",
             check_cache_summary: "检查指定文件是否已被缓存",
             use_function: "此功能使用{0}函数",
+            no_wildcard: "路径不允许出现 *",
             empty_path: "路径为空",
             not_multi_path: "此功能不支持多个路径",
             uncached: "未缓存",
