@@ -29,6 +29,23 @@ Before you begin configuring, must take `config.example.php` rename `config.php`
 
 Authentication password, if set to empty, disable authentication.
 
+## Opcache Preload
+**PHP 7.4 + Only**
+
+* Edit PHP.ini, change the `opcache.preload` value to `preload.php` path.
+* Create preload.json in the format as shown below
+```json
+{
+  "preCompile": [
+    // If is directory, compile all the PHP files in the catalog.
+  ],
+  "preInclude": [
+
+  ]
+}
+```
+* Restart PHP and check that Opcache preload is working properly
+
 ## Screenshots
 
 ![Preview 1](https://cdn.mivm.cn/image/opcache-panel/preview1.jpg)

@@ -29,6 +29,23 @@ PHP Opcache 面板，可以帮助你 更好的管理 Opcache，例如删除缓�
 
 身份验证的密码，如果设置为空，则禁用身份验证。
 
+## Opcache Preload
+**PHP 7.4 + Only**
+
+* 编辑 PHP.ini, 更改 `opcache.preload` 值为 `preload.php` 路径。
+* 以如下所示的格式创建 preload.json
+```json
+{
+  "preCompile": [
+    // 如果是目录，编译目录下所有的 PHP 文件。
+  ],
+  "preInclude": [
+
+  ]
+}
+```
+* 重启 PHP 并检查 Opcache Preload 是否正常工作。
+
 ## 截图
 
 ![Preview 1](https://cdn.mivm.cn/image/opcache-panel/preview1.jpg)
