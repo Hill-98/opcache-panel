@@ -44,14 +44,14 @@ if ($method === 'GET' || $method === 'HEAD') {
     }
     $json = json_decode(file_get_contents('php://input'), true, 512);
     if (json_last_error() !== JSON_ERROR_NONE) {
-        resultError(400, 'POST body not is JSON');
+        Helper::errorResult(400, 'POST body not is JSON');
     }
     $action = $json['action'] ?? 'action';
     if (empty($action)) {
-        resultError(400, '"action" key can not empty');
+        Helper::errorResult(400, '"action" key can not empty');
     }
     if (!method_exists(Opcache::class, $action)) {
-        resultError(400, '"action" value error');
+        Helper::errorResult(400, '"action" value error');
     }
     $needParam = [
         'compileFile' => 'string|array',
@@ -63,7 +63,7 @@ if ($method === 'GET' || $method === 'HEAD') {
     if (array_key_exists($action, $needParam)) {
         $param = $json['param'] ?? '';
         if (empty($param)) {
-            resultError(400, '"param" key can not empty');
+            Helper::errorResult(400, '"param" key can not empty');
         }
         $paramTypes = explode('|', $needParam[$action]);
         $isType = false;
@@ -74,7 +74,7 @@ if ($method === 'GET' || $method === 'HEAD') {
             }
         }
         if (!$isType) {
-            resultError(400, '"param" value type error, only accept these types: ' . implode(', ', $paramTypes));
+            Helper::errorResult(400, '"param" value type error, only accept these types: ' . implode(', ', $paramTypes));
         }
         if (!is_array($param)) {
             $param = [$param];
@@ -89,7 +89,7 @@ if ($method === 'GET' || $method === 'HEAD') {
                     break;
                 }
             } catch (Exception $e) {
-                resultError(500, $e->getMessage());
+                Helper::errorResult(500, $e->getMessage());
             }
 
         }

@@ -23,7 +23,6 @@
     },
     "autoload": {
         "files": [
-            "OpcachePanel/Helper.php",
             "define.php"
         ],
         "psr-4": {

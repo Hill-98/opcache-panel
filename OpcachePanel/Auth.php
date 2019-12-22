@@ -49,7 +49,7 @@ class Auth
             http_response_code(401);
             require __DIR__ . '/html/auth.php';
         } else {
-            resultError(401, 'Unauthorized');
+            Helper::errorResult(401, 'Unauthorized');
         }
         exit(401);
     }

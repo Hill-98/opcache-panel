@@ -45,7 +45,7 @@ class Opcache
      */
     public static function compileFile(string $path): bool
     {
-        $realpath = isExists($path);
+        $realpath = Helper::isExists($path);
         if (is_file($realpath)) {
             return @opcache_compile_file($realpath);
         }
@@ -91,7 +91,7 @@ class Opcache
      */
     public static function invalidate(string $file): bool
     {
-        $filename = isExists($file, false);
+        $filename = Helper::isExists($file, false);
         return opcache_invalidate($filename, true);
     }
 
@@ -102,7 +102,7 @@ class Opcache
      */
     public static function invalidateDir(string $path): bool
     {
-        $realpath = isExists($path);
+        $realpath = Helper::isExists($path);
         if (is_file($realpath)) {
             return self::invalidate($realpath);
         }
@@ -120,7 +120,7 @@ class Opcache
      */
     public static function isScriptCached(string $file): bool
     {
-        $filename = isExists($file);
+        $filename = Helper::isExists($file);
         return opcache_is_script_cached($filename);
     }
 
