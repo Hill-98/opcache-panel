@@ -5,8 +5,6 @@
     "license": "MIT",
     "version": "1.4.0",
     "homepage": "https://github.com/Hill-98/opcache-panel",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "authors": [
         {
             "name": "Zhong Lufan",
