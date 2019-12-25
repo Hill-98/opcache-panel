@@ -11,21 +11,21 @@ PHP opcache panel, can help you better manage opcache, for example, delete the c
 
 ## Feature
 
-- Beautiful and easy to use responsive UI
-- Support for simple password authentication
-- Support for all `opcache_*` functions
-- i18n
+* Beautiful and easy to use responsive UI
+* Support for simple password authentication
+* Support for all `opcache_*` functions
+* i18n
 
 ## Install
 
-Request: PHP 7.0 +, Zend Opcache Extension
+Request: PHP 7.0 +, JSON, Zend Opcache Extension
 
 Go to the [release](https://github.com/Hill-98/opcache-panel/releases) page and download the latest version
 
 ## Configuration
 Before you begin configuring, must take `config.example.php` rename `config.php`
 
-**AUTH_PASSWORD**
+**`AUTH_PASSWORD`**
 
 Authentication password, if set to empty, disable authentication.
 
@@ -33,7 +33,7 @@ Authentication password, if set to empty, disable authentication.
 **Support PHP 7.4 + Only**
 
 * Edit PHP.ini, change the `opcache.preload` value to `preload.php` path.
-* Create preload.json in the format as shown below
+* Create `preload.json` in the format as shown below
 ```json
 {
   "preCompile": [
@@ -49,24 +49,14 @@ Authentication password, if set to empty, disable authentication.
 
 ## Screenshots
 
-![Preview 1](https://cdn.mivm.cn/image/opcache-panel/preview1.jpg)
+![Preview 1](https://cdn.mivm.cn/github/opcache-panel/image/preview1.jpg)
 
-![Preview 2](https://cdn.mivm.cn/image/opcache-panel/preview2.jpg)
+![Preview 2](https://cdn.mivm.cn/github/opcache-panel/image/preview2.jpg)
 
-![Preview 3](https://cdn.mivm.cn/image/opcache-panel/preview3.jpg)
+![Preview 3](https://cdn.mivm.cn/github/opcache-panel/image/preview3.jpg)
 
 ## Browser support
 
 Any browser that supports [Vue](https://github.com/vuejs/vue) and [buefy](https://github.com/buefy/buefy)
 
-Not guaranteed to support IE10 or lower version
-
-## Donate
-
-If this project help you, you can consider supporting me in the following manner.
-
-![AliPay](https://cdn.mivm.cn/image/qrcode/AliPay.png)
-
-![WeChat](https://cdn.mivm.cn/image/qrcode/WeChatPay.png)
-
-PayPal: [https://paypal.me/mivm](https://paypal.me/mivm)
+**Not guaranteed to support IE10 or lower version**

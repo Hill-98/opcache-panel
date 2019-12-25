@@ -11,21 +11,21 @@ PHP Opcache 面板，可以帮助你 更好的管理 Opcache，例如删除缓�
 
 ## 特征
 
-- 漂亮和易用的响应式 UI
-- 支持简单的密码身份验证
-- 支持所有 `opcache_*` 函数
-- 国际化
+* 漂亮和易用的响应式 UI
+* 支持简单的密码身份验证
+* 支持所有 `opcache_*` 函数
+* 国际化
 
 ## 安装
 
-要求: PHP 7.0 +, Zend Opcache 扩展
+要求: PHP 7.0 +, JSON, Zend Opcache 扩展
 
 前往 [release](https://github.com/Hill-98/opcache-panel/releases) 页面并下载最新版本
 
 ## 配置
 在开始配置之前，务必要把 `config.example.php` 重命名为 `config.php`
 
-**AUTH_PASSWORD**
+**`AUTH_PASSWORD`**
 
 身份验证的密码，如果设置为空，则禁用身份验证。
 
@@ -33,7 +33,7 @@ PHP Opcache 面板，可以帮助你 更好的管理 Opcache，例如删除缓�
 **只支持 PHP 7.4 +**
 
 * 编辑 PHP.ini, 更改 `opcache.preload` 值为 `preload.php` 路径。
-* 以如下所示的格式创建 preload.json
+* 以如下所示的格式创建 `preload.json`
 ```json
 {
   "preCompile": [
@@ -49,24 +49,14 @@ PHP Opcache 面板，可以帮助你 更好的管理 Opcache，例如删除缓�
 
 ## 截图
 
-![Preview 1](https://cdn.mivm.cn/image/opcache-panel/preview1.jpg)
+![Preview 1](https://cdn.mivm.cn/github/opcache-panel/image/preview1.jpg)
 
-![Preview 2](https://cdn.mivm.cn/image/opcache-panel/preview2.jpg)
+![Preview 2](https://cdn.mivm.cn/github/opcache-panel/image/preview2.jpg)
 
-![Preview 3](https://cdn.mivm.cn/image/opcache-panel/preview3.jpg)
+![Preview 3](https://cdn.mivm.cn/github/opcache-panel/image/preview3.jpg)
 
 ## 浏览器支持
 
 任何支持 [Vue](https://github.com/vuejs/vue) 和 [buefy](https://github.com/buefy/buefy) 的浏览器
 
-不保证支持 IE 10 或更低版本
-
-## 捐赠
-
-如果这个项目对您有帮助，您可以考虑通过以下方式支持我。
-
-![AliPay](https://cdn.mivm.cn/image/qrcode/AliPay.png)
-
-![WeChat](https://cdn.mivm.cn/image/qrcode/WeChatPay.png)
-
-PayPal: [https://paypal.me/mivm](https://paypal.me/mivm)
+**不保证支持 IE 10 或更低版本**
