@@ -25,15 +25,12 @@ class Opcache
                 self::fileBatch($_path, $function, ...$param);
                 continue;
             }
-
-            if (substr($_path, -4) !== '.php') {
-                continue;
-            }
-
-            $_param = array_merge([$_path], $param);
-            try {
-                $function(...$_param);
-            } catch (Exception $e) {
+            if (substr($_path, -4) === '.php') {
+                $_param = array_merge([$_path], $param);
+                try {
+                    $function(...$_param);
+                } catch (Exception $e) {
+                }
             }
         }
     }
