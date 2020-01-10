@@ -1,13 +1,12 @@
-# Opcache panel
-
+# Opcache panel 
 <a href="https://github.com/Hill-98/opcache-panel/blob/master/LICENSE"><img alt="MIT" src="https://img.shields.io/github/license/Hill-98/opcache-panel"></a>
 <a href="https://packagist.org/packages/hill-98/opcache-panel"><img alt="PHP Version" src="https://img.shields.io/packagist/php-v/hill-98/opcache-panel"></a>
 <a href="https://github.com/Hill-98/opcache-panel/releases"><img alt="Github Releases" src="https://img.shields.io/github/v/release/Hill-98/opcache-panel"></a>
 <a href="https://github.com/Hill-98/opcache-panel/releases"><img alt="Github Releases Download" src="https://img.shields.io/github/downloads/Hill-98/opcache-panel/total"></a>
 
-PHP Opcache 面板，可以帮助你 更好的管理 Opcache，例如删除缓存和其他操作，
+[English](https://github.com/Hill-98/opcache-panel/blob/master/README.md) | [中文](https://github.com/Hill-98/opcache-panel/blob/master/README_cn.md)
 
-[English](https://github.com/Hill-98/opcache-panel/blob/master/README.md)
+PHP Opcache 面板，可以帮助你更好的管理 Opcache，例如删除缓存和其他操作，
 
 ## 特征
 
@@ -32,8 +31,9 @@ PHP Opcache 面板，可以帮助你 更好的管理 Opcache，例如删除缓�
 ## Opcache 预加载
 **只支持 PHP 7.4 +**
 
-* 编辑 PHP.ini, 更改 `opcache.preload` 值为 `preload.php` 路径。
+* 编辑 `php.ini`, 更改 `opcache.preload` 值为 `preload.php` 路径。
 * 以如下所示的格式创建 `preload.json`
+
 ```json
 {
   "preCompile": [
@@ -45,6 +45,7 @@ PHP Opcache 面板，可以帮助你 更好的管理 Opcache，例如删除缓�
 }
 ```
 > `preCompile` 如果是目录，编译目录下所有的 PHP 文件。
+
 * 重启 PHP 并检查 Opcache Preload 是否正常工作。
 
 ## 截图
@@ -57,6 +58,6 @@ PHP Opcache 面板，可以帮助你 更好的管理 Opcache，例如删除缓�
 
 ## 浏览器支持
 
-任何支持 [Vue](https://github.com/vuejs/vue) 和 [buefy](https://github.com/buefy/buefy) 的浏览器
-
 **不保证支持 IE 10 或更低版本**
+
+任何支持 [Vue](https://github.com/vuejs/vue) 和 [buefy](https://github.com/buefy/buefy) 的浏览器

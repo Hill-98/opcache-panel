@@ -5,9 +5,9 @@
 <a href="https://github.com/Hill-98/opcache-panel/releases"><img alt="Github Releases" src="https://img.shields.io/github/v/release/Hill-98/opcache-panel"></a>
 <a href="https://github.com/Hill-98/opcache-panel/releases"><img alt="Github Releases Download" src="https://img.shields.io/github/downloads/Hill-98/opcache-panel/total"></a>
 
-PHP opcache panel, can help you better manage opcache, for example, delete the cache and other operations.
+[English](https://github.com/Hill-98/opcache-panel/blob/master/README.md) | [中文](https://github.com/Hill-98/opcache-panel/blob/master/README_cn.md)
 
-[中文](https://github.com/Hill-98/opcache-panel/blob/master/README_cn.md)
+PHP opcache panel, can help you better manage opcache, for example, delete the cache and other operations.
 
 ## Feature
 
@@ -32,8 +32,9 @@ Authentication password, if set to empty, disable authentication.
 ## Opcache Preload
 **Support PHP 7.4 + Only**
 
-* Edit PHP.ini, change the `opcache.preload` value to `preload.php` path.
+* Edit `php.ini`, change the `opcache.preload` value to `preload.php` path.
 * Create `preload.json` in the format as shown below
+
 ```json
 {
   "preCompile": [
@@ -45,6 +46,7 @@ Authentication password, if set to empty, disable authentication.
 }
 ```
 > `preCompile` If is directory, compile all the PHP files in the catalog.
+
 * Restart PHP and check that Opcache preload is working properly
 
 ## Screenshots
@@ -57,6 +59,6 @@ Authentication password, if set to empty, disable authentication.
 
 ## Browser support
 
-Any browser that supports [Vue](https://github.com/vuejs/vue) and [buefy](https://github.com/buefy/buefy)
-
 **Not guaranteed to support IE10 or lower version**
+
+Any browser that supports [Vue](https://github.com/vuejs/vue) and [buefy](https://github.com/buefy/buefy)
