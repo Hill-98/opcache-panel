@@ -115,8 +115,8 @@
 
 <script>
     import statusTileBox from "@/components/status-tile-box.vue"
+    import opcacheData from "@/js/opcacheData"
     import conversion from "@/js/utils/conversion"
-    import opcacheData from "@/js/utils/opcacheData"
 
     export default {
         name: "Status",

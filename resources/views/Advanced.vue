@@ -25,8 +25,8 @@
 <script>
     import advancedTileBox from "@/components/advanced-tile-box.vue"
     import apiClient from "@/js/apiClient"
+    import opcacheData from "@/js/opcacheData"
     import has from "@/js/utils/has"
-    import opcacheData from "@/js/utils/opcacheData"
 
     export default {
         name: "Advanced",

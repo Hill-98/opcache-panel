@@ -70,7 +70,7 @@
 
 <script>
     import apiClient from "@/js/apiClient"
-    import opcacheData from "@/js/utils/opcacheData"
+    import opcacheData from "@/js/opcacheData"
 
     export default {
         name: "CacheFiles",

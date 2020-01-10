@@ -1,18 +1,14 @@
 import { LoadingProgrammatic } from "buefy"
-import apiClient from "../apiClient"
+import apiClient from "./apiClient"
 import store from "@/store"
 
-const getOpcacheData = function getOpcacheData(action, key, isLoading = true) {
-    let loading;
-    if (isLoading) {
-        loading = LoadingProgrammatic.open({
-            container: null
-        });
-    }
+const getOpcacheData = function getOpcacheData(action, key = null, isLoading = true) {
+    const loading = isLoading ? LoadingProgrammatic.open({container: null}) : {} ;
+
     return new Promise((resolve, reject) => {
         apiClient(action)
             .then(data => {
-                if (key === undefined) {
+                if (key === null) {
                     store.dispatch("opcacheData", data);
                 } else {
                     store.commit(key, data);
@@ -30,6 +26,6 @@ const getOpcacheData = function getOpcacheData(action, key, isLoading = true) {
 
 export default {
     getConfiguration: (isLoading) => getOpcacheData("getConfiguration", "configuration", isLoading),
-    getInfo: (isLoading) => getOpcacheData("getInfo", undefined, isLoading),
+    getInfo: (isLoading) => getOpcacheData("getInfo", null, isLoading),
     getStatus: (isLoading) => getOpcacheData("getStatus", "status", isLoading)
 }

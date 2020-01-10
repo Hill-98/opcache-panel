@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import conversion from "../js/utils/conversion"
+    import conversion from "@/js/utils/conversion"
 
     export default {
         name: "status-tile-box",
