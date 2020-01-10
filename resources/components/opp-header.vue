@@ -3,7 +3,7 @@
         <b-navbar type="is-dark" wrapper-class="container" shadow>
             <!-- 导航栏标题 -->
             <template #brand>
-                <b-navbar-item :href="href">
+                <b-navbar-item :href="indexHref">
                     <span class="has-text-white title is-5" v-text="title"/>
                 </b-navbar-item>
             </template>
@@ -43,14 +43,13 @@
 </template>
 
 <script>
-    import apiClient from "../js/apiClient"
-    import errorHandler from "@/js/errorHandler"
-    import opcacheData from "../js/utils/opcacheData"
+    import apiClient from "@/js/apiClient"
+    import opcacheData from "@/js/utils/opcacheData"
 
     export default {
         name: "opp-header",
         data: () => ({
-            href: location.href.replace(location.hash, ""),
+            indexHref: location.href.replace(location.hash, ""),
             isLogin: document.cookie.split("; ").some(value => value.split("=")[0] === "OPP_SESSION"),
             updateStyle: {
                 color: null,
@@ -71,7 +70,7 @@
             realTimeUpdate() {
                 if (this.timer === null) {
                     this.timer = setInterval(() => {
-                        opcacheData.getInfo(false).catch(errorHandler);
+                        opcacheData.getInfo(false).catch(this.errorHandler);
                     }, 3000);
                     this.updateStyle.color = "#167df0";
                 } else {

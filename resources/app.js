@@ -32,14 +32,19 @@ faLibrary.add(
     faTimes,
     faTrash
 );
+
+Vue.config.productionTip = false;
+Vue.config.errorHandler = errorHandler;
 Vue.component(FontAwesomeIcon.name, FontAwesomeIcon);
 Vue.use(Buefy, {
     defaultIconComponent: FontAwesomeIcon.name,
     defaultIconPack: "fas",
 });
 
-Vue.config.productionTip = false;
-Vue.config.errorHandler = errorHandler;
+Object.defineProperty(Vue.prototype, "errorHandler", {
+    enumerable: true,
+    value: errorHandler
+});
 
 new Vue({
     i18n,
