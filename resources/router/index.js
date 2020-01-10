@@ -47,7 +47,7 @@ routes.forEach((value, index) => {
     // 没有语言参数的路径重定向至当前语言
     routes.push({
         path: value.path,
-        beforeEnter: (to, from, next) => next(`/${i18n.locale}${to.path}`)
+        beforeEnter: ({path}, from, next) => next(`/${i18n.locale}${path}`)
     });
     // 添加语言参数到真实路径
     [routes[index].path, routes[index].meta.originalPath] = [langMatch.concat(value.path), value.path];
@@ -66,7 +66,7 @@ routes.push({
 
 const router = new VueRouter({routes});
 
-// 路由前置钩子：更改语言和标题、重定向。
+// 路由前置钩子：更改语言和标题。
 router.beforeEach((to, from, next) => {
     if (to.params.lang) {
         i18n.locale = to.params.lang;
