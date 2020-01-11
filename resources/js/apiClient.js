@@ -15,19 +15,21 @@ const ignoreFunc = [
 ];
 
 const apiClient = axios.create();
+
 apiClient.interceptors.request.use(undefined, error => {
     Toast.open({
         type: "is-danger",
-        message: i18n.t("api_client.request.error"),
+        message: String(i18n.t("api_client.request.error")),
         queue: false
     });
     return Promise.reject(error);
 });
+
 apiClient.interceptors.response.use(response => {
     if (typeof response.data !== "object") {
         Toast.open({
             type: "is-danger",
-            message: i18n.t("api_client.response.data_error"),
+            message: String(i18n.t("api_client.response.data_error")),
             queue: false
         });
         return Promise.reject(new ApiError(response.data));
@@ -45,14 +47,14 @@ apiClient.interceptors.response.use(response => {
         if (response.data.success === true) {
             Toast.open({
                 type: "is-success",
-                message: i18n.t("api_client.response.success"),
+                message: String(i18n.t("api_client.response.success")),
                 queue: false
             });
             return Promise.resolve(response.data);
         } else {
             Toast.open({
                 type: "is-danger",
-                message: i18n.t("api_client.response.not_success"),
+                message: String(i18n.t("api_client.response.not_success")),
                 queue: false
             });
             return Promise.reject(new ApiError(response.data));

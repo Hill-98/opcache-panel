@@ -37,7 +37,7 @@
             }
         },
         methods: {
-            conversion: (type, value) => type === null ? value : conversion[`${type}Conversion`](value),
+            conversion: (type, value) => conversion(type, value)
         }
     }
 </script>

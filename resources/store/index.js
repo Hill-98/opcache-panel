@@ -25,10 +25,10 @@ export default new Vuex.Store({
                       return;
                   }
                   const script = status.scripts[file];
-                  script.last_used_timestamp_string = conversion.timeConversion(script.last_used_timestamp);
-                  script.memory_consumption_string = conversion.sizeConversion(script.memory_consumption);
+                  script.last_used_timestamp_string = conversion(conversion.TYPE.TIME, script.last_used_timestamp);
+                  script.memory_consumption_string = conversion(conversion.TYPE.SIZE, script.memory_consumption);
                   if (has(script, "timestamp")) {
-                      script.timestamp_string = conversion.timeConversion(script.timestamp);
+                      script.timestamp_string = conversion(conversion.TYPE.TIME, script.timestamp);
                   }
                   scripts.push({
                       file,

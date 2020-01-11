@@ -3,7 +3,7 @@ const sizeUnit = ["B", "KB", "MB", "GB", "TB", "PB"];
 // fillingInt
 const fi = (num, length = 2) => "0".repeat(length).concat(num).substr(-length);
 
-export default {
+const _conversion = {
     TYPE: {
         PERCENTAGE: "percentage",
         SIZE: "size",
@@ -28,4 +28,23 @@ export default {
             INVALID_DATE_STRING :
             `${d.getFullYear()}-${fi(d.getMonth() + 1)}-${fi(d.getDate())} ${fi(d.getHours())}:${fi(d.getMinutes())}:${fi(d.getSeconds())}`
     }
-}
+};
+
+const conversion = function conversion(type, value) {
+    if (this instanceof conversion) {
+        throw new TypeError("Illegal constructor")
+    }
+    switch (type) {
+        case _conversion.TYPE.PERCENTAGE:
+            return _conversion.percentageConversion(value);
+        case _conversion.TYPE.SIZE:
+            return _conversion.sizeConversion(value);
+        case _conversion.TYPE.TIME:
+            return _conversion.timeConversion(value);
+        default:
+            return value
+    }
+};
+Object.defineProperty(conversion, "TYPE", {value: _conversion.TYPE});
+
+export default conversion
