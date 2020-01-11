@@ -43,8 +43,8 @@ apiClient.interceptors.response.use(response => {
         action = "error";
     }
 
-    if (!ignoreFunc.includes(action) && has(response.data, "success")) {
-        if (response.data.success === true) {
+    if (!ignoreFunc.includes(action) && typeof response.data.result === "boolean") {
+        if (response.data.result) {
             Toast.open({
                 type: "is-success",
                 message: String(i18n.t("api_client.response.success")),

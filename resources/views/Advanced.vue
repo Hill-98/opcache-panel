@@ -26,7 +26,6 @@
     import advancedTileBox from "@/components/advanced-tile-box.vue"
     import apiClient from "@/js/apiClient"
     import opcacheData from "@/js/opcacheData"
-    import has from "@/js/utils/has"
 
     export default {
         name: "Advanced",
@@ -91,7 +90,7 @@
                     return;
                 }
                 this.api("isScriptCached", this.path.is_cached, data => {
-                    const message = has(data, "success") && data.success === true ?
+                    const message = data.result === true ?
                         this.$t("page.advanced.cached") :
                         this.$t("page.advanced.uncached");
                     this.$buefy.toast.open({

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace OpcachePanel;
 
 use Exception;
+use OpcachePanel\Exception\ApiException;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -42,68 +43,16 @@ if ($method === 'GET' || $method === 'HEAD') {
             exit();
         }
     }
-    $json = json_decode(file_get_contents('php://input'), true, 512);
+    $postData = json_decode(file_get_contents('php://input'), true, 512);
     if (json_last_error() !== JSON_ERROR_NONE) {
         Helper::errorResult(400, 'POST body not is JSON');
     }
-    $action = $json['action'] ?? 'action';
-    if (empty($action)) {
-        Helper::errorResult(400, '"action" key can not empty');
-    }
-    if (!method_exists(Opcache::class, $action)) {
-        Helper::errorResult(400, '"action" value error');
-    }
-    $needParam = [
-        'compileFile' => 'string|array',
-        'invalidate' => 'string|array',
-        'invalidateDir' => 'string|array',
-        'isScriptCached' => 'string'
-    ];
-    $result = false;
-    if (array_key_exists($action, $needParam)) {
-        $param = $json['param'] ?? '';
-        if (empty($param)) {
-            Helper::errorResult(400, '"param" key can not empty');
-        }
-        $paramTypes = explode('|', $needParam[$action]);
-        $isType = false;
-        foreach ($paramTypes as $value) {
-            if (call_user_func("is_$value", $param)) {
-                $isType = true;
-                break;
-            }
-        }
-        if (!$isType) {
-            Helper::errorResult(400, '"param" value type error, only accept these types: ' . implode(', ', $paramTypes));
-        }
-        if (!is_array($param)) {
-            $param = [$param];
-        }
-        foreach ($param as $value) {
-            if (empty($value)) {
-                continue;
-            }
-            try {
-                $result = Opcache::$action($value);
-                if (!$result) {
-                    break;
-                }
-            } catch (Exception $e) {
-                Helper::errorResult(500, $e->getMessage());
-            }
-
-        }
-    } else {
-        $result = Opcache::$action();
-    }
     header(MIME_JSON);
-    $_result = $result;
-    if (is_bool($result)) {
-        $_result = ['success' => $result];
-    } elseif (!is_array($result)) {
-        $_result = ['data' => $result];
+    try {
+        echo API::Run($postData);
+    } catch (ApiException $e) {
+        Helper::errorResult($e->getCode(), $e->getMessage());
     }
-    echo json_encode($_result);
 } else {
     http_response_code(405);
 }

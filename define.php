@@ -8,3 +8,6 @@ define('AUTH_POST_KEY', ['password', 'logout']);
 define('TITLE', 'Opcache Panel');
 define('MIME_JSON', 'Content-Type: application/json');
 define('NO_CACHE_HEADER', 'Cache-Control: no-cache, private');
+define('TYPE_ARRAY', 'array');
+define('TYPE_STRING', 'string');
+define('TYPE_ARR_STR', [TYPE_ARRAY, TYPE_STRING]);
