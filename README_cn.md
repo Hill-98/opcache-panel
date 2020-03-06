@@ -61,3 +61,7 @@ PHP Opcache 面板，可以帮助你更好的管理 Opcache，例如删除缓存
 **不保证支持 IE 10 或更低版本**
 
 任何支持 [Vue](https://github.com/vuejs/vue) 和 [buefy](https://github.com/buefy/buefy) 的浏览器
+
+## 支持
+
+感谢 [JetBrains](https://www.jetbrains.com/) 为这个项目提供免费的 IDE 开源许可证

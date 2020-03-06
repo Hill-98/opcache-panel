@@ -62,3 +62,7 @@ Authentication password, if set to empty, disable authentication.
 **Not guaranteed to support IE10 or lower version**
 
 Any browser that supports [Vue](https://github.com/vuejs/vue) and [buefy](https://github.com/buefy/buefy)
+
+## Supports
+
+Thanks to [JetBrains](https://www.jetbrains.com/) for providing a free IDE open source license for this project
