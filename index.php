@@ -47,9 +47,10 @@ if ($method === 'GET' || $method === 'HEAD') {
     if (json_last_error() !== JSON_ERROR_NONE) {
         Helper::errorResult(400, 'POST body not is JSON');
     }
-    header(MIME_JSON);
     try {
-        echo API::Run($postData);
+        $result = API::Run($postData);
+        header(MIME_JSON);
+        echo $result;
     } catch (ApiException $e) {
         Helper::errorResult($e->getCode(), $e->getMessage());
     }
