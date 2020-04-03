@@ -1,13 +1,10 @@
 <?php
 define('BASEDIR', __DIR__);
-define('APP_DIR', __DIR__ . '/OpcachePanel');
-define('CONFIG_FILE', __DIR__ . '/config.php');
+define('APP_DIR', __DIR__.'/OpcachePanel');
+define('CONFIG_FILE', __DIR__.'/config.php');
 define('OPP_VERSION', '1.4.1');
 define('OPP_INC', true);
 define('AUTH_POST_KEY', ['password', 'logout']);
 define('TITLE', 'Opcache Panel');
 define('MIME_JSON', 'Content-Type: application/json');
 define('NO_CACHE_HEADER', 'Cache-Control: no-cache, private');
-define('TYPE_ARRAY', 'array');
-define('TYPE_STRING', 'string');
-define('TYPE_ARR_STR', [TYPE_ARRAY, TYPE_STRING]);

@@ -9,10 +9,10 @@ use OpcachePanel\Exception\ApiException;
 class API
 {
     private static $paramType = [
-        'compileFile' => TYPE_ARR_STR,
-        'invalidate' => TYPE_ARR_STR,
-        'invalidateDir' => TYPE_ARR_STR,
-        'isScriptCached' => [TYPE_STRING]
+        'compileFile' => ['is_array', 'is_string'],
+        'invalidate' => ['is_array', 'is_string'],
+        'invalidateDir' => ['is_array', 'is_string'],
+        'isScriptCached' => ['is_string']
     ];
 
     /**
@@ -30,10 +30,6 @@ class API
             foreach ($param as $value) {
                 try {
                     $result = Opcache::$action($value);
-                    if (!$result) {
-                        $result = false;
-                        break;
-                    }
                 } catch (Exception $e) {
                     throw new ApiException($e->getMessage(), 500);
                 }
@@ -76,7 +72,7 @@ class API
         }
         $isType = true;
         foreach ($paramType as $value) {
-            $isType = call_user_func("is_$value", $param);
+            $isType = $value($param);
             if ($isType) {
                 break;
             }
@@ -84,6 +80,7 @@ class API
         if (!$isType) {
             throw new ApiException('"param" value type error, only accept these types: ' . implode(', ', $paramType), 400);
         }
+        // 删除数组中所有空成员
         return array_filter(is_array($param) ? $param : [$param]);
     }
 }

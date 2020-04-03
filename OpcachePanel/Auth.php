@@ -15,13 +15,14 @@ class Auth
 
     public function login()
     {
-        if (!isset($_POST['password']) || $this->_isAuth()) {
+        $password = $_POST['password'] ?? null;
+        if (empty($_POST['password']) || $this->_isAuth()) {
             return;
         }
-        $password = $_POST['password'];
         if ($password === AUTH_PASSWORD) {
             $cookie_lifetime = 0;
-            if (isset($_POST['remember']) && $_POST['remember'] === 'yes') {
+            $remember = $_POST['remember'] ?? null;
+            if ($remember === 'yes') {
                 $cookie_lifetime = time() + 60 * 60 * 24 * 30;
             }
             session_regenerate_id(true);
@@ -37,7 +38,7 @@ class Auth
      */
     private function _isAuth(): bool
     {
-        return session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['isAuth']) && $_SESSION['isAuth'] === true;
+        return session_status() === PHP_SESSION_ACTIVE && ($_SESSION['isAuth'] ?? null) === true;
     }
 
     public function isAuth()
@@ -64,7 +65,8 @@ class Auth
 
     public function logout()
     {
-        if (isset($_POST['logout']) && $_POST['logout'] === 'yes' && session_status() === PHP_SESSION_ACTIVE) {
+        $logout = $_POST['logout'] ?? null;
+        if ($logout === 'yes' && session_status() === PHP_SESSION_ACTIVE) {
             session_unset();
             session_destroy();
             if (ini_get('session.use_cookies')) {

@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace OpcachePanel;
 
-use Exception;
 use OpcachePanel\Exception\ApiException;
 
 require __DIR__ . '/vendor/autoload.php';
@@ -35,11 +34,11 @@ if (!defined('OPP_DEBUG') || OPP_DEBUG !== true) {
 
 $method = strtoupper($_SERVER['REQUEST_METHOD']);
 if ($method === 'GET' || $method === 'HEAD') {
-    require APP_DIR . '/html/main.php';
+    require APP_DIR.'/html/main.php';
 } elseif ($method === 'POST') {
     foreach (AUTH_POST_KEY as $value) {
         if (array_key_exists($value, $_POST)) {
-            require APP_DIR . '/html/main.php';
+            require APP_DIR.'/html/main.php';
             exit();
         }
     }

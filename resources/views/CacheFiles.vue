@@ -114,7 +114,7 @@
                 this.timer = setTimeout(() => [this.searchValue, this.timer] = [newValue, null], 1000)
             }
         },
-        mounted() {
+        created() {
             // setTimeout: 使页面可以在假死之前显示
             setTimeout(() => this.isShow = true);
         },
