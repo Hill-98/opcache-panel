@@ -46,6 +46,8 @@ class API
     }
 
     /**
+     * 检查操作是否存在
+     *
      * @param string $action
      * @throws ApiException
      */
@@ -60,6 +62,8 @@ class API
     }
 
     /**
+     * 检查参数是否符合规则
+     *
      * @param $param
      * @param array $paramType
      * @return array
@@ -80,6 +84,6 @@ class API
         if (!$isType) {
             throw new ApiException('"param" value type error, only accept these types: ' . implode(', ', $paramType), 400);
         }
-        return array_filter(is_array($param) ?: [$param]);
+        return array_filter(is_array($param) ? $param : [$param]);
     }
 }
