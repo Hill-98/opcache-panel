@@ -3,36 +3,43 @@ declare(strict_types=1);
 
 namespace OpcachePanel;
 
-use Exception;
 use OpcachePanel\Exception\NotFoundFile;
 
 class Opcache
 {
     /**
      * @param string $path
-     * @param string $function
-     * @param mixed $param
+     * @param callable $callback
      */
-    private static function fileBatch(string $path, string $function, ...$param)
+    private static function fileBatch(string $path, callable $callback)
     {
-        if (!function_exists($function)) {
-            return;
-        }
-        $files = array_diff(scandir($path), ['.', '..']);
-        foreach ($files as $filename) {
-            $_path = "$path/$filename";
-            if (is_dir($_path)) {
-                self::fileBatch($_path, $function, ...$param);
+        $scanPath = substr($path, -1) === '/' ? $path : "$path/";
+        $paths = array_diff(scandir($scanPath), ['.', '..']);
+        foreach ($paths as $value) {
+            $fullPath = $scanPath.$value;
+            if (is_dir($fullPath)) {
+                self::fileBatch($fullPath, $callback);
                 continue;
             }
-            if (substr($_path, -4) === '.php') {
-                $_param = array_merge([$_path], $param);
-                try {
-                    $function(...$_param);
-                } catch (Exception $e) {
-                }
+            if (substr($fullPath, -4) === '.php') {
+                $callback($fullPath);
             }
         }
+    }
+
+    /**
+     * @param string $str
+     * @return bool
+     */
+    private static function isGlobMatch(string $str): bool
+    {
+        $syntax = ['(?<!\\\\)\*', '(?<!\\\\)\?', '(?<!\\\\)\[.*(?<!\\\\)\]', ];
+        foreach ($syntax as $value) {
+            if (preg_match("/$value/", $str) !== 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -42,16 +49,27 @@ class Opcache
      */
     public static function compileFile(string $path): bool
     {
-        $realpath = Helper::isExists($path);
-        if (is_file($realpath)) {
-            return @opcache_compile_file($realpath);
+        $success = false;
+        $isGlobMatch = self::isGlobMatch($path);
+        if (!$isGlobMatch) {
+            Helper::isExists($path);
         }
-
-        if (is_dir($realpath)) {
-            self::fileBatch($realpath, 'opcache_compile_file');
-            return true;
+        if (substr($path, -1) === '/') {
+            $paths = $isGlobMatch ? glob($path) : [$path];
+            foreach ($paths as $value) {
+                self::fileBatch($value, static function ($filePath) {
+                    @opcache_compile_file($filePath);
+                });
+            }
+        } else {
+            $paths = $isGlobMatch ? glob($path) : [$path];
+            foreach ($paths as $value) {
+                if (@opcache_compile_file($value)) {
+                    $success = true;
+                }
+            }
         }
-        return false;
+        return $success;
     }
 
     /**
@@ -82,43 +100,46 @@ class Opcache
     }
 
     /**
-     * @param string $file
+     * @param string $path
      * @return bool
-     * @throws NotFoundFile
      */
-    public static function invalidate(string $file): bool
+    public static function invalidate(string $path): bool
     {
-        $filename = Helper::isExists($file, false);
-        return opcache_invalidate($filename, true);
+        return self::isScriptCached($path) ? opcache_invalidate($path, true) : false;
     }
 
     /**
      * @param string $path
      * @return bool
-     * @throws NotFoundFile
      */
     public static function invalidateDir(string $path): bool
     {
-        $realpath = Helper::isExists($path);
-        if (is_file($realpath)) {
-            return self::invalidate($realpath);
+        $isGlobMatch = self::isGlobMatch($path);
+        $status = self::getStatus();
+        $scripts = $status['scripts'] ?? [];
+        if (empty($scripts)) {
+            return false;
         }
-        if (is_dir($realpath)) {
-            self::fileBatch($realpath, 'opcache_invalidate', true);
-            return true;
+        foreach ($scripts as $item) {
+            $fullPath = $item['full_path'] ?? '';
+            if (empty($fullPath) || $fullPath === '$PRELOAD$') {
+                continue;
+            }
+            $isMatch = $isGlobMatch ? fnmatch($path, $fullPath) : strpos($fullPath, $path) === 0 ;
+            if ($isMatch) {
+                self::invalidate($fullPath);
+            }
         }
-        return false;
+        return true;
     }
 
     /**
-     * @param string $file
+     * @param string $path
      * @return bool
-     * @throws NotFoundFile
      */
-    public static function isScriptCached(string $file): bool
+    public static function isScriptCached(string $path): bool
     {
-        $filename = Helper::isExists($file);
-        return opcache_is_script_cached($filename);
+        return opcache_is_script_cached($path);
     }
 
     /**

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="tile">
-            <advanced-tile-box v-model="path.pre_cache" :label="$t('page.advanced.file_path')"
+            <advanced-tile-box v-model="path.pre_cache" :label="$t('page.advanced.dir_file_path')"
                                :summary="$t('page.advanced.pre_cache_summary')" :func="func.ocf"
                                :title="$t('page.advanced.pre_cache')"
                                :placeholder="$t('page.advanced.multi_path')"
@@ -46,9 +46,9 @@
         }),
         methods: {
             async api(action, value, callback, refresh = true) {
-                if (value.includes("*")) {
+                if (value.includes(":")) {
                     this.$buefy.toast.open({
-                        message: this.$t("page.advanced.no_wildcard"),
+                        message: this.$t("page.advanced.no_symbol"),
                         type: "is-warning"
                     });
                     return;
