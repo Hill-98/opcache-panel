@@ -28,7 +28,7 @@
                 <b-navbar-item :title="$t('navbar.logout')" @click="logout" v-if="isLogin">
                     <b-icon icon="sign-out-alt"/>
                 </b-navbar-item>
-                <b-navbar-dropdown :title="$t('navbar.language')">
+                <b-navbar-dropdown hoverable :title="$t('navbar.language')">
                     <template #label>
                         <b-icon icon="globe"/>
                     </template>
@@ -85,9 +85,3 @@
         }
     }
 </script>
-
-<style>
-    .navbar-item.has-dropdown.is-active:hover .navbar-dropdown {
-        display: block !important;
-    }
-</style>

@@ -3,8 +3,8 @@
         <div class="tile is-child box">
             <p class="title is-5" v-text="title"/>
             <form>
-                <b-field :label="label">
-                    <b-autocomplete v-model="currValue" :name="func" :placeholder="placeholder" :data="autocomplete"
+                <b-field :label="label" :label-for="func">
+                    <b-autocomplete v-model="currValue" :id="func" :name="func" :placeholder="placeholder" :data="autocomplete"
                                     @keyup.enter.exact.native="formSubmit">
                         <template #header>
                             <a class="has-text-primary" @click="autocomplete = []" v-t="'page.advanced.clear_history'"/>
@@ -18,9 +18,9 @@
                         </template>
                     </b-autocomplete>
                 </b-field>
-                <b-field class="has-text-right">
+                <div class="has-text-right">
                     <b-button type="is-primary" @click="formSubmit" v-t="'page.advanced.submit'"/>
-                </b-field>
+                </div>
             </form>
             <i18n path="page.advanced.use_function" tag="p">
                 <a :href="funcLink" target="_blank"><code v-text="func"/></a>

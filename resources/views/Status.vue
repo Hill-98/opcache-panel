@@ -34,7 +34,7 @@
                 <!-- 运行状态刷新按钮 END -->
             </div>
             <!-- 运行状态卡片组 -->
-            <div class="tile" style="margin-bottom: 0.75rem; margin-top: -0.75rem">
+            <div class="tile is-ancestor" style="margin-bottom: 0.75rem; margin-top: -0.75rem">
                 <!-- 内存使用卡片 -->
                 <status-tile-box :max-progress="opcache_memory_consumption" :progress="memory_usage.used_memory"
                                  :data="memory_usage" :data-type="format.memory_usage"
@@ -72,14 +72,12 @@
             <!-- 配置信息标题 END -->
             <!-- 配置信息表格 -->
             <b-table :data="directives" narrowed>
-                <template v-slot="{ row }">
-                    <b-table-column field="key" :label="$t('page.status.key')">
-                        <a :href="configLink(row.key)" target="_blank" v-text="row.key"/>
-                    </b-table-column>
-                    <b-table-column field="value" :label="$t('page.status.value')">
-                        <span v-text="row.value"/>
-                    </b-table-column>
-                </template>
+                <b-table-column field="key" :label="$t('page.status.key')" v-slot="{ row }">
+                    <a :href="configLink(row.key)" target="_blank" v-text="row.key"/>
+                </b-table-column>
+                <b-table-column field="value" :label="$t('page.status.value')" v-slot="{ row }">
+                    {{ row.value }}
+                </b-table-column>
             </b-table>
             <!-- 配置信息表格 END -->
         </div>
@@ -101,11 +99,9 @@
             <!-- 黑名单标题 END -->
             <!-- 黑名单表格 -->
             <b-table :data="blacklist" narrowed>
-                <template v-slot="{ row }">
-                    <b-table-column field="file" :label="$t('page.status.filepath')">
-                        <span v-text="row.file"/>
-                    </b-table-column>
-                </template>
+                <b-table-column field="file" :label="$t('page.status.filepath')" v-slot="{ row }">
+                    <span v-text="row.file"/>
+                </b-table-column>
             </b-table>
             <!-- 黑名单表格 END -->
         </div>

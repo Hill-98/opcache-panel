@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="tile">
+        <div class="tile is-ancestor">
             <advanced-tile-box v-model="path.pre_cache" :label="$t('page.advanced.dir_file_path')"
                                :summary="$t('page.advanced.pre_cache_summary')" :func="func.ocf"
                                :title="$t('page.advanced.pre_cache')"
@@ -12,7 +12,7 @@
                                :placeholder="$t('page.advanced.multi_path')"
                                @click="invalidateDir"/>
         </div>
-        <div class="tile">
+        <div class="tile is-ancestor">
             <advanced-tile-box id="is-cached" v-model="path.is_cached" class="is-6"
                                :label="$t('page.advanced.file_path')"
                                :summary="$t('page.advanced.check_cache_summary')" :func="func.oisc"
