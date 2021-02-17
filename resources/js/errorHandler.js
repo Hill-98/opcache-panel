@@ -1,10 +1,10 @@
-import has from "./utils/has"
+import has from "./utils/has";
 
 const isProd = Boolean(process.env.VUE_APP_PRODUCTION);
 const ignoredError = {
     attr: [
         "isApiError",
-        "isAxiosError"
+        "isAxiosError",
     ]
 };
 
@@ -17,4 +17,4 @@ export default (err) => {
         console.dir(err);
     }
     console.error(err);
-}
+};

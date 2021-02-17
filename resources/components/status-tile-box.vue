@@ -21,12 +21,12 @@
             dataType: Object,
             maxProgress: {
                 type: Number,
-                default: 100
+                default: 100,
             },
             progress: Number,
             progressText: {
                 type: String,
-                default: ""
+                default: "",
             },
             showValue: Boolean,
             title: String,
@@ -34,10 +34,10 @@
         computed: {
             show_value() {
                 return this.showValue || Boolean(this.progressText);
-            }
+            },
         },
         methods: {
-            conversion: (type, value) => conversion(type, value)
-        }
-    }
+            conversion: (type, value) => conversion(type, value),
+        },
+    };
 </script>

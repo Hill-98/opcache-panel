@@ -7,7 +7,7 @@ const _conversion = {
     TYPE: {
         PERCENTAGE: "percentage",
         SIZE: "size",
-        TIME: "time"
+        TIME: "time",
     },
     percentageConversion: (value, precision = 2) => `${Number(value).toFixed(precision)}%`,
     sizeConversion(value) {
@@ -27,12 +27,12 @@ const _conversion = {
         return d.toString() === INVALID_DATE_STRING ?
             INVALID_DATE_STRING :
             `${d.getFullYear()}-${fi(d.getMonth() + 1)}-${fi(d.getDate())} ${fi(d.getHours())}:${fi(d.getMinutes())}:${fi(d.getSeconds())}`
-    }
+    },
 };
 
 const conversion = function conversion(type, value) {
     if (this instanceof conversion) {
-        throw new TypeError("Illegal constructor")
+        throw new TypeError("Illegal constructor");
     }
     switch (type) {
         case _conversion.TYPE.PERCENTAGE:
@@ -42,9 +42,9 @@ const conversion = function conversion(type, value) {
         case _conversion.TYPE.TIME:
             return _conversion.timeConversion(value);
         default:
-            return value
+            return value;
     }
 };
-Object.defineProperty(conversion, "TYPE", {value: _conversion.TYPE});
+Object.defineProperty(conversion, "TYPE", { value: _conversion.TYPE });
 
-export default conversion
+export default conversion;

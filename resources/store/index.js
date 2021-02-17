@@ -1,7 +1,7 @@
-import Vue from "vue"
-import Vuex from "vuex"
+import Vue from "vue";
+import Vuex from "vuex";
 import conversion from "@/js/utils/conversion";
-import has from "@/js/utils/has"
+import has from "@/js/utils/has";
 
 Vue.use(Vuex);
 
@@ -11,7 +11,7 @@ export default new Vuex.Store({
       configuration: {},
       status: {},
       scripts: [],
-      scriptsOriginal: []
+      scriptsOriginal: [],
   },
   mutations: {
       configuration(state, configuration) {
@@ -32,7 +32,7 @@ export default new Vuex.Store({
                   }
                   scripts.push({
                       file,
-                      ...script
+                      ...script,
                   })
               });
               state.scripts = scripts;
@@ -41,15 +41,15 @@ export default new Vuex.Store({
       },
       ready(state) {
           state.isReady = true;
-      }
+      },
   },
   actions: {
       opcacheData({ commit }, data) {
           if (has(data, "configuration") && has(data, "status")) {
               commit("configuration", data.configuration);
               commit("status", data.status);
-              commit("ready")
+              commit("ready");
           }
-      }
+      },
   },
-})
+});

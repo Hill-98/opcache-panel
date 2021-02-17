@@ -39,16 +39,16 @@
             placeholder: String,
             summary: String,
             title: String,
-            value: String
+            value: String,
         },
         data: () => ({
             currValue: "",
-            autocomplete: []
+            autocomplete: [],
         }),
         computed: {
             funcLink() {
                 return `https://www.php.net/manual/function.${this.func.replace(/_/g, "-")}.php`;
-            }
+            },
         },
         watch: {
             currValue(newValue) {
@@ -56,14 +56,14 @@
             },
             value(newValue) {
                 this.currValue = newValue;
-            }
+            },
         },
         created() {
             const data = localStorage.getItem(`opp-autocomplete_${this.func}`);
             if (data) {
                 this.autocomplete = Array.from(new Set(data.split(":")));
             }
-            window.addEventListener("beforeunload", this.saveAutocomplete)
+            window.addEventListener("beforeunload", this.saveAutocomplete);
         },
         destroyed() {
             window.removeEventListener("beforeunload", this.saveAutocomplete);
@@ -77,8 +77,8 @@
                 }
             },
             saveAutocomplete() {
-                localStorage.setItem(`opp-autocomplete_${this.func}`, this.autocomplete.join(":"))
-            }
+                localStorage.setItem(`opp-autocomplete_${this.func}`, this.autocomplete.join(":"));
+            },
         },
-    }
+    };
 </script>

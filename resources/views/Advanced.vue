@@ -23,25 +23,25 @@
 </template>
 
 <script>
-    import advancedTileBox from "@/components/advanced-tile-box.vue"
-    import apiClient from "@/js/apiClient"
-    import opcacheData from "@/js/opcacheData"
+    import advancedTileBox from "@/components/advanced-tile-box.vue";
+    import apiClient from "@/js/apiClient";
+    import opcacheData from "@/js/opcacheData";
 
     export default {
         name: "Advanced",
         components: {
-            advancedTileBox
+            advancedTileBox,
         },
         data: () => ({
             func: {
                 ocf: "opcache_compile_file",
                 oi: "opcache_invalidate",
-                oisc: "opcache_is_script_cached"
+                oisc: "opcache_is_script_cached",
             },
             path: {
                 pre_cache: "",
                 invalidate: "",
-                is_cached: ""
+                is_cached: "",
             }
         }),
         methods: {
@@ -99,7 +99,7 @@
                         type: "is-info"
                     });
                 }, false);
-            }
-        }
-    }
+            },
+        },
+    };
 </script>

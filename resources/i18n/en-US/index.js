@@ -1,10 +1,10 @@
 export default {
     $meta: {
-        name: "English"
+        name: "English",
     },
     api_client: {
         request: {
-            error: "Oops, Request wrong!"
+            error: "Oops, Request wrong!",
         },
         response: {
             data_error: "Data format error resulting",
@@ -14,9 +14,9 @@ export default {
                 unknown: "We encountered an unknown error",
                 400: "Request parameter appears to be incorrect",
                 401: "You do not seem authenticated, you can try to log in again.",
-                500: "Server looks wrong"
-            }
-        }
+                500: "Server looks wrong",
+            },
+        },
     },
     common: {
         refresh: "Refresh",
@@ -28,7 +28,7 @@ export default {
         reset: "Reset Cache",
         update: "RealTime Update",
         logout: "Logout",
-        language: "Language"
+        language: "Language",
     },
     page: {
         status: {
@@ -71,7 +71,7 @@ export default {
             last_used_time: "Last Used Time",
             memory_consumption: "Memory Consumption",
             timestamp: "Modify Time",
-            no_cache_files: "No Cache Files"
+            no_cache_files: "No Cache Files",
         },
         advanced: {
             file_path: "File Path",
@@ -91,7 +91,7 @@ export default {
             empty_path: "Path is empty",
             not_multi_path: "This feature does not support multiple paths",
             uncached: "Uncached",
-            cached: "Cached"
-        }
-    }
-}
+            cached: "Cached",
+        },
+    },
+};

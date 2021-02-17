@@ -9,18 +9,18 @@
 </template>
 
 <script>
-    import oppHeader from "@/components/opp-header.vue"
-    import oppFooter from "@/components/opp-footer.vue"
-    import opcacheData from "@/js/opcacheData"
+    import oppHeader from "@/components/opp-header.vue";
+    import oppFooter from "@/components/opp-footer.vue";
+    import opcacheData from "@/js/opcacheData";
 
     export default {
         name: "app",
         components: {
             oppHeader,
-            oppFooter
+            oppFooter,
         },
         async created() {
             await opcacheData.getInfo();
         }
-    }
+    };
 </script>

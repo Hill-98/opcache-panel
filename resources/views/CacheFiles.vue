@@ -92,8 +92,8 @@
 </template>
 
 <script>
-    import apiClient from "@/js/apiClient"
-    import opcacheData from "@/js/opcacheData"
+    import apiClient from "@/js/apiClient";
+    import opcacheData from "@/js/opcacheData";
 
     export default {
         name: "CacheFiles",
@@ -103,7 +103,7 @@
             isShow: false,
             searchInput: "",
             searchValue: "",
-            timer: null
+            timer: null,
         }),
         computed: {
             originalScripts() {
@@ -121,7 +121,7 @@
             },
             scriptsNum() {
                 return this.originalScripts.length;
-            }
+            },
         },
         watch: {
             scripts() {
@@ -135,7 +135,7 @@
                     clearTimeout(this.timer);
                 }
                 this.timer = setTimeout(() => [this.searchValue, this.timer] = [newValue, null], 1000)
-            }
+            },
         },
         created() {
             // setTimeout: 使页面可以在假死之前显示
@@ -161,7 +161,7 @@
             pageChange() {
                 // setTimeout: 使 IE 达到预期行为
                 setTimeout(() => scrollTo(0, 0));
-            }
-        }
-    }
+            },
+        },
+    };
 </script>

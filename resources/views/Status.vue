@@ -110,14 +110,14 @@
 </template>
 
 <script>
-    import statusTileBox from "@/components/status-tile-box.vue"
-    import opcacheData from "@/js/opcacheData"
-    import conversion from "@/js/utils/conversion"
+    import statusTileBox from "@/components/status-tile-box.vue";
+    import opcacheData from "@/js/opcacheData";
+    import conversion from "@/js/utils/conversion";
 
     export default {
         name: "Status",
         components: {
-            statusTileBox
+            statusTileBox,
         },
         data: () => ({
             format: {
@@ -125,7 +125,7 @@
                     current_wasted_percentage: conversion.TYPE.PERCENTAGE,
                     free_memory: conversion.TYPE.SIZE,
                     used_memory: conversion.TYPE.SIZE,
-                    wasted_memory: conversion.TYPE.SIZE
+                    wasted_memory: conversion.TYPE.SIZE,
                 },
                 interned_strings_usage: {
                     buffer_size: conversion.TYPE.SIZE,
@@ -146,8 +146,8 @@
                     num_cached_scripts: null,
                     oom_restarts: null,
                     opcache_hit_rate: conversion.TYPE.PERCENTAGE,
-                    start_time: conversion.TYPE.TIME
-                }
+                    start_time: conversion.TYPE.TIME,
+                },
             }
         }),
         computed: {
@@ -183,13 +183,13 @@
             },
             version() {
                 return this.$store.state.configuration.version;
-            }
+            },
         },
         methods: {
             configLink: (value) => `https://www.php.net/manual/opcache.configuration.php#ini.${value.replace(/_/g, "-")}`,
             async refreshData(name) {
                 await opcacheData[name]();
-            }
-        }
-    }
+            },
+        },
+    };
 </script>

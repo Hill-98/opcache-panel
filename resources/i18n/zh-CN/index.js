@@ -1,10 +1,10 @@
 export default {
     $meta: {
-        name: "简体中文"
+        name: "简体中文",
     },
     api_client: {
         request: {
-            error: "糟糕，请求出错了！"
+            error: "糟糕，请求出错了！",
         },
         response: {
             data_error: "获取到的数据格式错误",
@@ -14,9 +14,9 @@ export default {
                 unknown: "遇到了未知错误",
                 400: "请求参数似乎不正确",
                 401: "你好像没有通过身份验证，可以尝试重新登录。",
-                500: "服务器看起来出错了"
-            }
-        }
+                500: "服务器看起来出错了",
+            },
+        },
     },
     common: {
         refresh: "刷新",
@@ -28,7 +28,7 @@ export default {
         reset: "重置缓存",
         update: "实时更新",
         logout: "注销",
-        language: "语言"
+        language: "语言",
     },
     page: {
         status: {
@@ -59,7 +59,7 @@ export default {
             blacklist: "黑名单",
             key: "键",
             value: "值",
-            filepath: "文件路径"
+            filepath: "文件路径",
         },
         cache_files: {
             script_num: "文件个数: {num}",
@@ -71,7 +71,7 @@ export default {
             last_used_time: "最后使用时间",
             memory_consumption: "内存消耗",
             timestamp: "修改时间",
-            no_cache_files: "没有缓存文件"
+            no_cache_files: "没有缓存文件",
         },
         advanced: {
             file_path: "文件路径",
@@ -91,7 +91,7 @@ export default {
             empty_path: "路径为空",
             not_multi_path: "此功能不支持多个路径",
             uncached: "未缓存",
-            cached: "已缓存"
-        }
-    }
-}
+            cached: "已缓存",
+        },
+    },
+};

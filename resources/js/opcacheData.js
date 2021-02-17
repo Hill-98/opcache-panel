@@ -1,9 +1,9 @@
-import { LoadingProgrammatic } from "buefy"
-import apiClient from "./apiClient"
-import store from "@/store"
+import { LoadingProgrammatic } from "buefy";
+import apiClient from "./apiClient";
+import store from "@/store";
 
 const getOpcacheData = function getOpcacheData(action, key = null, isLoading = true) {
-    const loading = isLoading ? LoadingProgrammatic.open({container: null}) : {} ;
+    const loading = isLoading ? LoadingProgrammatic.open({container: null}) : Object.create(null);
 
     return new Promise((resolve, reject) => {
         apiClient(action)
@@ -20,12 +20,12 @@ const getOpcacheData = function getOpcacheData(action, key = null, isLoading = t
                 if ("close" in loading && typeof loading.close === "function") {
                     loading.close();
                 }
-            })
-    })
+            });
+    });
 };
 
 export default {
     getConfiguration: (isLoading) => getOpcacheData("getConfiguration", "configuration", isLoading),
     getInfo: (isLoading) => getOpcacheData("getInfo", null, isLoading),
-    getStatus: (isLoading) => getOpcacheData("getStatus", "status", isLoading)
-}
+    getStatus: (isLoading) => getOpcacheData("getStatus", "status", isLoading),
+};

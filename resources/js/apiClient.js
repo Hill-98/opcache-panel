@@ -1,7 +1,7 @@
-import axios from "axios"
-import { ToastProgrammatic as Toast } from "buefy"
-import i18n from "@/i18n"
-import has from "./utils/has"
+import axios from "axios";
+import { ToastProgrammatic as Toast } from "buefy";
+import i18n from "@/i18n";
+import has from "./utils/has";
 
 class ApiError {
     constructor(data) {
@@ -11,7 +11,7 @@ class ApiError {
 }
 
 const ignoreFunc = [
-    "isScriptCached"
+    "isScriptCached",
 ];
 
 const apiClient = axios.create();
@@ -20,7 +20,7 @@ apiClient.interceptors.request.use(undefined, error => {
     Toast.open({
         type: "is-danger",
         message: String(i18n.t("api_client.request.error")),
-        queue: false
+        queue: false,
     });
     return Promise.reject(error);
 });
@@ -30,7 +30,7 @@ apiClient.interceptors.response.use(response => {
         Toast.open({
             type: "is-danger",
             message: String(i18n.t("api_client.response.data_error")),
-            queue: false
+            queue: false,
         });
         return Promise.reject(new ApiError(response.data));
     }
@@ -48,22 +48,22 @@ apiClient.interceptors.response.use(response => {
             Toast.open({
                 type: "is-success",
                 message: String(i18n.t("api_client.response.success")),
-                queue: false
+                queue: false,
             });
-            return Promise.resolve(response.data);
+            return response.data;
         } else {
             Toast.open({
                 type: "is-danger",
                 message: String(i18n.t("api_client.response.not_success")),
-                queue: false
+                queue: false,
             });
             return Promise.reject(new ApiError(response.data));
         }
     }
-    return Promise.resolve(response.data);
+    return response.data;
 }, error => {
     const errorCode = error.response.status;
-    let errorMsg;
+    let errorMsg = '';
     switch (errorCode) {
         case 400:
         case 401:
@@ -80,7 +80,7 @@ apiClient.interceptors.response.use(response => {
     Toast.open({
         type: "is-danger",
         message: `${errorMsg} (${errorCode})`,
-        queue: false
+        queue: false,
     });
     return Promise.reject(error);
 });
@@ -89,9 +89,9 @@ export default (action, param) => {
     return new Promise((resolve, reject) => {
         apiClient.post("index.php", JSON.stringify({
             action,
-            param
+            param,
         }))
             .then(resolve)
             .catch(reject);
-    })
-}
+    });
+};

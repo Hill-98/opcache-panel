@@ -22,7 +22,7 @@
     export default {
         name: "opp-footer",
         data: () => ({
-            version: process.env.VUE_APP_VERSION
+            version: process.env.VUE_APP_VERSION,
         }),
-    }
+    };
 </script>

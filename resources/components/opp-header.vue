@@ -43,8 +43,8 @@
 </template>
 
 <script>
-    import apiClient from "@/js/apiClient"
-    import opcacheData from "@/js/opcacheData"
+    import apiClient from "@/js/apiClient";
+    import opcacheData from "@/js/opcacheData";
 
     export default {
         name: "opp-header",
@@ -55,7 +55,7 @@
                 color: null,
             },
             timer: null,
-            title: process.env.VUE_APP_TITLE
+            title: process.env.VUE_APP_TITLE,
         }),
         methods: {
             logout() {
@@ -81,7 +81,7 @@
             async resetCache() {
                 await apiClient("resetCache");
                 await opcacheData.getInfo();
-            }
-        }
-    }
+            },
+        },
+    };
 </script>
