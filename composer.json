@@ -19,6 +19,9 @@
         "ext-zend-opcache": "*",
         "ext-json": "*"
     },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.18.5"
+    },
     "autoload": {
         "files": [
             "define.php"
@@ -26,8 +29,5 @@
         "psr-4": {
             "OpcachePanel\\": "OpcachePanel/"
         }
-    },
-    "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.15"
     }
 }
