@@ -50,11 +50,7 @@ PHP Opcache 面板，可以帮助你更好的管理 Opcache，例如删除缓存
 
 ## 截图
 
-![Preview 1](https://cdn.mivm.cn/github/opcache-panel/image/preview1.jpg)
-
-![Preview 2](https://cdn.mivm.cn/github/opcache-panel/image/preview2.jpg)
-
-![Preview 3](https://cdn.mivm.cn/github/opcache-panel/image/preview3.jpg)
+![Preview 1](https://cdn.mivm.cn/github/opcache-panel/image/preview1.png)
 
 ## 浏览器支持
 
