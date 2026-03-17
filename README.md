@@ -51,7 +51,7 @@ Authentication password, if set to empty, disable authentication.
 
 ## Screenshots
 
-![Preview 1](./preview1.png)
+![Preview](./preview.png)
 
 ## Browser support
 
