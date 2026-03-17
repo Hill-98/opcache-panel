@@ -51,7 +51,7 @@ Authentication password, if set to empty, disable authentication.
 
 ## Screenshots
 
-![Preview 1](https://cdn.mivm.cn/github/opcache-panel/image/preview1.png)
+![Preview 1](./preview1.png)
 
 ## Browser support
 
